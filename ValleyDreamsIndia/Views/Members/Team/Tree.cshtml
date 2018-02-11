@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Tree";
+}
+
+<h2>Tree</h2>
+
+<table>
+    <caption>Total Joinings</caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Left</th>
+            <th>Right</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Total</td>
+            <td>@ViewBag.LeftPlacementCount</td>
+            <td>@ViewBag.RightPlacementCount</td>
+        </tr>
+        <tr>
+            <td>Direct</td>
+            <td>@ViewBag.DirectLeftPlacementCount</td>
+            <td>@ViewBag.DirectRightPlacementCount</td>
+        </tr>
+    </tbody>
+</table>

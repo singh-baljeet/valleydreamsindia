@@ -1,0 +1,33 @@
+﻿@model ValleyDreamsIndia.UsersDetail
+@{
+    ViewBag.Title = "Edit Password";
+}
+
+<h2>Change Password</h2>
+
+@using (Html.BeginForm("EditPassword", "Admin"))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Username)
+    @Html.HiddenFor(m => m.Deleted)
+    @Html.HiddenFor(m => m.CreatedOn)
+    
+    <table>
+        <tr>
+            <th>Password</th>
+            <th>@Html.TextBox("OldPassword")</th>
+        </tr>
+        <tr>
+            <th>New Password</th>
+            <th>@Html.TextBox("NewPassword")</th>
+        </tr>
+        <tr>
+            <th>Confirm New Password</th>
+            <th>@Html.TextBox("ConfirmNewPassword")</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" value="Update" /></td>
+        </tr>
+    </table>
+}

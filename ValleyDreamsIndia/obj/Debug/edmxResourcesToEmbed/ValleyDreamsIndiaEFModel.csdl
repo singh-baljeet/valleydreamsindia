@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ValleyDreamsIndiaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BankDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IFSCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PANNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UsersDetailsId" Type="Int32" />
+    <Property Name="Deleted" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UsersDetail" Relationship="Self.FK_BankDetails_UsersDetails" FromRole="BankDetails" ToRole="UsersDetails" />
+  </EntityType>
+  <EntityType Name="UsersDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BankDetails" Relationship="Self.FK_BankDetails_UsersDetails" FromRole="UsersDetails" ToRole="BankDetails" />
+    <NavigationProperty Name="PersonalDetails" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="UsersDetail" ToRole="PersonalDetail" />
+    <Property Name="SponsoredId" Type="Int32" />
+    <NavigationProperty Name="UsersDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail" ToRole="UsersDetail1" />
+    <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail1" ToRole="UsersDetail" />
+  </EntityType>
+  <Association Name="FK_BankDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetail" Multiplicity="0..1" />
+    <End Role="BankDetails" Type="Self.BankDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BankDetails">
+        <PropertyRef Name="UsersDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ValleyDreamsIndiaDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BankDetails" EntityType="Self.BankDetail" />
+    <EntitySet Name="UsersDetails" EntityType="Self.UsersDetail" />
+    <AssociationSet Name="FK_BankDetails_UsersDetails" Association="Self.FK_BankDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="BankDetails" EntitySet="BankDetails" />
+    </AssociationSet>
+    <EntitySet Name="PersonalDetails" EntityType="ValleyDreamsIndiaDBModel.PersonalDetail" />
+    <AssociationSet Name="FK_PersonalDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="PersonalDetail" EntitySet="PersonalDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="UsersDetail1" EntitySet="UsersDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonalDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProfilePic" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PlacementSide" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NomineeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NomineeRelation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UsersDetailsId" Type="Int32" />
+    <Property Name="Deleted" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="PersonalDetail" ToRole="UsersDetail" />
+  </EntityType>
+  <Association Name="FK_PersonalDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.PersonalDetail" Role="PersonalDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonalDetail">
+        <PropertyRef Name="UsersDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersDetail1">
+        <PropertyRef Name="SponsoredId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

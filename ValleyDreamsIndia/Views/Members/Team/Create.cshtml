@@ -1,0 +1,100 @@
+﻿@model ValleyDreamsIndia.Models.UsersPersonalModelView
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Profile</h2>
+
+@using (Html.BeginForm("Create", "Team"))
+{
+    <table>
+        <tr>
+            <th>UserName</th>
+            <th>@Html.TextBoxFor(m => m.UserDetails.Username)</th>
+        </tr>
+        <tr>
+            <th>Placement</th>
+            <th>@Html.DropDownListFor(m => m.PersonalDetails.PlacementSide, new List<SelectListItem>{
+                    new SelectListItem{ Text="LEFT", Value="LEFT"},
+                    new SelectListItem{ Text="RIGHT", Value="RIGHT"}},"")
+            </th>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.Name)</th>
+        </tr>
+        <tr>
+            <th>Father Name</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.FatherName)</th>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <th>@Html.TextAreaFor(m => m.PersonalDetails.Address)</th>
+        </tr>
+        <tr>
+            <th>City</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.City)</th>
+        </tr>
+        <tr>
+            <th>District</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.District)</th>
+        </tr>
+        <tr>
+            <th>State</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.State)</th>
+        </tr>
+        <tr>
+            <th>Pin Code</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.PinCode)</th>
+        </tr>
+        <tr>
+            <th>Phone Number 1</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1)</th>
+        </tr>
+        <tr>
+            <th>Phone Number 2</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber2)</th>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.Email)</th>
+        </tr>
+        <tr>
+            <th>Pan Number</th>
+            <th>@Html.TextBoxFor(m => m.BankDetails.PANNumber)</th>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <th>
+                @Html.DropDownListFor(m => m.PersonalDetails.Gender, new List<SelectListItem>{
+                    new SelectListItem{ Text="Male", Value="Male"},
+                    new SelectListItem{ Text="Female", Value="Female"}}, "")
+            </th>
+        </tr>
+        <tr>
+            <th>Nominee Name</th>
+            <th>@Html.TextBoxFor(m => m.PersonalDetails.NomineeName)</th>
+        </tr>
+        <tr>
+            <th>Profile Relation</th>
+            <td>@Html.TextBoxFor(m => m.PersonalDetails.NomineeRelation)</td>
+        </tr>
+        <tr>
+        <tr>
+            <th>Bank Name</th>
+            <th>@Html.TextBoxFor(m => m.BankDetails.BankName)</th>
+        </tr>
+        <tr>
+            <th>A/C Number</th>
+            <th>@Html.TextBoxFor(m => m.BankDetails.AccountNumber)</th>
+        </tr>
+        <tr>
+            <th>IFSC Code</th>
+            <th>@Html.TextBoxFor(m => m.BankDetails.IFSCCode)</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" value="Register" /></td>
+        </tr>
+    </table>
+}

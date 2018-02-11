@@ -1,0 +1,37 @@
+﻿@model ValleyDreamsIndia.BankDetail
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Bank Details</h2>
+
+@using (Html.BeginForm("Edit", "Admin" ))
+{
+   @Html.HiddenFor(m => m.Id)
+   @Html.HiddenFor(m => m.UsersDetailsId)
+   @Html.HiddenFor(m => m.Deleted)
+   @Html.HiddenFor(m => m.CreatedOn)
+
+    <table>
+        <tr>
+            <th>Bank Name</th>
+            <th>@Html.TextBoxFor(m => m.BankName)</th>
+        </tr>
+        <tr>
+            <th>A/C Number</th>
+            <th>@Html.TextBoxFor(m => m.AccountNumber)</th>
+        </tr>
+        <tr>
+            <th>IFSC Code</th>
+            <th>@Html.TextBoxFor(m => m.IFSCCode)</th>
+        </tr>
+        <tr>
+            <th>PAN Number</th>
+            <th>@Html.TextBoxFor(m => m.PANNumber)</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" value="Update" /></td>
+        </tr>
+    </table>
+}

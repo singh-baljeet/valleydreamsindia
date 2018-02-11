@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ValleyDreamsIndia.PersonalDetail>
+
+@{
+    ViewBag.Title = "Team";
+}
+
+<h2>Team</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Sr. No
+        </th>
+        <th>
+           Name
+        </th>
+        <th>
+           Level
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            Joining Date
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsersDetail.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+    </tr>
+}
+
+</table>

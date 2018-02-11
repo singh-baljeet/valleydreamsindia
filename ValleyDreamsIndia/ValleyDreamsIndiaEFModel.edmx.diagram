@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b81b01e9c2c4473cb898a3a8baecdfe8" Name="Diagram1" ZoomLevel="60">
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.BankDetail" Width="1.5" PointX="4.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.UsersDetail" Width="1.5" PointX="2.375" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_BankDetails_UsersDetails" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.PersonalDetail" Width="1.5" PointX="4.625" PointY="6" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
