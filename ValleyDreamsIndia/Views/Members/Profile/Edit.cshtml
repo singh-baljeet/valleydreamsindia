@@ -5,7 +5,7 @@
 
 <h2>Edit Profile</h2>
 
-@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(m => m.PersonalDetails.Id)
     @Html.HiddenFor(m => m.PersonalDetails.UsersDetailsId)
@@ -50,7 +50,7 @@
     </tr>
     <tr>
         <th>Profile Pic</th>
-        <td>@Html.TextBoxFor(m => m.PersonalDetails.ProfilePic, new { type = "File" })</td>
+        <td><input type="file" name="memberImage" /></td>
     </tr>
     <tr>
         <th></th>

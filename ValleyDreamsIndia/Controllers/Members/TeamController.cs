@@ -53,7 +53,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities.BankDetails.Add(usersPersonalModelView.BankDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
-            return RedirectToAction("~/Views/Members/Team/Create.cshtml");
+            return RedirectToAction("Create");
         }
 
         [HttpGet]

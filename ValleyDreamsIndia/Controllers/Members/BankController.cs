@@ -24,7 +24,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             {
                 int userDetailsId = 2;
                 BankDetail bankDetail = _valleyDreamsIndiaDBEntities.BankDetails.First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
-                return View("Bank/Edit", bankDetail);
+                return View("~/Views/Members/Bank/Edit.cshtml", bankDetail);
             }
             catch (Exception ex)
             {
@@ -41,7 +41,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                 _valleyDreamsIndiaDBEntities.Entry(bankDetail).State = EntityState.Modified;
                 _valleyDreamsIndiaDBEntities.SaveChanges();
                 _valleyDreamsIndiaDBEntities.Dispose();
-                return RedirectToAction("ViewProfile");
+                return RedirectToAction("ViewProfile","Profile");
             }
             catch (Exception ex)
             {

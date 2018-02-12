@@ -6,10 +6,88 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #primary_nav_wrap
+{
+	margin-top:15px
+}
+
+#primary_nav_wrap ul
+{
+	list-style:none;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
+}
+
+#primary_nav_wrap ul a
+{
+	display:block;
+	color:#333;
+	text-decoration:none;
+	font-weight:700;
+	font-size:12px;
+	line-height:32px;
+	padding:0 15px;
+	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+}
+
+#primary_nav_wrap ul li
+{
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
+}
+
+#primary_nav_wrap ul li.current-menu-item
+{
+	background:#ddd
+}
+
+#primary_nav_wrap ul li:hover
+{
+	background:#f6f6f6
+}
+
+#primary_nav_wrap ul ul
+{
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	background:#fff;
+	padding:0
+}
+
+#primary_nav_wrap ul ul li
+{
+	float:none;
+	width:200px
+}
+
+#primary_nav_wrap ul ul a
+{
+	line-height:120%;
+	padding:10px 15px
+}
+
+#primary_nav_wrap ul ul ul
+{
+	top:0;
+	left:100%
+}
+
+#primary_nav_wrap ul li:hover > ul
+{
+	display:block
+}
+    </style>
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar  navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,13 +97,43 @@
                 </button>
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+            <div class="navbar-collapse ">
+                <nav id="primary_nav_wrap">
+                    <ul>
+                        <li class="current-menu-item"><a href="/Dashboard/Index">Dashboard</a></li>
+                        <li>
+                            <a href="#">My Profile</a>
+                            <ul>
+                                <li><a href="/Profile/ViewProfile">Profile</a></li>
+                                <li><a href="/Profile/Edit">Edit</a></li>
+                                <li><a href="/Bank/Edit">Bank</a></li>
+                                <li><a href="/Users/EditPassword">Password</a></li>
+                             </ul>
+                        </li>
+                        <li>
+                            <a href="#">My Team</a>
+                            <ul>
+                                <li><a href="/Team/Create">New Joining</a></li>
+                                <li><a href="/Team/Tree">Tree</a></li>
+                                <li><a href="/Team/Team">My Team</a></li>
+                                <li><a href="/Team/Direct">Direct</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Wallet</a>
+                            <ul>
+                                <li><a href="/Wallet/MyWallet">My Wallet</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                            }
+                    </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

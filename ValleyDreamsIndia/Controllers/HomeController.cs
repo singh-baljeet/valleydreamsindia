@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ValleyDreamsIndia.Controllers
 {
@@ -13,11 +14,6 @@ namespace ValleyDreamsIndia.Controllers
         public HomeController()
         {
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
-        }
-
-        public ActionResult Index()
-        {
-            return View();
         }
 
         [HttpGet]
@@ -32,13 +28,27 @@ namespace ValleyDreamsIndia.Controllers
             UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Username == Username && x.Password == Password && x.Deleted == 0).FirstOrDefault();
             if(userDetail != null)
             {
-                Session["LoginUserId"] = userDetail.Id;
-                return RedirectToAction("ViewProfile", "Profile");
-            }
-            else
-            {
-                return View();
-            }
+                    FormsAuthentication.SetAuthCookie(userDetail.Username, false);
+
+                    var authTicket = new FormsAuthenticationTicket(1, userDetail.Username, DateTime.Now, DateTime.Now.AddMinutes(20), false, userDetail.Id.ToString());
+                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    HttpContext.Response.Cookies.Add(authCookie);
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return RedirectToAction("Login");
+                }
+        }
+
+
+        [HttpPost]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Home");
         }
     }
 }

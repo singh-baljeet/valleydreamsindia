@@ -14,9 +14,14 @@
         </tr>
         <tr>
             <th>Placement</th>
-            <th>@Html.DropDownListFor(m => m.PersonalDetails.PlacementSide, new List<SelectListItem>{
-                    new SelectListItem{ Text="LEFT", Value="LEFT"},
-                    new SelectListItem{ Text="RIGHT", Value="RIGHT"}},"")
+            <th>@Html.DropDownListFor(m => m.PersonalDetails.PlacementSide, new SelectList(
+                  new List<Object>{
+                       new { value = "LEFT" , text = "LEFT" },
+                       new { value = "RIGHT", text = "RIGHT"}
+                    },
+                  "value",
+                  "text",
+                   2))
             </th>
         </tr>
         <tr>
@@ -66,9 +71,14 @@
         <tr>
             <th>Gender</th>
             <th>
-                @Html.DropDownListFor(m => m.PersonalDetails.Gender, new List<SelectListItem>{
-                    new SelectListItem{ Text="Male", Value="Male"},
-                    new SelectListItem{ Text="Female", Value="Female"}}, "")
+                @Html.DropDownListFor(m => m.PersonalDetails.Gender, new SelectList(
+                  new List<Object>{
+                       new { value = "Male" , text = "Male" },
+                       new { value = "Female", text = "Female"}
+                    },
+                  "value",
+                  "text",
+                   2))
             </th>
         </tr>
         <tr>

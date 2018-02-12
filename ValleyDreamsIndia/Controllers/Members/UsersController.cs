@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ValleyDreamsIndia.Controllers.Members
 {
@@ -16,19 +17,13 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
-        // GET: Users
-        public ActionResult Index()
-        {
-            return View();
-        }
-
 
         [HttpGet]
         public ActionResult EditPassword()
         {
             try
             {
-                return View("User/Edit");
+                return View("~/Views/Members/User/Edit.cshtml");
             }
             catch (Exception ex)
             {

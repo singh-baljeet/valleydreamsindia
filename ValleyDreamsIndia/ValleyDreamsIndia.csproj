@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\BankController.cs" />
+    <Compile Include="Controllers\Members\DashboardController.cs" />
     <Compile Include="Controllers\Members\ProfileController.cs" />
     <Compile Include="Controllers\Members\TeamController.cs" />
     <Compile Include="Controllers\Members\UsersController.cs" />
@@ -298,10 +299,11 @@
     <Content Include="Views\Members\Team\Team.cshtml" />
     <Content Include="Views\Members\Team\Tree.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Members\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Users\" />
+    <Folder Include="UploadedImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

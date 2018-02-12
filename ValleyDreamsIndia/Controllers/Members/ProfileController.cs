@@ -11,7 +11,7 @@ using ValleyDreamsIndia.Models;
 namespace ValleyDreamsIndia.Controllers.Members
 {
             
-    [CustomAuthorization]
+    
     public class ProfileController : Controller
     {
         ValleyDreamsIndiaDBEntities _valleyDreamsIndiaDBEntities = null;
@@ -40,7 +40,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             try
             {
                 int userDetailsId = 2;
-                return View("~/Views/Members/Profile/Edit", GetPersonalAndUserDetails(userDetailsId));
+                return View("~/Views/Members/Profile/Edit.cshtml", GetPersonalAndUserDetails(userDetailsId));
             }
             catch (Exception ex)
             {
@@ -49,10 +49,15 @@ namespace ValleyDreamsIndia.Controllers.Members
         }
 
         [HttpPost]
-        public ActionResult Edit(UsersPersonalModelView usersPersonalModelView)
+        public ActionResult Edit(UsersPersonalModelView usersPersonalModelView,HttpPostedFileBase memberImage)
         {
             try
             {
+                if(memberImage.ContentLength > 0)
+                {
+                    usersPersonalModelView.PersonalDetails.ProfilePic = memberImage.FileName;
+                    memberImage.SaveAs(Server.MapPath("~/UploadedImages/") + Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName);
+                }
                 usersPersonalModelView.PersonalDetails.UpdatedOn = DateTime.Now;
                 _valleyDreamsIndiaDBEntities.Entry(usersPersonalModelView.PersonalDetails).State = EntityState.Modified;
                 _valleyDreamsIndiaDBEntities.SaveChanges();
