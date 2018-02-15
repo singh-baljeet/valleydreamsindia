@@ -35,6 +35,7 @@ namespace ValleyDreamsIndia
         public Nullable<int> Deleted { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<int> SponsoredId { get; set; }
     
         public virtual UsersDetail UsersDetail { get; set; }
     }

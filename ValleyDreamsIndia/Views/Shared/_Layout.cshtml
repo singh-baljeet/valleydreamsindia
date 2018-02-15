@@ -1,152 +1,185 @@
-﻿<!DOCTYPE html>
-<html>
+﻿
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+ <!--<![endif]-->
 <head>
+
+    <title>@ViewBag.Title</title>
+
     <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <style>
-        #primary_nav_wrap
-{
-	margin-top:15px
-}
+    <link type="image/png" href="~/Content/images/fav.png" rel="shortcut icon">
+    <link href="~/Content/stylesheets/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/stylesheets/sample_pages/people.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/stylesheets/sample_pages/stream.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/stylesheets/sample_pages/buttons-icons.css" type="text/css" />
 
-#primary_nav_wrap ul
-{
-	list-style:none;
-	position:relative;
-	float:left;
-	margin:0;
-	padding:0
-}
+    
+    @*<link rel="stylesheet" href="stylesheets/all.css" type="text/css" />*@
 
-#primary_nav_wrap ul a
-{
-	display:block;
-	color:#333;
-	text-decoration:none;
-	font-weight:700;
-	font-size:12px;
-	line-height:32px;
-	padding:0 15px;
-	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
-}
-
-#primary_nav_wrap ul li
-{
-	position:relative;
-	float:left;
-	margin:0;
-	padding:0
-}
-
-#primary_nav_wrap ul li.current-menu-item
-{
-	background:#ddd
-}
-
-#primary_nav_wrap ul li:hover
-{
-	background:#f6f6f6
-}
-
-#primary_nav_wrap ul ul
-{
-	display:none;
-	position:absolute;
-	top:100%;
-	left:0;
-	background:#fff;
-	padding:0
-}
-
-#primary_nav_wrap ul ul li
-{
-	float:none;
-	width:200px
-}
-
-#primary_nav_wrap ul ul a
-{
-	line-height:120%;
-	padding:10px 15px
-}
-
-#primary_nav_wrap ul ul ul
-{
-	top:0;
-	left:100%
-}
-
-#primary_nav_wrap ul li:hover > ul
-{
-	display:block
-}
-    </style>
+    <!--[if gte IE 9]>
+    <link rel="stylesheet" href="stylesheets/ie9.css" type="text/css" />
+    <![endif]-->
+    <!--[if gte IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie8.css" type="text/css" />
+    <![endif]-->
 
 </head>
+
 <body>
-    <div class="navbar  navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse ">
-                <nav id="primary_nav_wrap">
-                    <ul>
-                        <li class="current-menu-item"><a href="/Dashboard/Index">Dashboard</a></li>
-                        <li>
-                            <a href="#">My Profile</a>
-                            <ul>
-                                <li><a href="/Profile/ViewProfile">Profile</a></li>
-                                <li><a href="/Profile/Edit">Edit</a></li>
-                                <li><a href="/Bank/Edit">Bank</a></li>
-                                <li><a href="/Users/EditPassword">Password</a></li>
-                             </ul>
-                        </li>
-                        <li>
-                            <a href="#">My Team</a>
-                            <ul>
-                                <li><a href="/Team/Create">New Joining</a></li>
-                                <li><a href="/Team/Tree">Tree</a></li>
-                                <li><a href="/Team/Team">My Team</a></li>
-                                <li><a href="/Team/Direct">Direct</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Wallet</a>
-                            <ul>
-                                <li><a href="/Wallet/MyWallet">My Wallet</a></li>
-                            </ul>
-                        </li>
 
-                        <li>
-                            @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                            {
-                                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
-                            }
-                    </li>
+    <div id="wrapper">
+
+        <div id="header">
+            <h1><a href="dashboard.html">Administrator</a></h1>
+
+            <a href="javascript:;" id="reveal-nav">
+                <span class="reveal-bar"></span>
+                <span class="reveal-bar"></span>
+                <span class="reveal-bar"></span>
+            </a>
+        </div> <!-- #header -->
+
+        <div id="search">
+        </div> <!-- #search -->
+
+        <div id="sidebar">
+
+            <ul id="mainNav">
+                <li id="navDashboard" class="nav active">
+                    <span class="icon-home"></span>
+                    <a href="/Dashboard/Index">Dashboard</a>
+                </li>
+
+                <li id="navPages" class="nav">
+                    <span class="icon-document-alt-stroke"></span>
+                    <a href="javascript:;">Manage Account</a>
+
+                    <ul class="subNav">
+                        <li><a href="/Profile/ViewProfile">My Profile</a></li>
+                        <li><a href="/Profile/Edit">Profile Settings</a></li>
+                        <li><a href="/Users/EditPassword">Change Password</a></li>
+                        <li><a href="/Bank/Edit">Bank Info</a></li>
                     </ul>
-                </nav>
+                </li>
+
+                <li id="navForms" class="nav">
+                    <span class="icon-article"></span>
+                    <a href="javascript:;">Manage Team</a>
+
+                    <ul class="subNav">
+                        <li><a href="/Team/Create">Add New Member</a></li>
+                        <li><a href="/Team/Tree">View Tree</a></li>
+                        <li><a href="/Team/Team">View Team</a></li>
+                        <li><a href="/Team/Direct">View Direct Team</a></li>
+                    </ul>
+
+                </li>
+
+                <li id="navType" class="nav">
+                    <span class="icon-info"></span>
+                    <a href="/Wallet/MyWallet">My Wallet</a>
+                </li>
+
+                <li id="navGrid" class="nav">
+                    <span class="icon-layers"></span>
+                    @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                    }
+                </li>
+
+            </ul>
+
+        </div> <!-- #sidebar -->
+        <div id="content">
+            @RenderBody()
+        </div> <!-- #content -->
+
+            <div id="topNav">
+                <ul>
+                    <li>
+                        <a href="#" class="menu" style="font-size:16px;">
+
+                        </a>
+
+
+                    </li>
+                    <li><a href="#" style="font-size:16px;">Logout</a></li>
+                </ul>
             </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
+
+            <!-- #topNav -->
+            <!-- .quickNav -->
+
+
+        </div> <!-- #wrapper -->
+
+    <div id="footer" style="font-size:14px;">
+        Copyright &copy; www.bethuelmultitrade.com 2018
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @* @Scripts.Render("~/bundles/jquery")
+     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/javascripts/all")
+    @RenderSection("scripts", required: false)*@
+
+    <script src="~/Scripts/javascripts/all.js"></script>
+
+
+    @*<script src="javascripts/all.js"></script>*@
+    <script>
+$(function () {
+	$( "#datepicker" ).datepicker();
+	$( "#datepicker_inline" ).datepicker();
+	$('#colorpickerHolder').ColorPicker({flat: true});
+	$('#timepicker').timepicker ({
+		showPeriod: true
+		, showNowButton: true
+		, showCloseButton: true
+	});
+
+	$('#timepicker_inline_div').timepicker({
+	   defaultTime: '9:20'
+	});
+
+	$('#colorSelector').ColorPicker({
+		color: '#FF9900',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onSubmit: function (hsb, hex, rgb, el) {
+			$(el).ColorPickerHide ();
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#colorSelector div').css({ 'background-color': '#' + hex });
+			$('#colorpickerField1').val ('#' + hex);
+		}
+	});
+
+	$('#colorpickerField1').live ('keyup', function (e) {
+		var val = $(this).val ();
+		val = val.replace ('#', '');
+		$('#colorSelector div').css({ 'background-color': '#' + val });
+		$('#colorSelector').ColorPickerSetColor(val);
+	});
+
+});
+
+    </script>
+
+    
 </body>
 </html>

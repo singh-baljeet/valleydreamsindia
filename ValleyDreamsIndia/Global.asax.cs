@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using ValleyDreamsIndia.Common;
 
 namespace ValleyDreamsIndia
 {
@@ -23,10 +24,12 @@ namespace ValleyDreamsIndia
             if (authCookie != null)
             {
                 FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                 CurrentUser.CurrentUserId =  Convert.ToInt32(authTicket.UserData);
                 if (authTicket != null && !authTicket.Expired)
                 {
                     var roles = authTicket.UserData.Split(',');
                     HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(authTicket), roles);
+
                 }
 
 

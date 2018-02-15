@@ -1,33 +1,113 @@
-﻿@model ValleyDreamsIndia.UsersDetail
-@{
-    ViewBag.Title = "Edit Password";
-}
-
-<h2>Change Password</h2>
-
+﻿@model ValleyDreamsIndia.UsersDetail 
+  
 @using (Html.BeginForm("EditPassword", "Users"))
 {
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.Username)
     @Html.HiddenFor(m => m.Deleted)
     @Html.HiddenFor(m => m.CreatedOn)
-    
-    <table>
-        <tr>
-            <th>Password</th>
-            <th>@Html.TextBox("OldPassword")</th>
-        </tr>
-        <tr>
-            <th>New Password</th>
-            <th>@Html.TextBox("NewPassword")</th>
-        </tr>
-        <tr>
-            <th>Confirm New Password</th>
-            <th>@Html.TextBox("ConfirmNewPassword")</th>
-        </tr>
-        <tr>
-            <th></th>
-            <td><input type="submit" value="Update" /></td>
-        </tr>
-    </table>
+
+
+<div id = "contentHeader" >
+    <h1>Change Password</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-17">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Password Management</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Current Password</th>
+                            <th>
+                                @Html.TextBox("OldPassword")
+                            @*<input type="password" name="ecp" id="ecp" size="20" class="" placeholder="Enter Current Password" />*@
+                            </th>
+
+                        </tr>
+
+                        <tr>
+                            <th>New Password</th>
+                            <th>
+                                @Html.TextBox("NewPassword")
+                            @*<input type="password" name="enp" id="enp" size="20" class="" placeholder="Enter New Password" />*@
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>Confirm Password</th>
+                            <th>@Html.TextBox("ConfirmNewPassword")
+                            @*<input type="password" name="cp" id="cp" size="20" class="" placeholder="Confirm New Password" />*@
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                <span><input type="submit" class="btn btn-primary" value="Submit"/></span>
+
+                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+    <div class="grid-7">
+        <div id="gettingStarted" class="box">
+            <h3>Complete Profile</h3>
+
+            <p>Completing your profile will bring you to 8%.</p>
+
+            <div class="progress-bar secondary">
+                <div class="bar" style="width: 92%;">92%</div>
+            </div>
+
+            <ul>
+                <li><p href="javascript:;">Complete Your Profile</p></li>
+                <li><p href="javascript:;">Add Your Photo</p></li>
+                <li><p href="javascript:;">Invite People to Join</p></li>
+                <li><p href="javascript:;">Follow People</p></li>
+            </ul>
+        </div>
+
+        <br />
+        <div style="border:1px solid #000; border-radius:5px;">
+            <h3 style="margin:10px;">Task List</h3>
+
+
+
+
+            <ul class="taskList">
+                <li>Update your profile.</li>
+                <li>Secure your account.</li>
+                <li>Never share your credentials.</li>
+                <li>Keep changing your passwords.</li>
+
+            </ul>
+        </div>
+
+
+        <br /><br /><br />
+    </div>
+
+</div>
+
 }

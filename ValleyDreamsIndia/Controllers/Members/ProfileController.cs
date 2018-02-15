@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ValleyDreamsIndia;
 using ValleyDreamsIndia.AuthData;
+using ValleyDreamsIndia.Common;
 using ValleyDreamsIndia.Models;
 
 namespace ValleyDreamsIndia.Controllers.Members
@@ -23,10 +24,10 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult ViewProfile()
         {
+            ViewBag.Title = "Admin: Profile";
             try
             {
-                int userDetailsId = 2;
-                return View("~/Views/Members/Profile/ViewProfile.cshtml" , GetPersonalAndUserDetails(userDetailsId));
+                return View("~/Views/Members/Profile/ViewProfile.cshtml" , GetPersonalAndUserDetails(CurrentUser.CurrentUserId));
             }
             catch(Exception ex)
             {
@@ -37,10 +38,10 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Edit()
         {
+            ViewBag.Title = "Admin: Profile Settings";
             try
             {
-                int userDetailsId = 2;
-                return View("~/Views/Members/Profile/Edit.cshtml", GetPersonalAndUserDetails(userDetailsId));
+                return View("~/Views/Members/Profile/Edit.cshtml", GetPersonalAndUserDetails(CurrentUser.CurrentUserId));
             }
             catch (Exception ex)
             {
@@ -51,12 +52,14 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpPost]
         public ActionResult Edit(UsersPersonalModelView usersPersonalModelView,HttpPostedFileBase memberImage)
         {
+            ViewBag.Title = "Admin: Profile Settings";
             try
             {
                 if(memberImage.ContentLength > 0)
                 {
-                    usersPersonalModelView.PersonalDetails.ProfilePic = memberImage.FileName;
-                    memberImage.SaveAs(Server.MapPath("~/UploadedImages/") + Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName);
+                    string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName;
+                    usersPersonalModelView.PersonalDetails.ProfilePic = "/UploadedImages/"+randomImageName;
+                    memberImage.SaveAs(Server.MapPath("~/UploadedImages/") + randomImageName);
                 }
                 usersPersonalModelView.PersonalDetails.UpdatedOn = DateTime.Now;
                 _valleyDreamsIndiaDBEntities.Entry(usersPersonalModelView.PersonalDetails).State = EntityState.Modified;

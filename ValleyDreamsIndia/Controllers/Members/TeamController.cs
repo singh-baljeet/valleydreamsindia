@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ValleyDreamsIndia.Common;
 using ValleyDreamsIndia.Models;
 
 namespace ValleyDreamsIndia.Controllers.Members
@@ -24,6 +25,7 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.Title = "Admin: Add New Member";
             UsersPersonalModelView usersPersonalModelView = new UsersPersonalModelView();
             return View("~/Views/Members/Team/Create.cshtml" , usersPersonalModelView);
         }
@@ -31,11 +33,12 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpPost]
         public ActionResult Create(UsersPersonalModelView usersPersonalModelView)
         {
-            int userDetailsId = 2;
+            ViewBag.Title = "Admin: Add New Member";
+            
 
             usersPersonalModelView.UserDetails.Password = "test";
             usersPersonalModelView.UserDetails.CreatedOn = DateTime.Now;
-            usersPersonalModelView.UserDetails.SponsoredId = userDetailsId;
+            usersPersonalModelView.UserDetails.SponsoredId = CurrentUser.CurrentUserId;
 
             usersPersonalModelView.UserDetails.Deleted = 0;
             _valleyDreamsIndiaDBEntities.UsersDetails.Add(usersPersonalModelView.UserDetails);
@@ -59,8 +62,8 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Team()
         {
-            int userDetailsId = 2;
-            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == userDetailsId).ToList();
+            ViewBag.Title = "Admin: View Team";
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
             List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
             foreach(var usr in userDetailList)
             {
@@ -72,12 +75,12 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Tree()
         {
-            int userDetailsId = 2;
+            ViewBag.Title = "Admin: Tree";
             int leftPlacementCount = 0;
             int rightPlacementCount = 0;
             int directLeftPlacementCount = 0;
             int directRightPlacementCount = 0;
-            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == userDetailsId).ToList();
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
             List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
             foreach (var usr in userDetailList)
             {
@@ -100,5 +103,41 @@ namespace ValleyDreamsIndia.Controllers.Members
             return View("~/Views/Members/Team/Tree.cshtml");
 
         }
+
+
+
+        [HttpPost]
+        public ActionResult TreeByUserId(int userId)
+        {
+            ViewBag.Title = "Admin: Tree";
+
+            int leftPlacementCount = 0;
+            int rightPlacementCount = 0;
+            int directLeftPlacementCount = 0;
+            int directRightPlacementCount = 0;
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == userId).ToList();
+            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+            foreach (var usr in userDetailList)
+            {
+                var placementSide = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == usr.Id).PlacementSide;
+                if (placementSide == "LEFT")
+                {
+                    leftPlacementCount += 1;
+                }
+                if (placementSide == "RIGHT")
+                {
+                    rightPlacementCount += 1;
+                }
+            }
+
+            ViewBag.LeftPlacementCount = leftPlacementCount;
+            ViewBag.RightPlacementCount = rightPlacementCount;
+            ViewBag.DirectLeftPlacementCount = directLeftPlacementCount;
+            ViewBag.DirectRightPlacementCount = directRightPlacementCount;
+
+            return View("~/Views/Members/Team/Tree.cshtml");
+        }
+
+
     }
 }

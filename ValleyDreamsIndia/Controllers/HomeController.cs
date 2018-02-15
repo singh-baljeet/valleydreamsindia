@@ -29,18 +29,17 @@ namespace ValleyDreamsIndia.Controllers
             if(userDetail != null)
             {
                     FormsAuthentication.SetAuthCookie(userDetail.Username, false);
-
                     var authTicket = new FormsAuthenticationTicket(1, userDetail.Username, DateTime.Now, DateTime.Now.AddMinutes(20), false, userDetail.Id.ToString());
                     string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                     var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     HttpContext.Response.Cookies.Add(authCookie);
                     return RedirectToAction("Index", "Dashboard");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return RedirectToAction("Login");
-                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return RedirectToAction("Login");
+            }
         }
 
 

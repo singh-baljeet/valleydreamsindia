@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ValleyDreamsIndia;
+using ValleyDreamsIndia.Common;
 using ValleyDreamsIndia.Models;
 
 namespace ValleyDreamsIndia.Controllers.Members
@@ -20,10 +21,10 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Edit()
         {
+            ViewBag.Title = "Admin: Bank Info";
             try
             {
-                int userDetailsId = 2;
-                BankDetail bankDetail = _valleyDreamsIndiaDBEntities.BankDetails.First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
+                BankDetail bankDetail = _valleyDreamsIndiaDBEntities.BankDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
                 return View("~/Views/Members/Bank/Edit.cshtml", bankDetail);
             }
             catch (Exception ex)
@@ -35,6 +36,7 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpPost]
         public ActionResult Edit(BankDetail bankDetail)
         {
+            ViewBag.Title = "Admin: Bank Info";
             try
             {
                 bankDetail.UpdatedOn = DateTime.Now;

@@ -32,6 +32,7 @@
     <EntitySetMapping Name="PersonalDetails">
       <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.PersonalDetail">
         <MappingFragment StoreEntitySet="PersonalDetails">
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
           <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />

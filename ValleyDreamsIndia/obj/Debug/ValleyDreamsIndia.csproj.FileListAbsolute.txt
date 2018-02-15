@@ -79,4 +79,4 @@ E:\ValleyDreamsIndia\ValleyDreamsIndia\bin\Microsoft.Owin.Security.Twitter.xml
 E:\ValleyDreamsIndia\ValleyDreamsIndia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\ValleyDreamsIndia\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.dll
 E:\ValleyDreamsIndia\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.pdb
-E:\ValleyDreamsIndia\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.csprojResolveAssemblyReference.cache
+E:\valleydreamsindia\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.csprojResolveAssemblyReference.cache

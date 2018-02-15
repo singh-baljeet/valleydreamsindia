@@ -41,6 +41,7 @@
           <Property Name="NomineeName" Type="varchar" MaxLength="50" />
           <Property Name="NomineeRelation" Type="varchar" MaxLength="50" />
           <Property Name="UsersDetailsId" Type="int" />
+          <Property Name="SponsoredId" Type="int" />
           <Property Name="Deleted" Type="int" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
@@ -200,6 +201,7 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="PersonalDetail" ToRole="UsersDetail" />
+          <Property Name="SponsoredId" Type="Int32" />
         </EntityType>
         <Association Name="FK_PersonalDetails_UsersDetails">
           <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
@@ -262,6 +264,7 @@
           <EntitySetMapping Name="PersonalDetails">
             <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.PersonalDetail">
               <MappingFragment StoreEntitySet="PersonalDetails">
+                <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />

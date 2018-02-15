@@ -1,47 +1,99 @@
 ﻿@model IEnumerable<ValleyDreamsIndia.PersonalDetail>
 
-@{
-    ViewBag.Title = "Team";
-}
+<div id="contentHeader">
+    <h1>My Team</h1>
+</div> <!-- #contentHeader -->
 
-<h2>Team</h2>
+<div class="container">
+    <div class="grid-17">
 
-<table class="table">
-    <tr>
-        <th>
-            Sr. No
-        </th>
-        <th>
-           Name
-        </th>
-        <th>
-           Level
-        </th>
-        <th>
-            Username
-        </th>
-        <th>
-            Joining Date
-        </th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            0
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsersDetail.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>
-    </tr>
-}
+        <div class="widget widget-table">
 
-</table>
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Geneology</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped data-table">
+                    <thead>
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Member Name</th>
+                            <th>Level</th>
+                            <th>Username</th>
+                            <th>Date of Joining</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var i = 1;
+                            <tr class="gradeA">
+                                <td>@i</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UsersDetail.Username)
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                                </td>
+                            </tr>
+                            i = i + 1;
+                         }
+                    </tbody>
+                </table>
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget-content -->
+
+    </div>
+
+
+    <div class="grid-7">
+        <div id="gettingStarted" class="box">
+            <h3>Complete Member Profile</h3>
+
+            <p>Completing your member profile will bring you to 8%.</p>
+
+            <div class="progress-bar secondary">
+                <div class="bar" style="width: 92%;">92%</div>
+            </div>
+
+            <ul>
+                <li><p href="javascript:;">Complete Your Member Profile</p></li>
+                <li><p href="javascript:;">Submit All Details</p></li>
+                <li><p href="javascript:;">Invite Peoople to Join</p></li>
+                <li><p href="javascript:;">Follow People</p></li>
+            </ul>
+        </div>
+
+        <br />
+        <div style="border:1px solid #000; border-radius:5px;">
+            <h3 style="margin:10px;">Task List</h3>
+
+
+
+
+            <ul class="taskList">
+                <li>Update your profile.</li>
+                <li>Secure your account.</li>
+                <li>Never share your credentials.</li>
+                <li>Keep changing your passwords.</li>
+
+            </ul>
+        </div>
+
+
+        <br /><br /><br />
+    </div>
+</div>
+
+
