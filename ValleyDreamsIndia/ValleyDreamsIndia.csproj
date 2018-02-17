@@ -200,6 +200,7 @@
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Common\CurrentUser.cs" />
+    <Compile Include="Common\TreeStructure.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\BankController.cs" />
     <Compile Include="Controllers\Members\DashboardController.cs" />
@@ -434,7 +435,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>

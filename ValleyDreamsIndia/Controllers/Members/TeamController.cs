@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ValleyDreamsIndia.Common;
 using ValleyDreamsIndia.Models;
+using static ValleyDreamsIndia.Common.TreeStructure;
 
 namespace ValleyDreamsIndia.Controllers.Members
 {
@@ -75,32 +76,132 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Tree()
         {
-            ViewBag.Title = "Admin: Tree";
-            int leftPlacementCount = 0;
-            int rightPlacementCount = 0;
-            int directLeftPlacementCount = 0;
-            int directRightPlacementCount = 0;
-            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
-            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
-            foreach (var usr in userDetailList)
-            {
-                var placementSide =_valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == usr.Id).PlacementSide;
-                if(placementSide == "LEFT")
+            var parentResult = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.Id == CurrentUser.CurrentUserId)
+                .Select(x => new TreeStructure.Parent
                 {
-                    leftPlacementCount += 1;
+                    Detail = new TreeStructure.SelfDetails
+                    { Name = x.Name, UserName = x.UsersDetail.Username,
+                        SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y=>y.Id == x.UsersDetail.SponsoredId).FirstOrDefault().Username
+                    },
                 }
-                if (placementSide == "RIGHT")
+            ).FirstOrDefault();
+
+           var childernPlacementSide =  _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
+            foreach (var children in childernPlacementSide)
+            {
+                if (children.PlacementSide == "LEFT")
                 {
-                    rightPlacementCount += 1;
+                    parentResult.LeftChildren = new Children
+                    {
+                        Detail =
+                        new TreeStructure.SelfDetails
+                        {
+                            Name = children.Name,
+                            UserName = children.UsersDetail.Username,
+                            SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().Username
+                        },
+                    };
+
+                    var leftSubChildernPlacementSide = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == children.UsersDetailsId);
+                    foreach (var subChildren in leftSubChildernPlacementSide)
+                    {
+                        if (subChildren.PlacementSide == "LEFT")
+                        {
+                            parentResult.LeftChildren.LeftSubChildren  =
+                                new TreeStructure.SelfDetails
+                                {
+                                    Name = subChildren.Name,
+                                    UserName = subChildren.UsersDetail.Username,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                };
+                        }
+                        if (subChildren.PlacementSide == "RIGHT")
+                        {
+                            parentResult.LeftChildren.RightSubChildren =
+                                new TreeStructure.SelfDetails
+                                {
+                                    Name = subChildren.Name,
+                                    UserName = subChildren.UsersDetail.Username,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                };
+                        }
+                    }
+                }
+                if (children.PlacementSide == "RIGHT")
+                {
+                    parentResult.RightChildren = new Children
+                    {
+                        Detail =
+                        new TreeStructure.SelfDetails
+                        {
+                            Name = children.Name,
+                            UserName = children.UsersDetail.Username,
+                            SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().Username
+                        }
+                    };
+
+                    var rightSubChildernPlacementSide = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == children.UsersDetailsId);
+                    foreach (var subChildren in rightSubChildernPlacementSide)
+                    {
+                        if (subChildren.PlacementSide == "LEFT")
+                        {
+                            parentResult.RightChildren.LeftSubChildren =
+                                new TreeStructure.SelfDetails
+                                {
+                                    Name = subChildren.Name,
+                                    UserName = subChildren.UsersDetail.Username,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                };
+                        }
+                        if (subChildren.PlacementSide == "RIGHT")
+                        {
+                            parentResult.RightChildren.RightSubChildren =
+                                new TreeStructure.SelfDetails
+                                {
+                                    Name = subChildren.Name,
+                                    UserName = subChildren.UsersDetail.Username,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                };
+                        }
+                    }
                 }
             }
 
-            ViewBag.LeftPlacementCount = leftPlacementCount;
-            ViewBag.RightPlacementCount = rightPlacementCount;
-            ViewBag.DirectLeftPlacementCount = directLeftPlacementCount;
-            ViewBag.DirectRightPlacementCount = directRightPlacementCount;
+            var res = parentResult;
 
-            return View("~/Views/Members/Team/Tree.cshtml");
+
+
+
+
+
+                //ViewBag.Title = "Admin: Tree";
+                //int leftPlacementCount = 0;
+                //int rightPlacementCount = 0;
+                //int directLeftPlacementCount = 0;
+                //int directRightPlacementCount = 0;
+                //List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
+                //List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+                //foreach (var usr in userDetailList)
+                //{
+                //    var placementSide =_valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == usr.Id).PlacementSide;
+                //    if(placementSide == "LEFT")
+                //    {
+                //        leftPlacementCount += 1;
+                //    }
+                //    if (placementSide == "RIGHT")
+                //    {
+                //        rightPlacementCount += 1;
+                //    }
+                //}
+
+                //ViewBag.LeftPlacementCount = leftPlacementCount;
+                //ViewBag.RightPlacementCount = rightPlacementCount;
+                //ViewBag.DirectLeftPlacementCount = directLeftPlacementCount;
+                //ViewBag.DirectRightPlacementCount = directRightPlacementCount;
+
+
+
+                return View("~/Views/Members/Team/Tree.cshtml");
 
         }
 
