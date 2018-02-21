@@ -8,6 +8,8 @@
     <div class="grid-17">
         <div class="widget widget-table">
 
+@using (Html.BeginForm("Edit", "Bank"))
+{
             <div class="widget-header">
                 <span class="icon-list"></span>
                 <h3 class="icon chart">Bank Account Management</h3>
@@ -15,53 +17,48 @@
 
             <div class="widget-content">
 
-@using (Html.BeginForm("Edit", "Bank"))
-{
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.UsersDetailsId)
-    @Html.HiddenFor(m => m.Deleted)
-    @Html.HiddenFor(m => m.CreatedOn)
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.UsersDetailsId)
+                @Html.HiddenFor(m => m.Deleted)
+                @Html.HiddenFor(m => m.CreatedOn)
 
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Bank Name</th>
-                            <th>@Html.TextBoxFor(m => m.BankName)
-                            @*<input type="text" name="bn" id="bn" size="20" class="" placeholder="Enter Name Of Bank" />*@
+                            <th>@Html.TextBoxFor(m => m.BankName, new { placeholder = "Enter Name Of Bank" })
                             </th>
 
                         </tr>
-                        @*<tr>
+                        <tr>
                             <th>A/C Holder Name</th>
-                            <th><input type="text" name="bn" id="bn" size="20" class="" placeholder="Enter A/C Holder Name" /></th>
-                        </tr>*@
+                            <th>
+                                @Html.TextBoxFor(m => m.AccountHolderName, new { placeholder = "Enter A/C Holder Name" })
+                            </th>
+                        </tr>
 
                         <tr>
                             <th>Bank A/C Number</th>
-                            <th>@Html.TextBoxFor(m => m.AccountNumber)
-                            @*<input type="password" name="an" id="an" size="20" class="" placeholder="Enter Valid Bank A/C No." />*@
+                            <th>@Html.TextBoxFor(m => m.AccountNumber, new { placeholder = "Enter Valid Bank A/C No." })
                             </th>
 
                         </tr>
-                        @*<tr>
+                        <tr>
                             <th>Verify A/C No.</th>
                             <th>
-                            <input type="password" name="van" id="van" size="20" class="" placeholder="Confirm Bank A/C No." />
+                                @Html.TextBoxFor(m => m.AccountNumber, new { placeholder = "Confirm Bank A/C No." })
                             </th>
-
-                        </tr>*@
+                        </tr>
 
                         <tr>
                             <th>IFSC Code</th>
-                            <th>@Html.TextBoxFor(m => m.IFSCCode)
-                            @*<input type="text" name="enp" id="enp" size="20" class="" placeholder="Enter Valid IFSC Code" />*@
+                            <th>@Html.TextBoxFor(m => m.IFSCCode, new { placeholder = "Enter Valid IFSC Code" })
                             </th>
 
                         </tr>
                         <tr>
                             <th>PAN</th>
-                            <th>@Html.TextBoxFor(m => m.PANNumber)
-                            @*<input type="text" name="pn" id="pn" size="20" class="" placeholder="Enter Valid PAN Number" />*@
+                            <th>@Html.TextBoxFor(m => m.PANNumber, new { placeholder = "Enter Valid PAN Number" })
                             </th>
 
                         </tr>
@@ -72,7 +69,7 @@
                 </table>
 
 
-}
+
 
             </div> <!-- .widget-content -->
 
@@ -81,7 +78,7 @@
                 <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
             </div>
 
-
+}
         </div>
 
     </div>

@@ -15,27 +15,27 @@ namespace ValleyDreamsIndia
     public partial class PersonalDetail
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string FatherName { get; set; }
-        public string Email { get; set; }
+        public string ProfilePic { get; set; }
+        public Nullable<int> SponsoredId { get; set; }
+        public string JoinedOn { get; set; }
+        public string PlacementSide { get; set; }
         public string Gender { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string District { get; set; }
-        public string State { get; set; }
-        public string PinCode { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FatherName { get; set; }
+        public string BirthDate { get; set; }
         public string PhoneNumber1 { get; set; }
         public string PhoneNumber2 { get; set; }
-        public string Mobile { get; set; }
-        public string ProfilePic { get; set; }
-        public string PlacementSide { get; set; }
-        public string NomineeName { get; set; }
-        public string NomineeRelation { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public string State { get; set; }
+        public string District { get; set; }
+        public string City { get; set; }
+        public string PinCode { get; set; }
         public Nullable<int> UsersDetailsId { get; set; }
         public Nullable<int> Deleted { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public Nullable<int> SponsoredId { get; set; }
     
         public virtual UsersDetail UsersDetail { get; set; }
     }

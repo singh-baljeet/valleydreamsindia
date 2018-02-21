@@ -25,10 +25,10 @@ namespace ValleyDreamsIndia
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public Nullable<int> SponsoredId { get; set; }
         public Nullable<int> Deleted { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public Nullable<int> SponsoredId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BankDetail> BankDetails { get; set; }

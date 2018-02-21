@@ -5,10 +5,14 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomineeName" Type="varchar" MaxLength="50" />
+    <Property Name="NomineeRelation" Type="varchar" MaxLength="50" />
     <Property Name="BankName" Type="varchar" MaxLength="100" />
+    <Property Name="AccountHolderName" Type="varchar" MaxLength="50" />
     <Property Name="AccountNumber" Type="varchar" MaxLength="50" />
     <Property Name="IFSCCode" Type="varchar" MaxLength="50" />
     <Property Name="PANNumber" Type="varchar" MaxLength="50" />
+    <Property Name="TransactionPassword" Type="varchar" MaxLength="50" />
     <Property Name="UsersDetailsId" Type="int" />
     <Property Name="Deleted" Type="int" />
     <Property Name="CreatedOn" Type="datetime" />
@@ -19,24 +23,24 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="FatherName" Type="varchar" MaxLength="50" />
-    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
+    <Property Name="SponsoredId" Type="int" />
+    <Property Name="JoinedOn" Type="varchar" MaxLength="50" />
+    <Property Name="PlacementSide" Type="varchar" MaxLength="50" />
     <Property Name="Gender" Type="varchar" MaxLength="10" />
-    <Property Name="Address" Type="varchar" MaxLength="1000" />
-    <Property Name="City" Type="varchar" MaxLength="50" />
-    <Property Name="District" Type="varchar" MaxLength="50" />
-    <Property Name="State" Type="varchar" MaxLength="50" />
-    <Property Name="PinCode" Type="varchar" MaxLength="10" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="FatherName" Type="varchar" MaxLength="50" />
+    <Property Name="BirthDate" Type="varchar" MaxLength="50" />
     <Property Name="PhoneNumber1" Type="varchar" MaxLength="50" />
     <Property Name="PhoneNumber2" Type="varchar" MaxLength="50" />
-    <Property Name="Mobile" Type="varchar" MaxLength="50" />
-    <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
-    <Property Name="PlacementSide" Type="varchar" MaxLength="50" />
-    <Property Name="NomineeName" Type="varchar" MaxLength="50" />
-    <Property Name="NomineeRelation" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="1000" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="District" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="PinCode" Type="varchar" MaxLength="10" />
     <Property Name="UsersDetailsId" Type="int" />
-    <Property Name="SponsoredId" Type="int" />
     <Property Name="Deleted" Type="int" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedOn" Type="datetime" />

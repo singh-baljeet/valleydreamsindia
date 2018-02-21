@@ -67,5 +67,38 @@ namespace ValleyDreamsIndia.Controllers.Members
         }
 
 
+        [HttpPost]
+        public ActionResult EditTransactionPassword(string OldTransactionPassword, string NewTransactionPassword, string ConfirmTransactionNewPassword)
+        {
+            ViewBag.Title = "Admin: Change Password";
+            try
+            {
+                if (NewTransactionPassword == ConfirmTransactionNewPassword)
+                {
+                    BankDetail bankDetail = _valleyDreamsIndiaDBEntities.BankDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+                    if (bankDetail.TransactionPassword == OldTransactionPassword)
+                    {
+                        bankDetail.TransactionPassword = NewTransactionPassword;
+                        bankDetail.UpdatedOn = DateTime.Now;
+                        _valleyDreamsIndiaDBEntities.Entry(bankDetail).State = EntityState.Modified;
+                        _valleyDreamsIndiaDBEntities.SaveChanges();
+                        return RedirectToAction("EditPassword");
+                    }
+                    else
+                    {
+                        return RedirectToAction("EditPassword");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("EditPassword");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

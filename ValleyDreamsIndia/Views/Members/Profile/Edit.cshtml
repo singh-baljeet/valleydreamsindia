@@ -3,209 +3,347 @@
 @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(m => m.PersonalDetails.Id)
-    @Html.HiddenFor(m => m.PersonalDetails.UsersDetailsId)
-    @Html.HiddenFor(m => m.PersonalDetails.Deleted)
-    @Html.HiddenFor(m => m.PersonalDetails.CreatedOn)
-    @Html.HiddenFor(m => m.UserDetails.Username)
-    @Html.HiddenFor(m => m.PersonalDetails.Name)
-    @Html.HiddenFor(m => m.PersonalDetails.Email)
+    @Html.HiddenFor(m => m.BankDetails.Id)
+
+    <div id="contentHeader">
+        <h1>Edit User Profile</h1>
+    </div> <!-- #contentHeader -->
+
+    <div class="container">
+
+        <div class="grid-12">
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Personal Info</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th><img src="images/stream/default1_avatar_small.png" /></th>
+                                <th style="vertical-align:middle;">
 
 
-<div id = "contentHeader" >
-    <h1>Edit User Profile</h1>
-</div> <!-- #contentHeader -->
-
-<div class="container">
-    <div class="grid-17">
-        <div class="widget widget-table">
-
-            <div class="widget-header">
-                <span class="icon-list"></span>
-                <h3 class="icon chart">Profile Management</h3>
-            </div>
-
-            <div class="widget-content">
-
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th><img src="@Model.PersonalDetails.ProfilePic" style="width:150px;height:150px" /></th>
-                            <th style="vertical-align:middle;">
-
-
-                                <div class="widget-content">
+                                    <div class="widget-content">
 
 
 
 
-                                    <label for="myfile">Upload Image:</label>
+                                        <label for="myfile">Upload Image:</label>
 
-                                    <div class="field">
-                                        <input type="file" name="memberImage" id="myfile" />
+                                        <div class="field">
+                                            <input type="file" name="memberImage" id="myfile" />
+                                        </div>
+
+
                                     </div>
 
-
-                                </div>
-
-                            </th>
+                                </th>
 
 
 
-                        </tr>
+                            </tr>
 
-                        <tr>
-                            <th>Username</th>
-                            <th>@Html.DisplayFor(m => m.UserDetails.Username)</th>
+                            <tr>
+                                <th>Sponser Id</th>
+                                <th>
+                                    @Model.UserDetails.UsersDetail1.Username
+                                </th>
 
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <th>
-                                @Html.DisplayFor(m => m.PersonalDetails.Name)
+                            </tr>
 
-
-
-                                @*<input type="text" name="fname" id="fname" size="20" class="" placeholder="Enter Full Name" />*@
-
-                            </th>
-
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <th>
-                                @Html.DisplayFor(m => m.PersonalDetails.Email)
-                                @*<input type="text" name="fname" id="fname" size="20" class="" placeholder="Enter Valid E-Mail Id" />*@
+                            <tr>
+                                <th>Joined On</th>
+                                <th>
+                                    @Model.PersonalDetails.JoinedOn
+                                </th>
+                            </tr>
 
 
-
-                            </th>
-
-                        </tr>
-                        <tr>
-                            <th style="vertical-align:middle;">Address</th>
-                            <th>
-                                @Html.TextAreaFor(m => m.PersonalDetails.Address, new { style = "height:60px;width:200px;resize:none;" })
-
-                                @*<textarea name="message" id="message" placeholder="Enter Valid Address" rows="3" cols="25"></textarea>*@
-
-                            </th>
-
-                        </tr>
-                        <tr>
-                            <th>State</th>
-                            <th>
-                                @Html.TextBoxFor(m => m.PersonalDetails.State)
-
-                                @*<select id="expirationyear" name="expirationyear" style="width:170px;">
-                                    <option value="">--Select--</option>
-                                    <option value="">Jammu & Kashmir</option>
-                                    <option value="">Punjab</option>
-                                    <option value="">Himachal</option>
-                                    <option value="">Haryana</option>
-                                    <option value="">Uttrakhand</option>
-                                    <option value="">Rajasthan</option>
-                                </select>*@
+                            <tr>
+                                <th>Placement</th>
+                                <th>
 
 
-                            </th>
-
-                        </tr>
-                        <tr>
-                            <th>City</th>
-                            <th>
-                                @Html.TextBoxFor(m => m.PersonalDetails.City)
-                                @*<select id="expirationmonth" name="expirationmonth" style="width:170px;">
-                                    <option value="">--Select--</option>
-                                    <option value="">Gurdaspur</option>
-                                    <option value="">Amritsar</option>
-                                    <option value="">Jalandhar</option>
-                                    <option value="">Pathankot</option>
-                                    <option value="">Hoshiarpur</option>
-                                    <option value="">Chandigarh</option>
-                                </select>*@
+                                    <select id="plc" name="plc">
+                                        <option value="">--Select--</option>
+                                        <option value="">Left</option>
+                                        <option value="">Right</option>
+                                    </select>
 
 
-                            </th>
 
-                        </tr>
-                        <tr>
-                            <th>Contact</th>
-                            <th>
-                                @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1)
-                                @*<input type="text" name="contact" id="contact" size="20" class="" placeholder="Enter Valid Mobile No.">*@
+                                </th>
 
-                            </th>
-
-                        </tr>
-                        <tr>
-                            <th>Mobile</th>
-                            <th>
-                                @Html.TextBoxFor(m => m.PersonalDetails.Mobile)
-                                @*<input type="text" name="contact" id="contact" size="20" class="" placeholder="Enter Valid Mobile No.">*@
-
-                            </th>
-
-                        </tr>
+                            </tr>
 
 
-                    </thead>
+                            <tr>
+
+                            <tr>
+                                <th>Gender</th>
+                                <th>
 
 
-                </table>
+                                    <select id="gndr" name="gndr">
+                                        <option value="">--Select--</option>
+                                        <option value="">Male</option>
+                                        <option value="">Female</option>
+                                    </select>
 
 
-            </div> <!-- .widget-content -->
-            <div style="margin-top:20px; margin-bottom:20px;" align="center">
-                <span><input  class="btn btn-primary" type="submit" value="Update"></span>
 
-                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+                                </th>
+
+                            </tr>
+
+
+                            <tr>
+                                <th>First Name</th>
+                                <th>
+                                    @Html.TextBoxFor(m=>m.PersonalDetails.FirstName, new { placeholder = "Enter First Name" })
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Last Name</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.LastName, new { placeholder = "Enter Last Name" })
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Guardians</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.FatherName, new { placeholder = "Enter Father Name" })
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Birth Date</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.BirthDate, new {id= "datepicker", placeholder = "Select Date of Birth" })
+                                </th>
+                            </tr>
+
+
+                            <tr>
+                                <th>Contact-1</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1, new { placeholder = "Enter Valid Mobile No." })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>Contact-2</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber2, new { placeholder = "Enter Valid Mobile No." })
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th>E-Mail</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.Email, new { placeholder = "Enter Valid E-Mail Id" })
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+            </div>
+
+        </div>
+
+        <div class="grid-12">
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Residential Info</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <th style="vertical-align:middle;">Address</th>
+                                <th>
+                                    @Html.TextAreaFor(m => m.PersonalDetails.Address, new { placeholder = "Enter Valid Address" })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>State</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.State)
+                                    @*<select id="expirationyear" name="expirationyear" style="width:170px;">
+                                        <option value="">--Select--</option>
+                                        <option value="">Jammu & Kashmir</option>
+                                        <option value="">Punjab</option>
+                                        <option value="">Himachal</option>
+                                        <option value="">Haryana</option>
+                                        <option value="">Uttrakhand</option>
+                                        <option value="">Rajasthan</option>
+                                    </select>*@
+
+
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>District</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.District)
+                                    @*<select id="distt" name="distt" style="width:170px;">
+                                        <option value="">--Select--</option>
+                                        <option value="">Gurdaspur</option>
+                                        <option value="">Amritsar</option>
+                                        <option value="">Jalandhar</option>
+                                        <option value="">Pathankot</option>
+                                        <option value="">Hoshiarpur</option>
+                                        <option value="">Chandigarh</option>
+                                    </select>*@
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>City</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.City)
+                                    @*<select id="expirationmonth" name="expirationmonth" style="width:170px;">
+                                        <option value="">--Select--</option>
+                                        <option value="">Gurdaspur</option>
+                                        <option value="">Amritsar</option>
+                                        <option value="">Jalandhar</option>
+                                        <option value="">Pathankot</option>
+                                        <option value="">Hoshiarpur</option>
+                                        <option value="">Chandigarh</option>
+                                    </select>*@
+                                </th>
+
+                            </tr>
+
+
+                            <tr>
+                                <th>Pin-Code</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.City, new { placeholder = "Enter Pincode" })
+                                </th>
+                            </tr>
+
+
+
+                        </thead>
+
+
+                    </table>
+
+
+
+                </div> <!-- .widget-content -->
+
+
+
+
             </div>
 
 
 
+
+
         </div>
 
-    </div>
+        <div class="grid-12">
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Nominee & Banking Info</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <th>Nominee</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.NomineeName, new { placeholder = "Enter Nominee Id" })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>Relation</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.NomineeRelation, new { placeholder = "Relation with Nominee" })
+                                </th>
+
+                            </tr>
 
 
+                            <tr>
+                                <th>Bank</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.BankName, new { placeholder = "Enter Bank Name" })
+                                </th>
 
-    <div class="grid-7">
-        <div id="gettingStarted" class="box">
-            <h3>Complete Profile</h3>
+                            </tr>
+                            <tr>
+                                <th>A/C.Holder</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.AccountHolderName, new { placeholder = "Enter A/C Holder Name" })
+                                </th>
 
-            <p>Completing your profile will bring you to 8%.</p>
+                            </tr>
 
-            <div class="progress-bar secondary">
-                <div class="bar" style="width: 92%;">92%</div>
+                            <tr>
+                                <th>A/C No.</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.AccountNumber, new { placeholder = "Enter Valid A/C No." })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>IFSC Code</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.IFSCCode, new { placeholder = "Enter IFSC" })
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th>Pan</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.PANNumber, new { placeholder = "Enter Valid Pan No." })
+                                </th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
             </div>
 
-            <ul>
-                <li><p href="javascript:;">Complete Your Profile</p></li>
-                <li><p href="javascript:;">Add Your Photo</p></li>
-                <li><p href="javascript:;">Invite People to Join</p></li>
-                <li><p href="javascript:;">Follow People</p></li>
-            </ul>
         </div>
 
-        <br />
-        <div style="border:1px solid #000; border-radius:5px;">
-            <h3 style="margin:10px;">Task List</h3>
+        <p align="center">
+            <span>  <button class="btn btn-large btn-blue">Update</button>         </span>
 
+            <span style="margin-left:10px;">  <button class="btn btn-large btn-gray">Cancel</button></span>
 
+        </p>
 
-
-            <ul class="taskList">
-                <li>Update your profile.</li>
-                <li>Secure your account.</li>
-                <li>Never share your credentials.</li>
-                <li>Keep changing your passwords.</li>
-
-            </ul>
-        </div>
-
-
-        <br /><br /><br />
     </div>
 
-</div>
 }

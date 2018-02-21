@@ -213,6 +213,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserPersonalListModelView.cs" />
     <Compile Include="Models\UsersPersonalModelView.cs" />
     <Compile Include="PersonalDetail.cs">
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
@@ -426,9 +427,11 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Members\Dashboard\Index.cshtml" />
     <Content Include="UploadedImages\Desert.jpgd1a99" />
+    <Content Include="Views\Members\Team\Direct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadedTeamImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

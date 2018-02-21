@@ -15,10 +15,14 @@ namespace ValleyDreamsIndia
     public partial class BankDetail
     {
         public int Id { get; set; }
+        public string NomineeName { get; set; }
+        public string NomineeRelation { get; set; }
         public string BankName { get; set; }
+        public string AccountHolderName { get; set; }
         public string AccountNumber { get; set; }
         public string IFSCCode { get; set; }
         public string PANNumber { get; set; }
+        public string TransactionPassword { get; set; }
         public Nullable<int> UsersDetailsId { get; set; }
         public Nullable<int> Deleted { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

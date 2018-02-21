@@ -32,18 +32,27 @@ namespace ValleyDreamsIndia.Controllers.Members
         }
         
         [HttpPost]
-        public ActionResult Create(UsersPersonalModelView usersPersonalModelView)
+        public ActionResult Create(UsersPersonalModelView usersPersonalModelView, HttpPostedFileBase memberImage)
         {
             ViewBag.Title = "Admin: Add New Member";
-            
 
-            usersPersonalModelView.UserDetails.Password = "test";
+
+            usersPersonalModelView.UserDetails.Username = "A00" + _valleyDreamsIndiaDBEntities.UsersDetails.OrderByDescending(u => u.Id).FirstOrDefault().Id;
             usersPersonalModelView.UserDetails.CreatedOn = DateTime.Now;
             usersPersonalModelView.UserDetails.SponsoredId = CurrentUser.CurrentUserId;
 
             usersPersonalModelView.UserDetails.Deleted = 0;
             _valleyDreamsIndiaDBEntities.UsersDetails.Add(usersPersonalModelView.UserDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
+
+            usersPersonalModelView.PersonalDetails.ProfilePic = "";
+
+            if (memberImage != null)
+            {
+                string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName;
+                usersPersonalModelView.PersonalDetails.ProfilePic = "/UploadedTeamImages/" + randomImageName;
+                memberImage.SaveAs(Server.MapPath("~/UploadedTeamImages/") + randomImageName);
+            }
 
             usersPersonalModelView.PersonalDetails.UsersDetailsId = usersPersonalModelView.UserDetails.Id;
             usersPersonalModelView.PersonalDetails.CreatedOn = DateTime.Now;
@@ -60,18 +69,149 @@ namespace ValleyDreamsIndia.Controllers.Members
             return RedirectToAction("Create");
         }
 
+
+        [HttpPost]
+        public ActionResult Search(int userId)
+        {
+            UsersPersonalModelView usersPersonalModelView = new UsersPersonalModelView();
+            usersPersonalModelView.UserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == userId).FirstOrDefault();
+            usersPersonalModelView.PersonalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == userId).FirstOrDefault();
+            usersPersonalModelView.BankDetails = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == userId).FirstOrDefault();
+            return View("~/Views/Members/Team/Create.cshtml", usersPersonalModelView);
+        }
+
+
         [HttpGet]
         public ActionResult Team()
         {
             ViewBag.Title = "Admin: View Team";
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+            userPersonalListModelView.Left = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide=="LEFT").Count();
+            userPersonalListModelView.Right = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "RIGHT").Count();
+            userPersonalListModelView.Direct = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide != "RIGHT"  && x.PlacementSide != "LEFT").Count();
+
             List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
             List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
             foreach(var usr in userDetailList)
             {
                 personalDetailList.Add(_valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == usr.Id));
             }
-            return View("~/Views/Members/Team/Team.cshtml" , personalDetailList);
+            userPersonalListModelView.PersonalDetails = personalDetailList;
+            return View("~/Views/Members/Team/Team.cshtml" , userPersonalListModelView);
         }
+
+
+        [HttpPost]
+        public ActionResult SearchByPlacementSide(string placementSide)
+        {
+            if(placementSide == "" || placementSide == String.Empty)
+            {
+                return RedirectToAction("Team");
+            }
+
+            ViewBag.Title = "Admin: View Team";
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+            userPersonalListModelView.Left = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "LEFT").Count();
+            userPersonalListModelView.Right = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "RIGHT").Count();
+            userPersonalListModelView.Direct = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide != "RIGHT" && x.PlacementSide != "LEFT").Count();
+
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
+            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+            foreach (var usr in userDetailList)
+            {
+                var objectPersonal = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.Id && x.PlacementSide == placementSide).FirstOrDefault();
+                if(objectPersonal != null)
+                {
+                    personalDetailList.Add(objectPersonal);
+                }
+            }
+            userPersonalListModelView.PersonalDetails = personalDetailList;
+            return View("~/Views/Members/Team/Team.cshtml", userPersonalListModelView);
+        }
+
+        [HttpPost]
+        public ActionResult SearchByMemberId(string memberId)
+        {
+            if (memberId == "" || memberId == String.Empty)
+            {
+                return RedirectToAction("Team");
+            }
+
+            ViewBag.Title = "Admin: View Team";
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+            userPersonalListModelView.Left = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "LEFT").Count();
+            userPersonalListModelView.Right = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "RIGHT").Count();
+            userPersonalListModelView.Direct = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide != "RIGHT" && x.PlacementSide != "LEFT").Count();
+
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Username == memberId).ToList();
+            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+            foreach (var usr in userDetailList)
+            {
+                var objectPersonal = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.Id).FirstOrDefault();
+                    personalDetailList.Add(objectPersonal);
+            }
+            userPersonalListModelView.PersonalDetails = personalDetailList;
+            return View("~/Views/Members/Team/Team.cshtml", userPersonalListModelView);
+        }
+
+        [HttpGet]
+        public ActionResult Direct()
+        {
+            ViewBag.Title = "Admin: Direct Team";
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+            userPersonalListModelView.Left = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "LEFT").Count();
+            userPersonalListModelView.Right = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "RIGHT").Count();
+            userPersonalListModelView.Direct = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "DIRECT").Count();
+
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
+            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+            foreach (var usr in userDetailList)
+            {
+                var objectDirectList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.Id && x.Deleted == 0 && x.PlacementSide == "DIRECT").FirstOrDefault();
+                if(objectDirectList != null)
+                    personalDetailList.Add(objectDirectList);
+            }
+            userPersonalListModelView.PersonalDetails = personalDetailList;
+            return View("~/Views/Members/Team/Direct.cshtml", userPersonalListModelView);
+        }
+
+
+        [HttpPost]
+        public ActionResult DirectByMemberId(string memberId)
+        {
+            if(memberId == "" || memberId == String.Empty)
+            {
+                return RedirectToAction("Direct");
+            }
+
+            ViewBag.Title = "Admin: Direct Team";
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+            userPersonalListModelView.Left = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "LEFT").Count();
+            userPersonalListModelView.Right = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "RIGHT").Count();
+            userPersonalListModelView.Direct = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "DIRECT").Count();
+
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Username == memberId).ToList();
+            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+            foreach (var usr in userDetailList)
+            {
+                var objectDirectList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.Id && x.Deleted == 0 && x.PlacementSide == "DIRECT").FirstOrDefault();
+                if (objectDirectList != null)
+                    personalDetailList.Add(objectDirectList);
+            }
+            userPersonalListModelView.PersonalDetails = personalDetailList;
+            return View("~/Views/Members/Team/Direct.cshtml", userPersonalListModelView);
+        }
+
 
         [HttpGet]
         public ActionResult Tree()
@@ -80,7 +220,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                 .Select(x => new TreeStructure.Parent
                 {
                     Detail = new TreeStructure.SelfDetails
-                    { Name = x.Name, UserName = x.UsersDetail.Username,
+                    { Name = x.FirstName+ " " + x.LastName, UserName = x.UsersDetail.Username,
                         SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y=>y.Id == x.UsersDetail.SponsoredId).FirstOrDefault().Username
                     },
                 }
@@ -96,7 +236,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                         Detail =
                         new TreeStructure.SelfDetails
                         {
-                            Name = children.Name,
+                            Name = children.FirstName + " " + children.LastName,
                             UserName = children.UsersDetail.Username,
                             SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().Username
                         },
@@ -110,7 +250,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                             parentResult.LeftChildren.LeftSubChildren  =
                                 new TreeStructure.SelfDetails
                                 {
-                                    Name = subChildren.Name,
+                                    Name = subChildren.FirstName + " " + subChildren.LastName ,
                                     UserName = subChildren.UsersDetail.Username,
                                     SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
                                 };
@@ -120,7 +260,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                             parentResult.LeftChildren.RightSubChildren =
                                 new TreeStructure.SelfDetails
                                 {
-                                    Name = subChildren.Name,
+                                    Name = subChildren.FirstName + " " + subChildren.LastName,
                                     UserName = subChildren.UsersDetail.Username,
                                     SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
                                 };
@@ -134,7 +274,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                         Detail =
                         new TreeStructure.SelfDetails
                         {
-                            Name = children.Name,
+                            Name = children.FirstName + " " + children.LastName,
                             UserName = children.UsersDetail.Username,
                             SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().Username
                         }
@@ -148,7 +288,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                             parentResult.RightChildren.LeftSubChildren =
                                 new TreeStructure.SelfDetails
                                 {
-                                    Name = subChildren.Name,
+                                    Name = subChildren.FirstName + " " + subChildren.LastName,
                                     UserName = subChildren.UsersDetail.Username,
                                     SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
                                 };
@@ -158,7 +298,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                             parentResult.RightChildren.RightSubChildren =
                                 new TreeStructure.SelfDetails
                                 {
-                                    Name = subChildren.Name,
+                                    Name = subChildren.FirstName + " " + subChildren.LastName,
                                     UserName = subChildren.UsersDetail.Username,
                                     SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
                                 };
@@ -204,6 +344,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                 return View("~/Views/Members/Team/Tree.cshtml");
 
         }
+
 
 
 

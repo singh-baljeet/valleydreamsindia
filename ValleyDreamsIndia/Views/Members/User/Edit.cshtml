@@ -1,7 +1,6 @@
 ﻿@model ValleyDreamsIndia.UsersDetail 
   
-@using (Html.BeginForm("EditPassword", "Users"))
-{
+
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.Username)
     @Html.HiddenFor(m => m.Deleted)
@@ -9,18 +8,20 @@
 
 
 <div id = "contentHeader" >
-    <h1>Change Password</h1>
+    <h1>Passwords Management</h1>
 </div> <!-- #contentHeader -->
 
 <div class="container">
-    <div class="grid-17">
+    <div class="grid-20">
         <div class="widget widget-table">
 
             <div class="widget-header">
                 <span class="icon-list"></span>
-                <h3 class="icon chart">Password Management</h3>
+                <h3 class="icon chart">Change User Password</h3>
             </div>
 
+@using (Html.BeginForm("EditPassword", "Users"))
+{
             <div class="widget-content">
 
                 <table class="table table-bordered table-striped">
@@ -64,50 +65,74 @@
                 <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
             </div>
 
-
+}
 
 
         </div>
 
     </div>
-    <div class="grid-7">
-        <div id="gettingStarted" class="box">
-            <h3>Complete Profile</h3>
+    
+    <div class="grid-20">
+        <div class="widget widget-table">
 
-            <p>Completing your profile will bring you to 8%.</p>
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Change Transaction Password</h3>
+            </div>
+@using (Html.BeginForm("EditTransactionPassword", "Users"))
+{
+            <div class="widget-content">
 
-            <div class="progress-bar secondary">
-                <div class="bar" style="width: 92%;">92%</div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Current Txn. Pass</th>
+                            <th>
+                                @Html.TextBox("OldTransactionPassword")
+                            @*<input type="password" name="ecp" id="ecp" size="20" class="" placeholder="Enter Current Txn. Pass" />*@
+                            </th>
+
+                        </tr>
+
+                        <tr>
+                            <th>New Txn. Pass</th>
+                            <th>
+                                @Html.TextBox("NewTransactionPassword")
+                            @*<input type="password" name="enp" id="enp" size="20" class="" placeholder="Enter New Txn. Pass" />*@
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>Confirm Txn. Pass</th>
+                            <th>
+                                @Html.TextBox("ConfirmTransactionNewPassword")
+                            @*<input type="password" name="cp" id="cp" size="20" class="" placeholder="Confirm New Txn. Pass" />*@
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                <span><input type="submit" class="btn btn-primary" value="Submit" /></span>
+
+                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
             </div>
 
-            <ul>
-                <li><p href="javascript:;">Complete Your Profile</p></li>
-                <li><p href="javascript:;">Add Your Photo</p></li>
-                <li><p href="javascript:;">Invite People to Join</p></li>
-                <li><p href="javascript:;">Follow People</p></li>
-            </ul>
+}
+
+
         </div>
 
-        <br />
-        <div style="border:1px solid #000; border-radius:5px;">
-            <h3 style="margin:10px;">Task List</h3>
-
-
-
-
-            <ul class="taskList">
-                <li>Update your profile.</li>
-                <li>Secure your account.</li>
-                <li>Never share your credentials.</li>
-                <li>Keep changing your passwords.</li>
-
-            </ul>
-        </div>
-
-
-        <br /><br /><br />
     </div>
+
+
 
 </div>
 
-}
