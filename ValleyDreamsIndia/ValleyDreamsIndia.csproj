@@ -202,11 +202,13 @@
     <Compile Include="Common\CurrentUser.cs" />
     <Compile Include="Common\TreeStructure.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Members\WalletController.cs" />
     <Compile Include="Controllers\Members\BankController.cs" />
     <Compile Include="Controllers\Members\DashboardController.cs" />
     <Compile Include="Controllers\Members\ProfileController.cs" />
     <Compile Include="Controllers\Members\TeamController.cs" />
     <Compile Include="Controllers\Members\UsersController.cs" />
+    <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -428,6 +430,8 @@
     <Content Include="Views\Members\Dashboard\Index.cshtml" />
     <Content Include="UploadedImages\Desert.jpgd1a99" />
     <Content Include="Views\Members\Team\Direct.cshtml" />
+    <Content Include="Views\SuperAdmin\AssignPin.cshtml" />
+    <Content Include="Views\Members\Wallet\Transfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

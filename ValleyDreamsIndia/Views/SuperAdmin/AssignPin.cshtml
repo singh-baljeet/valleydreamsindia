@@ -1,0 +1,43 @@
+﻿@model  ValleyDreamsIndia.UsersDetail
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AssignPin", "SuperAdmin", FormMethod.Post))
+{
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>User Id</th>
+                <th>
+                    @Html.TextBox("sponsoredId")
+                </th>
+            </tr>
+            <tr>
+                <th>Total Pin</th>
+                <th>
+                    @Html.TextBox("totalPin")
+                </th>
+            </tr>
+            <tr>
+                <th>Pin Type</th>
+                <th>
+                    @Html.DropDownList("pinType", new SelectList(
+                        new List<Object>{
+                                                                           new { value = "NEW" , text = "NEW" },
+                                                                           new { value = "RENEW", text = "RENEW"}
+                          },
+                        "value",
+                        "text",
+                         2))
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="2">
+                    <input type="submit" class="btn btn-large btn-blue" value="Submit" />
+                </th>
+            </tr>
+        </tbody>
+    </table>
+}

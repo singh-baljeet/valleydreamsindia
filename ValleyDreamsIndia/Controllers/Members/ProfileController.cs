@@ -61,16 +61,14 @@ namespace ValleyDreamsIndia.Controllers.Members
                     usersPersonalModelView.PersonalDetails.ProfilePic = "/UploadedImages/"+randomImageName;
                     memberImage.SaveAs(Server.MapPath("~/UploadedImages/") + randomImageName);
                 }
+
                 usersPersonalModelView.PersonalDetails.UpdatedOn = DateTime.Now;
-                var personalDetailObject = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
-                _valleyDreamsIndiaDBEntities.Entry(personalDetailObject).CurrentValues.SetValues(usersPersonalModelView.PersonalDetails);
+                _valleyDreamsIndiaDBEntities.Entry(usersPersonalModelView.PersonalDetails).State = EntityState.Modified;
 
                 usersPersonalModelView.BankDetails.UpdatedOn = DateTime.Now;
-                var bankDetailObject = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId);
-                _valleyDreamsIndiaDBEntities.Entry(bankDetailObject).CurrentValues.SetValues( usersPersonalModelView.BankDetails);
+                _valleyDreamsIndiaDBEntities.Entry(usersPersonalModelView.BankDetails).State = EntityState.Modified;
 
                 _valleyDreamsIndiaDBEntities.SaveChanges();
-                _valleyDreamsIndiaDBEntities.Dispose();
 
                 return RedirectToAction("ViewProfile");
             }

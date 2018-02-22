@@ -307,13 +307,6 @@ namespace ValleyDreamsIndia.Controllers.Members
                 }
             }
 
-            var res = parentResult;
-
-
-
-
-
-
                 //ViewBag.Title = "Admin: Tree";
                 //int leftPlacementCount = 0;
                 //int rightPlacementCount = 0;
@@ -341,12 +334,9 @@ namespace ValleyDreamsIndia.Controllers.Members
 
 
 
-                return View("~/Views/Members/Team/Tree.cshtml");
+                return View("~/Views/Members/Team/Tree.cshtml", parentResult);
 
         }
-
-
-
 
         [HttpPost]
         public ActionResult TreeByUserId(int userId)

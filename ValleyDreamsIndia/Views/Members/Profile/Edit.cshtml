@@ -2,8 +2,22 @@
 
 @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
     @Html.HiddenFor(m => m.PersonalDetails.Id)
+    @Html.HiddenFor(m => m.PersonalDetails.ProfilePic)
+    @Html.HiddenFor(m => m.PersonalDetails.SponsoredId)
+    @Html.HiddenFor(m => m.PersonalDetails.JoinedOn)
+    @Html.HiddenFor(m => m.PersonalDetails.UsersDetailsId)
+    @Html.HiddenFor(m => m.PersonalDetails.Deleted)
+    @Html.HiddenFor(m => m.PersonalDetails.CreatedOn)
+
+
     @Html.HiddenFor(m => m.BankDetails.Id)
+    @Html.HiddenFor(m => m.BankDetails.TransactionPassword)
+    @Html.HiddenFor(m => m.BankDetails.UsersDetailsId)
+    @Html.HiddenFor(m => m.BankDetails.Deleted)
+    @Html.HiddenFor(m => m.BankDetails.CreatedOn)
+
 
     <div id="contentHeader">
         <h1>Edit User Profile</h1>
@@ -67,16 +81,14 @@
                             <tr>
                                 <th>Placement</th>
                                 <th>
-
-
-                                    <select id="plc" name="plc">
-                                        <option value="">--Select--</option>
-                                        <option value="">Left</option>
-                                        <option value="">Right</option>
-                                    </select>
-
-
-
+                                    @Html.DropDownListFor(m => m.PersonalDetails.PlacementSide, new SelectList(
+                  new List<Object>{
+                       new { value = "LEFT" , text = "LEFT" },
+                       new { value = "RIGHT", text = "RIGHT"}
+                    },
+                  "value",
+                  "text",
+                   2))
                                 </th>
 
                             </tr>
@@ -87,16 +99,14 @@
                             <tr>
                                 <th>Gender</th>
                                 <th>
-
-
-                                    <select id="gndr" name="gndr">
-                                        <option value="">--Select--</option>
-                                        <option value="">Male</option>
-                                        <option value="">Female</option>
-                                    </select>
-
-
-
+                                    @Html.DropDownListFor(m => m.PersonalDetails.Gender, new SelectList(
+                  new List<Object>{
+                       new { value = "Male" , text = "Male" },
+                       new { value = "Female", text = "Female"}
+                    },
+                  "value",
+                  "text",
+                   2))
                                 </th>
 
                             </tr>
@@ -237,7 +247,7 @@
                             <tr>
                                 <th>Pin-Code</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.City, new { placeholder = "Enter Pincode" })
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PinCode, new { placeholder = "Enter Pincode" })
                                 </th>
                             </tr>
 

@@ -1,14 +1,15 @@
-﻿<div id="contentHeader">
+﻿@model ValleyDreamsIndia.Common.TreeStructure.Parent
+<div id="contentHeader">
     <h1>Binary Tree</h1>
 </div> <!-- #contentHeader -->
 
 <div class="container">
-    <div class="grid-17">
+    <div class="grid-12">
         <div class="widget widget-table">
 
             <div class="widget-header">
                 <span class="icon-list"></span>
-                <h3 class="icon chart">Total Joinings</h3>
+                <h3 class="icon chart">Search User</h3>
             </div>
 
             <div class="widget-content">
@@ -16,22 +17,103 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th style="text-align:center; font-size:16px;">Particulars</th>
-                            <th style="text-align:center; font-size:16px;">Left</th>
-                            <th style="text-align:center; font-size:16px;">Right</th>
+                            <th>User Id</th>
+                            <th>
+                                <input type="text" name="sui" id="sui" size="22" class="" 
+                                       placeholder="Enter User Id" />
+
+                            </th>
+
+
 
                         </tr>
-                        @*<tr>
-                            <th style="text-align:center;">Total</th>
-                            <th style="text-align:center;">@ViewBag.LeftPlacementCount</th>
-                            <th style="text-align:center;">@ViewBag.RightPlacementCount</th>
+
+
+
+                    </thead>
+
+
+                </table>
+
+
+
+            </div> <!-- .widget-content -->
+
+
+
+
+
+            <p align="center" style="margin-top:40px;">
+                <span>  <button class="btn btn-large btn-blue">Search</button>         </span>
+
+                <span style="margin-left:10px;">  <button class="btn btn-large btn-gray">Cancel</button></span>
+
+            </p>
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Parent Member Info</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
 
                         <tr>
-                            <th style="text-align:center;">Direct</th>
-                            <th style="text-align:center;">@ViewBag.DirectLeftPlacementCount</th>
-                            <th style="text-align:center;">@ViewBag.DirectRightPlacementCount</th>
+                            <th>Sponser Id</th>
+                            <th>A0065</th>
+                        </tr>
+                        <tr>
+                            <th>User Id</th>
+                            <th>A0066</th>
 
-                        </tr>*@
+
+                        </tr>
+                        <tr>
+                            <th>Member Name</th>
+                            <th>Amit Kumar</th>
+
+
+                        </tr>
+
+                        <tr>
+                            <th>Left</th>
+                            <th>0</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Right</th>
+                            <th>181</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Directs</th>
+                            <th>1</th>
+
+
+                        </tr>
+
+
+
+
+
+
 
                     </thead>
 
@@ -41,22 +123,15 @@
 
             </div> <!-- .widget-content -->
 
+
+
+
+
         </div>
+    </div>
 
-        <div class="widget">
-            @using (Html.BeginForm("TreeByUserId", "Team", FormMethod.Post))
-            {
-
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>UserId</th>
-                        <th style="vertical-align:middle;">@Html.TextBox("userId")</th>
-                        <th><input type="submit" value="Search" /></th>
-                    </tr>
-                </thead>
-            </table>
-            }
+    <div class="grid-24">
+        <div class="widget widget-table">
 
             <div class="widget-header">
                 <span class="icon-compass"></span>
@@ -65,79 +140,41 @@
 
 
             <div class="widget-content">
+                <p align="center" style="margin-right:10px;">
+                    <img src="images/stream/defaultavatar_sm.png" />
+                </p>
 
-                
+                <p align="center">
+                    <button class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                </p>
 
-                        <p align="center" style="margin-right:10px;">
-                            <img src="images/stream/defaultavatar_sm.png" />
-                        </p>
+                <div style="display:inline;">
 
-                        <p align="center">
-                            <button class="btn btn-primary "><span class="icon-loop"></span>Button</button>
-                        </p>
-
-                        <div style="display:inline;">
-
-                            <span style="float:left;">
-                                <img src="images/stream/defaultavatar_sm.png" />
-                                <br>
-                                <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
-                            </span>
+                    <span style="float:left;">
+                        <img src="images/stream/defaultavatar_sm.png" />
+                        <br>
+                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                    </span>
 
 
 
 
 
-                            <span style="float:right;">
-                                <img src="images/stream/defaultavatar_sm.png" />
-                                <br>
+                    <span style="float:right;">
+                        <img src="images/stream/defaultavatar_sm.png" />
+                        <br>
 
 
-                                <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
-                            </span>
-                        </div>
+                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                    </span>
+                </div>
             </div> <!-- .widget-content -->
 
         </div>
 
 
     </div>
-    <div class="grid-7">
-        <div id="gettingStarted" class="box">
-            <h3>Complete Member Profile</h3>
 
-            <p>Completing your member profile will bring you to 8%.</p>
-
-            <div class="progress-bar secondary">
-                <div class="bar" style="width: 92%;">92%</div>
-            </div>
-
-            <ul>
-                <li><p href="javascript:;">Complete Your Member Profile</p></li>
-                <li><p href="javascript:;">Submit All Details</p></li>
-                <li><p href="javascript:;">Invite Peoople to Join</p></li>
-                <li><p href="javascript:;">Follow People</p></li>
-            </ul>
-        </div>
-
-        <br />
-        <div style="border:1px solid #000; border-radius:5px;">
-            <h3 style="margin:10px;">Task List</h3>
-
-
-
-
-            <ul class="taskList">
-                <li>Update your profile.</li>
-                <li>Secure your account.</li>
-                <li>Never share your credentials.</li>
-                <li>Keep changing your passwords.</li>
-
-            </ul>
-        </div>
-
-
-        <br /><br /><br />
-    </div>
 
 </div>
+

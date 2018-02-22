@@ -29,6 +29,9 @@ namespace ValleyDreamsIndia
         public Nullable<int> Deleted { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<int> IsPinUsed { get; set; }
+        public string PinType { get; set; }
+        public Nullable<System.DateTime> PinCreatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BankDetail> BankDetails { get; set; }

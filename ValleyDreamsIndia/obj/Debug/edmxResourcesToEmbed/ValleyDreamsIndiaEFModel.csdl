@@ -79,6 +79,9 @@
     <NavigationProperty Name="PersonalDetails" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="UsersDetail" ToRole="PersonalDetail" />
     <NavigationProperty Name="UsersDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail" ToRole="UsersDetail1" />
     <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail1" ToRole="UsersDetail" />
+    <Property Name="IsPinUsed" Type="Int32" />
+    <Property Name="PinType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PinCreatedOn" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK_BankDetails_UsersDetails">
     <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />

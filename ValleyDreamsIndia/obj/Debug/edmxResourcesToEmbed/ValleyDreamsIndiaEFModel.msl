@@ -51,6 +51,9 @@
     <EntitySetMapping Name="UsersDetails">
       <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.UsersDetail">
         <MappingFragment StoreEntitySet="UsersDetails">
+          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
+          <ScalarProperty Name="PinType" ColumnName="PinType" />
+          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
           <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />

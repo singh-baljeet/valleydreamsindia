@@ -58,6 +58,9 @@
           <Property Name="Username" Type="varchar" MaxLength="100" />
           <Property Name="Password" Type="varchar" MaxLength="100" />
           <Property Name="SponsoredId" Type="int" />
+          <Property Name="PinType" Type="varchar" MaxLength="50" />
+          <Property Name="IsPinUsed" Type="int" />
+          <Property Name="PinCreatedOn" Type="datetime" />
           <Property Name="Deleted" Type="int" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
@@ -198,6 +201,9 @@
           <NavigationProperty Name="PersonalDetails" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="UsersDetail" ToRole="PersonalDetail" />
           <NavigationProperty Name="UsersDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail" ToRole="UsersDetail1" />
           <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail1" ToRole="UsersDetail" />
+          <Property Name="IsPinUsed" Type="Int32" />
+          <Property Name="PinType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PinCreatedOn" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_BankDetails_UsersDetails">
           <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
@@ -291,6 +297,9 @@
           <EntitySetMapping Name="UsersDetails">
             <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.UsersDetail">
               <MappingFragment StoreEntitySet="UsersDetails">
+                <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
+                <ScalarProperty Name="PinType" ColumnName="PinType" />
+                <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
