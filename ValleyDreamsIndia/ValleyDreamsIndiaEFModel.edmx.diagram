@@ -5,12 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b81b01e9c2c4473cb898a3a8baecdfe8" Name="Diagram1" ZoomLevel="53">
-        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.BankDetail" Width="1.5" PointX="3" PointY="1.375" />
-        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.PersonalDetail" Width="1.5" PointX="3" PointY="5.75" />
-        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.UsersDetail" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.BankDetail" Width="1.5" PointX="3" PointY="11.75" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.PersonalDetail" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.UsersDetail" Width="1.5" PointX="0.75" PointY="6.5" />
         <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_BankDetails_UsersDetails" />
         <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" />
         <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.ContributionDetail" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_ContributionDetails_UsersDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

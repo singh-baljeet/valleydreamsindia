@@ -18,6 +18,22 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
+  <EntityType Name="ContributionDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContribNumber" Type="int" />
+    <Property Name="ContribDate" Type="datetime" />
+    <Property Name="ContribAmount" Type="int" />
+    <Property Name="NextContribNumber" Type="int" />
+    <Property Name="NextContribDate" Type="datetime" />
+    <Property Name="RemainingContrib" Type="int" />
+    <Property Name="UserDetailsId" Type="int" />
+    <Property Name="SponsoredId" Type="int" />
+    <Property Name="PayedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IsCompleted" Type="int" />
+  </EntityType>
   <EntityType Name="PersonalDetails">
     <Key>
       <PropertyRef Name="Id" />
@@ -50,7 +66,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Username" Type="varchar" MaxLength="100" />
     <Property Name="Password" Type="varchar" MaxLength="100" />
     <Property Name="SponsoredId" Type="int" />
     <Property Name="PinType" Type="varchar" MaxLength="50" />
@@ -59,6 +74,7 @@
     <Property Name="Deleted" Type="int" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UserName" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
   </EntityType>
   <Association Name="FK_BankDetails_UsersDetails">
     <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
@@ -69,6 +85,18 @@
       </Principal>
       <Dependent Role="BankDetails">
         <PropertyRef Name="UsersDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContributionDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="ContributionDetails" Type="Self.ContributionDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContributionDetails">
+        <PropertyRef Name="UserDetailsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -98,11 +126,16 @@
   </Association>
   <EntityContainer Name="ValleyDreamsIndiaDBModelStoreContainer">
     <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContributionDetails" EntityType="Self.ContributionDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonalDetails" EntityType="Self.PersonalDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsersDetails" EntityType="Self.UsersDetails" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_BankDetails_UsersDetails" Association="Self.FK_BankDetails_UsersDetails">
       <End Role="UsersDetails" EntitySet="UsersDetails" />
       <End Role="BankDetails" EntitySet="BankDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContributionDetails_UsersDetails" Association="Self.FK_ContributionDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="ContributionDetails" EntitySet="ContributionDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_PersonalDetails_UsersDetails" Association="Self.FK_PersonalDetails_UsersDetails">
       <End Role="UsersDetails" EntitySet="UsersDetails" />

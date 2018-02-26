@@ -20,18 +20,19 @@ namespace ValleyDreamsIndia
             this.BankDetails = new HashSet<BankDetail>();
             this.PersonalDetails = new HashSet<PersonalDetail>();
             this.UsersDetails1 = new HashSet<UsersDetail>();
+            this.ContributionDetails = new HashSet<ContributionDetail>();
         }
     
         public int Id { get; set; }
-        public string Username { get; set; }
         public string Password { get; set; }
         public Nullable<int> SponsoredId { get; set; }
+        public string PinType { get; set; }
+        public Nullable<int> IsPinUsed { get; set; }
+        public Nullable<System.DateTime> PinCreatedOn { get; set; }
         public Nullable<int> Deleted { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public Nullable<int> IsPinUsed { get; set; }
-        public string PinType { get; set; }
-        public Nullable<System.DateTime> PinCreatedOn { get; set; }
+        public string UserName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BankDetail> BankDetails { get; set; }
@@ -40,5 +41,7 @@ namespace ValleyDreamsIndia
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersDetail> UsersDetails1 { get; set; }
         public virtual UsersDetail UsersDetail1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContributionDetail> ContributionDetails { get; set; }
     }
 }

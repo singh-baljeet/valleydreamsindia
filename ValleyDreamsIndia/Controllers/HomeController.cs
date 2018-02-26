@@ -25,11 +25,11 @@ namespace ValleyDreamsIndia.Controllers
         [HttpPost]
         public ActionResult Login(string Username, string Password)
         {
-            UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Username == Username && x.Password == Password && x.Deleted == 0).FirstOrDefault();
+            UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == Username && x.Password == Password && x.Deleted == 0).FirstOrDefault();
             if(userDetail != null)
             {
-                    FormsAuthentication.SetAuthCookie(userDetail.Username, false);
-                    var authTicket = new FormsAuthenticationTicket(1, userDetail.Username, DateTime.Now, DateTime.Now.AddMinutes(20), false, userDetail.Id.ToString());
+                    FormsAuthentication.SetAuthCookie(userDetail.UserName, false);
+                    var authTicket = new FormsAuthenticationTicket(1, userDetail.UserName, DateTime.Now, DateTime.Now.AddMinutes(20), false, userDetail.Id.ToString());
                     string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                     var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     HttpContext.Response.Cookies.Add(authCookie);

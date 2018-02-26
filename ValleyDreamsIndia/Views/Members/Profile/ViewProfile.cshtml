@@ -26,7 +26,7 @@
                             <th style="vertical-align:top;">
                                 <ul>
                                     <li style="font-size:14px;">
-                                        Id: @Model.UserDetails.Username
+                                        Id: @Model.UserDetails.UserName
                                     </li>
                                     <li style="font-size:14px;">
                                         Joined On: @Model.PersonalDetails.JoinedOn
@@ -48,12 +48,12 @@
 
                         <tr>
                             <th>Username</th>
-                            <th>@Model.UserDetails.Username</th>
+                            <th>@Model.UserDetails.UserName</th>
 
                         </tr>
                         <tr>
                             <th>Sponser Id</th>
-                            <th>@Model.UserDetails.UsersDetail1.Username</th>
+                            <th>@Model.UserDetails.UsersDetail1.UserName</th>
 
                         </tr>
                         <tr>
@@ -240,25 +240,25 @@
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value">1</span>Paid Contributions
+                                                <span class="value">@Model.ContributionDetails.ContribNumber</span>Paid Contributions
                                             </div> <!-- .pad -->
                                         </div>
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value">1st</span>Current Contribution
+                                                <span class="value">@Model.ContributionDetails.ContribNumber</span>Current Contribution
                                             </div> <!-- .pad -->
                                         </div>
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value" style="font-size:20px;">12/02/2018</span>Date of Current Contribution
+                                                <span class="value" style="font-size:20px;">@Model.ContributionDetails.ContribDate</span>Date of Current Contribution
                                             </div> <!-- .pad -->
                                         </div>
 
                                         <div class="dashboard_report first activeState last">
                                             <div class="pad">
-                                                <span class="value">1000/-</span>Contribution Amount
+                                                <span class="value">@Model.ContributionDetails.ContribAmount/-</span>Contribution Amount
                                             </div> <!-- .pad -->
 
                                         </div>
@@ -305,25 +305,25 @@
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value">14</span>Remaining Contributions
+                                                <span class="value"> @Model.ContributionDetails.RemainingContrib</span>Remaining Contributions
                                             </div> <!-- .pad -->
                                         </div>
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value">2nd</span>Next Contribution
+                                                <span class="value">@Model.ContributionDetails.NextContribNumber</span>Next Contribution
                                             </div> <!-- .pad -->
                                         </div>
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value" style="font-size:20px;">20/03/2018</span>Contribution Till Date
+                                                <span class="value" style="font-size:20px;">@Model.ContributionDetails.NextContribDate</span>Contribution Till Date
                                             </div> <!-- .pad -->
                                         </div>
 
                                         <div class="dashboard_report first activeState last">
                                             <div class="pad">
-                                                <span class="value">1000/-</span>Contribution Amount
+                                                <span class="value">@Model.ContributionDetails.ContribAmount/-</span>Contribution Amount
                                             </div> <!-- .pad -->
 
                                         </div>

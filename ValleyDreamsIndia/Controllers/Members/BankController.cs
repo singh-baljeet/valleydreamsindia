@@ -39,8 +39,14 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.Title = "Admin: Bank Info";
             try
             {
+                BankDetail bankDetails = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+                bankDetails.BankName = bankDetail.BankName;
+                bankDetails.AccountHolderName = bankDetail.AccountHolderName;
+                bankDetails.AccountNumber = bankDetail.AccountNumber;
+                bankDetails.IFSCCode = bankDetail.IFSCCode;
+                bankDetails.PANNumber = bankDetail.PANNumber;
                 bankDetail.UpdatedOn = DateTime.Now;
-                _valleyDreamsIndiaDBEntities.Entry(bankDetail).State = EntityState.Modified;
+                _valleyDreamsIndiaDBEntities.Entry(bankDetails).State = EntityState.Modified;
                 _valleyDreamsIndiaDBEntities.SaveChanges();
                 _valleyDreamsIndiaDBEntities.Dispose();
                 return RedirectToAction("ViewProfile","Profile");

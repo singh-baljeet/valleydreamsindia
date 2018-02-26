@@ -1,23 +1,9 @@
-﻿@model ValleyDreamsIndia.Models.UsersPersonalModelView 
+﻿@model ValleyDreamsIndia.Models.UsersPersonalModelView
 
 @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-
     @Html.HiddenFor(m => m.PersonalDetails.Id)
-    @Html.HiddenFor(m => m.PersonalDetails.ProfilePic)
-    @Html.HiddenFor(m => m.PersonalDetails.SponsoredId)
-    @Html.HiddenFor(m => m.PersonalDetails.JoinedOn)
-    @Html.HiddenFor(m => m.PersonalDetails.UsersDetailsId)
-    @Html.HiddenFor(m => m.PersonalDetails.Deleted)
-    @Html.HiddenFor(m => m.PersonalDetails.CreatedOn)
-
-
     @Html.HiddenFor(m => m.BankDetails.Id)
-    @Html.HiddenFor(m => m.BankDetails.TransactionPassword)
-    @Html.HiddenFor(m => m.BankDetails.UsersDetailsId)
-    @Html.HiddenFor(m => m.BankDetails.Deleted)
-    @Html.HiddenFor(m => m.BankDetails.CreatedOn)
-
 
     <div id="contentHeader">
         <h1>Edit User Profile</h1>
@@ -38,23 +24,31 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th><img src="images/stream/default1_avatar_small.png" /></th>
+                                <th><img src="@Model.PersonalDetails.ProfilePic"
+                                        alt="@Model.PersonalDetails.ProfilePic"
+                                        style="width:150px;height:150px" /></th>
                                 <th style="vertical-align:middle;">
+
+
 
 
                                     <div class="widget-content">
 
 
 
+                                        <div class="field-group inlineField">
+                                            <label for="myfile">Upload Image:</label>
 
-                                        <label for="myfile">Upload Image:</label>
+                                            <div class="uploader">
+                                                <input type="file" name="memberImage" id="myfile" />
 
-                                        <div class="field">
-                                            <input type="file" name="memberImage" id="myfile" />
+                                                <span class="filename" style="-moz-user-select: none;">No file selected</span>
+                                                <span class="action" style="-moz-user-select: none;">Choose File</span>
+                                            </div>
                                         </div>
 
-
                                     </div>
+
 
                                 </th>
 
@@ -65,7 +59,7 @@
                             <tr>
                                 <th>Sponser Id</th>
                                 <th>
-                                    @Model.UserDetails.UsersDetail1.Username
+                                    @Model.UserDetails.UsersDetail1.UserName
                                 </th>
 
                             </tr>
@@ -79,34 +73,20 @@
 
 
                             <tr>
-                                <th>Placement</th>
+                                <th>Placed On</th>
                                 <th>
-                                    @Html.DropDownListFor(m => m.PersonalDetails.PlacementSide, new SelectList(
-                  new List<Object>{
-                       new { value = "LEFT" , text = "LEFT" },
-                       new { value = "RIGHT", text = "RIGHT"}
-                    },
-                  "value",
-                  "text",
-                   2))
+                                    @Model.PersonalDetails.PlacementSide
                                 </th>
 
                             </tr>
 
 
-                            <tr>
+
 
                             <tr>
                                 <th>Gender</th>
                                 <th>
-                                    @Html.DropDownListFor(m => m.PersonalDetails.Gender, new SelectList(
-                  new List<Object>{
-                       new { value = "Male" , text = "Male" },
-                       new { value = "Female", text = "Female"}
-                    },
-                  "value",
-                  "text",
-                   2))
+                                    @Model.PersonalDetails.Gender
                                 </th>
 
                             </tr>
@@ -115,43 +95,45 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>
-                                    @Html.TextBoxFor(m=>m.PersonalDetails.FirstName, new { placeholder = "Enter First Name" })
+                                    @Model.PersonalDetails.FirstName
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Last Name</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.LastName, new { placeholder = "Enter Last Name" })
+                                    @Model.PersonalDetails.LastName
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Guardians</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.FatherName, new { placeholder = "Enter Father Name" })
+                                    @Model.PersonalDetails.FatherName
                                 </th>
+                            </tr>
+
+                            <tr>
+                                <th>Contact</th>
+                                <th>
+                                    @Model.PersonalDetails.PhoneNumber1
+                                </th>
+
                             </tr>
 
                             <tr>
                                 <th>Birth Date</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.BirthDate, new {id= "datepicker", placeholder = "Select Date of Birth" })
+                                    @Html.TextBoxFor(m => m.PersonalDetails.BirthDate, new { id = "datepicker", placeholder = "Select Date of Birth" })
                                 </th>
                             </tr>
 
 
-                            <tr>
-                                <th>Contact-1</th>
-                                <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1, new { placeholder = "Enter Valid Mobile No." })
-                                </th>
-
-                            </tr>
+                            
 
                             <tr>
-                                <th>Contact-2</th>
-                                <th>
+                                <th style="vertical-align:middle;">Alternate Contact</th>
+                                <th style="vertical-align:middle;">
                                     @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber2, new { placeholder = "Enter Valid Mobile No." })
                                 </th>
 
@@ -161,11 +143,28 @@
                                 <th>
                                     @Html.TextBoxFor(m => m.PersonalDetails.Email, new { placeholder = "Enter Valid E-Mail Id" })
                                 </th>
+
                             </tr>
+
+
                         </thead>
+
+
                     </table>
+
+
+
                 </div> <!-- .widget-content -->
+
+
+
+
+
             </div>
+
+
+
+
 
         </div>
 
@@ -185,26 +184,19 @@
                             <tr>
                                 <th style="vertical-align:middle;">Address</th>
                                 <th>
-                                    @Html.TextAreaFor(m => m.PersonalDetails.Address, new { placeholder = "Enter Valid Address" })
+
+                                   @Model.PersonalDetails.Address
                                 </th>
 
                             </tr>
 
+
+
+
                             <tr>
                                 <th>State</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.State)
-                                    @*<select id="expirationyear" name="expirationyear" style="width:170px;">
-                                        <option value="">--Select--</option>
-                                        <option value="">Jammu & Kashmir</option>
-                                        <option value="">Punjab</option>
-                                        <option value="">Himachal</option>
-                                        <option value="">Haryana</option>
-                                        <option value="">Uttrakhand</option>
-                                        <option value="">Rajasthan</option>
-                                    </select>*@
-
-
+                                    @Html.TextBoxFor(m => m.PersonalDetails.State, new { placeholder = "Enter State" })
                                 </th>
 
                             </tr>
@@ -212,16 +204,7 @@
                             <tr>
                                 <th>District</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.District)
-                                    @*<select id="distt" name="distt" style="width:170px;">
-                                        <option value="">--Select--</option>
-                                        <option value="">Gurdaspur</option>
-                                        <option value="">Amritsar</option>
-                                        <option value="">Jalandhar</option>
-                                        <option value="">Pathankot</option>
-                                        <option value="">Hoshiarpur</option>
-                                        <option value="">Chandigarh</option>
-                                    </select>*@
+                                    @Html.TextBoxFor(m => m.PersonalDetails.District, new { placeholder = "Enter District" })
                                 </th>
 
                             </tr>
@@ -229,16 +212,7 @@
                             <tr>
                                 <th>City</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.City)
-                                    @*<select id="expirationmonth" name="expirationmonth" style="width:170px;">
-                                        <option value="">--Select--</option>
-                                        <option value="">Gurdaspur</option>
-                                        <option value="">Amritsar</option>
-                                        <option value="">Jalandhar</option>
-                                        <option value="">Pathankot</option>
-                                        <option value="">Hoshiarpur</option>
-                                        <option value="">Chandigarh</option>
-                                    </select>*@
+                                    @Html.TextBoxFor(m => m.PersonalDetails.City, new { placeholder = "Enter City" })
                                 </th>
 
                             </tr>
@@ -246,8 +220,8 @@
 
                             <tr>
                                 <th>Pin-Code</th>
-                                <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.PinCode, new { placeholder = "Enter Pincode" })
+                                <th style="vertical-align:middle;">
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PinCode, new { placeholder = "Enter PinCode" })
                                 </th>
                             </tr>
 
@@ -289,7 +263,10 @@
                             <tr>
                                 <th>Nominee</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.BankDetails.NomineeName, new { placeholder = "Enter Nominee Id" })
+
+                                   @Html.TextBoxFor(m => m.BankDetails.NomineeName, new { placeholder = "Enter Nominee Name" })
+
+
                                 </th>
 
                             </tr>
@@ -297,7 +274,10 @@
                             <tr>
                                 <th>Relation</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.BankDetails.NomineeRelation, new { placeholder = "Relation with Nominee" })
+
+                                   @Html.TextBoxFor(m => m.BankDetails.NomineeRelation, new { placeholder = "Relation with Nominee" })
+
+
                                 </th>
 
                             </tr>
@@ -306,7 +286,10 @@
                             <tr>
                                 <th>Bank</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.BankDetails.BankName, new { placeholder = "Enter Bank Name" })
+
+                                   @Html.TextBoxFor(m => m.BankDetails.BankName, new { placeholder = "Enter Bank Name" })
+
+
                                 </th>
 
                             </tr>
@@ -322,6 +305,8 @@
                                 <th>A/C No.</th>
                                 <th>
                                     @Html.TextBoxFor(m => m.BankDetails.AccountNumber, new { placeholder = "Enter Valid A/C No." })
+
+
                                 </th>
 
                             </tr>
@@ -329,7 +314,10 @@
                             <tr>
                                 <th>IFSC Code</th>
                                 <th>
+
                                     @Html.TextBoxFor(m => m.BankDetails.IFSCCode, new { placeholder = "Enter IFSC" })
+
+
                                 </th>
 
                             </tr>
@@ -337,23 +325,40 @@
                                 <th>Pan</th>
                                 <th>
                                     @Html.TextBoxFor(m => m.BankDetails.PANNumber, new { placeholder = "Enter Valid Pan No." })
+
                                 </th>
 
                             </tr>
+
+
                         </thead>
+
+
                     </table>
+
+
+
                 </div> <!-- .widget-content -->
+
+
+
+
             </div>
+
+
+
+
 
         </div>
 
-        <p align="center">
-            <span>  <button class="btn btn-large btn-blue">Update</button>         </span>
 
-            <span style="margin-left:10px;">  <button class="btn btn-large btn-gray">Cancel</button></span>
-
-        </p>
 
     </div>
 
+    <p align="center">
+        <span>  <button class="btn btn-large btn-blue">Update</button>         </span>
+
+        <span style="margin-left:10px;">  <button class="btn btn-large btn-gray">Cancel</button></span>
+
+    </p>
 }

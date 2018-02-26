@@ -22,9 +22,9 @@ namespace ValleyDreamsIndia.Controllers.Members
         public ActionResult Index()
         {
             var UserDetailsResults = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == CurrentUser.CurrentUserId);
-            ViewBag.UserName = UserDetailsResults.Username;
+            ViewBag.UserName = UserDetailsResults.UserName;
             ViewBag.Status = UserDetailsResults.Deleted;
-            ViewBag.Sponsor = UserDetailsResults.UsersDetail1.Username;
+            ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
             ViewBag.DOJ = UserDetailsResults.CreatedOn;
             ViewBag.LeftTeam = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PlacementSide == "LEFT").Count();
             ViewBag.RightTeam = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PlacementSide == "RIGHT").Count();

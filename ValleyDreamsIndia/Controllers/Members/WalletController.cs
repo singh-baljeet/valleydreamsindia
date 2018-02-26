@@ -37,11 +37,13 @@ namespace ValleyDreamsIndia.Controllers.Members
         }
 
         [HttpPost]
-        public ActionResult Transfer(int sponsoredId, int totalPin, string pinType, string transactionPassword)
+        public ActionResult Transfer(string sponsoredId, int totalPin, string pinType, string transactionPassword)
         {
             ViewBag.Title = "Admin: Wallet";
             try
             {
+                var getUser = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == sponsoredId).FirstOrDefault();
+
                 var isTransactionPasswordExists = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.TransactionPassword == transactionPassword).FirstOrDefault();
                 if(isTransactionPasswordExists != null)
                 {
@@ -52,7 +54,7 @@ namespace ValleyDreamsIndia.Controllers.Members
 
                     foreach(var usr in userDetailList)
                     {
-                        usr.SponsoredId = sponsoredId;
+                        usr.SponsoredId = getUser.Id;
                         _valleyDreamsIndiaDBEntities.Entry<UsersDetail>(usr).State = EntityState.Modified;
                         
                         }

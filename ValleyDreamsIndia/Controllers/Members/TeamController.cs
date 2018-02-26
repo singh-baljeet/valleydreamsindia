@@ -26,45 +26,66 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Title = "Admin: Add New Member";
-            UsersPersonalModelView usersPersonalModelView = new UsersPersonalModelView();
-            return View("~/Views/Members/Team/Create.cshtml" , usersPersonalModelView);
+            var IsNewPinAvailable = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId 
+                                                && x.PinType == "NEW" && x.IsPinUsed == 0).Count();
+            if (IsNewPinAvailable != 0)
+            {
+                ViewBag.Title = "Admin: Add New Member";
+                UsersPersonalModelView usersPersonalModelView = new UsersPersonalModelView();
+                usersPersonalModelView.UserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == CurrentUser.CurrentUserId).FirstOrDefault();
+                return View("~/Views/Members/Team/Create.cshtml", usersPersonalModelView);
+            }
+            else
+            {
+                return RedirectToAction("Index","Dashboard");
+            }
         }
         
         [HttpPost]
-        public ActionResult Create(UsersPersonalModelView usersPersonalModelView, HttpPostedFileBase memberImage)
+        public ActionResult Create(UsersPersonalModelView usersPersonalModelView)
         {
             ViewBag.Title = "Admin: Add New Member";
 
+            UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PinType == "NEW" && x.IsPinUsed == 0).OrderBy(x => x.UserName).FirstOrDefault();
+            userDetail.IsPinUsed = 1;
+            userDetail.Password = Guid.NewGuid().ToString().Substring(0, 6);
+            userDetail.Deleted = 0;
+            userDetail.CreatedOn = DateTime.Now;
 
-            usersPersonalModelView.UserDetails.Username = "A00" + _valleyDreamsIndiaDBEntities.UsersDetails.OrderByDescending(u => u.Id).FirstOrDefault().Id;
-            usersPersonalModelView.UserDetails.CreatedOn = DateTime.Now;
-            usersPersonalModelView.UserDetails.SponsoredId = CurrentUser.CurrentUserId;
-
-            usersPersonalModelView.UserDetails.Deleted = 0;
-            _valleyDreamsIndiaDBEntities.UsersDetails.Add(usersPersonalModelView.UserDetails);
+            _valleyDreamsIndiaDBEntities.Entry(userDetail).State = EntityState.Modified;
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
-            usersPersonalModelView.PersonalDetails.ProfilePic = "";
 
-            if (memberImage != null)
-            {
-                string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName;
-                usersPersonalModelView.PersonalDetails.ProfilePic = "/UploadedTeamImages/" + randomImageName;
-                memberImage.SaveAs(Server.MapPath("~/UploadedTeamImages/") + randomImageName);
-            }
-
-            usersPersonalModelView.PersonalDetails.UsersDetailsId = usersPersonalModelView.UserDetails.Id;
+            usersPersonalModelView.PersonalDetails.UsersDetailsId = userDetail.Id;
+            usersPersonalModelView.PersonalDetails.JoinedOn = DateTime.Now.ToString();
             usersPersonalModelView.PersonalDetails.CreatedOn = DateTime.Now;
+            usersPersonalModelView.PersonalDetails.SponsoredId = CurrentUser.CurrentUserId;
             usersPersonalModelView.PersonalDetails.Deleted = 0;
             _valleyDreamsIndiaDBEntities.PersonalDetails.Add(usersPersonalModelView.PersonalDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
-            usersPersonalModelView.BankDetails.UsersDetailsId = usersPersonalModelView.UserDetails.Id;
+            usersPersonalModelView.BankDetails.UsersDetailsId = userDetail.Id;
             usersPersonalModelView.BankDetails.CreatedOn = DateTime.Now;
+            usersPersonalModelView.BankDetails.TransactionPassword = Guid.NewGuid().ToString().Substring(0, 6);
             usersPersonalModelView.BankDetails.Deleted = 0;
             _valleyDreamsIndiaDBEntities.BankDetails.Add(usersPersonalModelView.BankDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
+
+
+            ContributionDetail contributionDetails = new ContributionDetail();
+            contributionDetails.ContribNumber = 1;
+            contributionDetails.ContribDate = DateTime.Now;
+            contributionDetails.ContribAmount = 1000;
+            contributionDetails.NextContribNumber = 2;
+            contributionDetails.NextContribDate = DateTime.Now.AddMonths(1);
+            contributionDetails.RemainingContrib = 15 - 1;
+            contributionDetails.UserDetailsId = userDetail.Id;
+            contributionDetails.SponsoredId = CurrentUser.CurrentUserId;
+            contributionDetails.PayedBy = "SPONSOR";
+            contributionDetails.IsCompleted = 0;
+            _valleyDreamsIndiaDBEntities.ContributionDetails.Add(contributionDetails);
+            _valleyDreamsIndiaDBEntities.SaveChanges();
+
 
             return RedirectToAction("Create");
         }
@@ -149,7 +170,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             userPersonalListModelView.Right = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "RIGHT").Count();
             userPersonalListModelView.Direct = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide != "RIGHT" && x.PlacementSide != "LEFT").Count();
 
-            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Username == memberId).ToList();
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.UserName == memberId).ToList();
             List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
             foreach (var usr in userDetailList)
             {
@@ -200,7 +221,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             userPersonalListModelView.Right = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "RIGHT").Count();
             userPersonalListModelView.Direct = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.PlacementSide == "DIRECT").Count();
 
-            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.Username == memberId).ToList();
+            List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.UserName == memberId).ToList();
             List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
             foreach (var usr in userDetailList)
             {
@@ -220,8 +241,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                 .Select(x => new TreeStructure.Parent
                 {
                     Detail = new TreeStructure.SelfDetails
-                    { Name = x.FirstName+ " " + x.LastName, UserName = x.UsersDetail.Username,
-                        SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y=>y.Id == x.UsersDetail.SponsoredId).FirstOrDefault().Username
+                    { Name = x.FirstName+ " " + x.LastName, UserName = x.UsersDetail.UserName,
+                        SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y=>y.Id.ToString() == x.UsersDetail.SponsoredId.ToString()).FirstOrDefault().UserName
                     },
                 }
             ).FirstOrDefault();
@@ -237,8 +258,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                         new TreeStructure.SelfDetails
                         {
                             Name = children.FirstName + " " + children.LastName,
-                            UserName = children.UsersDetail.Username,
-                            SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().Username
+                            UserName = children.UsersDetail.UserName,
+                            SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().UserName
                         },
                     };
 
@@ -251,8 +272,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                                 new TreeStructure.SelfDetails
                                 {
                                     Name = subChildren.FirstName + " " + subChildren.LastName ,
-                                    UserName = subChildren.UsersDetail.Username,
-                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                    UserName = subChildren.UsersDetail.UserName,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().UserName
                                 };
                         }
                         if (subChildren.PlacementSide == "RIGHT")
@@ -261,8 +282,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                                 new TreeStructure.SelfDetails
                                 {
                                     Name = subChildren.FirstName + " " + subChildren.LastName,
-                                    UserName = subChildren.UsersDetail.Username,
-                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                    UserName = subChildren.UsersDetail.UserName,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().UserName
                                 };
                         }
                     }
@@ -275,8 +296,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                         new TreeStructure.SelfDetails
                         {
                             Name = children.FirstName + " " + children.LastName,
-                            UserName = children.UsersDetail.Username,
-                            SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().Username
+                            UserName = children.UsersDetail.UserName,
+                            SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == children.UsersDetailsId).FirstOrDefault().UserName
                         }
                     };
 
@@ -289,8 +310,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                                 new TreeStructure.SelfDetails
                                 {
                                     Name = subChildren.FirstName + " " + subChildren.LastName,
-                                    UserName = subChildren.UsersDetail.Username,
-                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                    UserName = subChildren.UsersDetail.UserName,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().UserName
                                 };
                         }
                         if (subChildren.PlacementSide == "RIGHT")
@@ -299,8 +320,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                                 new TreeStructure.SelfDetails
                                 {
                                     Name = subChildren.FirstName + " " + subChildren.LastName,
-                                    UserName = subChildren.UsersDetail.Username,
-                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().Username
+                                    UserName = subChildren.UsersDetail.UserName,
+                                    SponsorName = _valleyDreamsIndiaDBEntities.UsersDetails.Where(y => y.Id == subChildren.UsersDetailsId).FirstOrDefault().UserName
                                 };
                         }
                     }

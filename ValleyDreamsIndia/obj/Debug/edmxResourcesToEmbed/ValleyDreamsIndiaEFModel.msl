@@ -51,15 +51,32 @@
     <EntitySetMapping Name="UsersDetails">
       <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.UsersDetail">
         <MappingFragment StoreEntitySet="UsersDetails">
-          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
-          <ScalarProperty Name="PinType" ColumnName="PinType" />
-          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
+          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
+          <ScalarProperty Name="PinType" ColumnName="PinType" />
           <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
           <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContributionDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.ContributionDetail">
+        <MappingFragment StoreEntitySet="ContributionDetails">
+          <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+          <ScalarProperty Name="PayedBy" ColumnName="PayedBy" />
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
+          <ScalarProperty Name="UserDetailsId" ColumnName="UserDetailsId" />
+          <ScalarProperty Name="RemainingContrib" ColumnName="RemainingContrib" />
+          <ScalarProperty Name="NextContribDate" ColumnName="NextContribDate" />
+          <ScalarProperty Name="NextContribNumber" ColumnName="NextContribNumber" />
+          <ScalarProperty Name="ContribAmount" ColumnName="ContribAmount" />
+          <ScalarProperty Name="ContribDate" ColumnName="ContribDate" />
+          <ScalarProperty Name="ContribNumber" ColumnName="ContribNumber" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

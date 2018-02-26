@@ -55,18 +55,38 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.Title = "Admin: Profile Settings";
             try
             {
-                if(memberImage != null)
+                PersonalDetail personalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+
+                BankDetail bankDetails = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+
+                if (memberImage != null)
                 {
                     string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName;
-                    usersPersonalModelView.PersonalDetails.ProfilePic = "/UploadedImages/"+randomImageName;
+                    personalDetails.ProfilePic = "/UploadedImages/"+randomImageName;
                     memberImage.SaveAs(Server.MapPath("~/UploadedImages/") + randomImageName);
                 }
 
-                usersPersonalModelView.PersonalDetails.UpdatedOn = DateTime.Now;
-                _valleyDreamsIndiaDBEntities.Entry(usersPersonalModelView.PersonalDetails).State = EntityState.Modified;
+                personalDetails.BirthDate = usersPersonalModelView.PersonalDetails.BirthDate;
+                personalDetails.PhoneNumber2 = usersPersonalModelView.PersonalDetails.PhoneNumber2;
+                personalDetails.Email = usersPersonalModelView.PersonalDetails.Email;
+                personalDetails.State = usersPersonalModelView.PersonalDetails.State;
+                personalDetails.District = usersPersonalModelView.PersonalDetails.District;
+                personalDetails.City = usersPersonalModelView.PersonalDetails.City;
+                personalDetails.PinCode = usersPersonalModelView.PersonalDetails.PinCode;
+                personalDetails.UpdatedOn = DateTime.Now;
 
-                usersPersonalModelView.BankDetails.UpdatedOn = DateTime.Now;
-                _valleyDreamsIndiaDBEntities.Entry(usersPersonalModelView.BankDetails).State = EntityState.Modified;
+                _valleyDreamsIndiaDBEntities.Entry(personalDetails).State = EntityState.Modified;
+
+
+                bankDetails.NomineeName = usersPersonalModelView.BankDetails.NomineeName;
+                bankDetails.NomineeRelation = usersPersonalModelView.BankDetails.NomineeRelation;
+                bankDetails.BankName = usersPersonalModelView.BankDetails.BankName;
+                bankDetails.AccountHolderName = usersPersonalModelView.BankDetails.AccountHolderName;
+                bankDetails.AccountNumber = usersPersonalModelView.BankDetails.AccountNumber;
+                bankDetails.IFSCCode = usersPersonalModelView.BankDetails.IFSCCode;
+                bankDetails.PANNumber = usersPersonalModelView.BankDetails.PANNumber;
+                bankDetails.UpdatedOn = DateTime.Now;
+                _valleyDreamsIndiaDBEntities.Entry(bankDetails).State = EntityState.Modified;
 
                 _valleyDreamsIndiaDBEntities.SaveChanges();
 
@@ -84,6 +104,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             usersPersonalModelView.UserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == userDetailsId && x.Deleted == 0);
             usersPersonalModelView.PersonalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
             usersPersonalModelView.BankDetails = _valleyDreamsIndiaDBEntities.BankDetails.First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
+            usersPersonalModelView.ContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails.Where(x => x.UserDetailsId == userDetailsId).OrderByDescending(x=>x.Id).FirstOrDefault();
             return usersPersonalModelView;
         }
 
