@@ -436,7 +436,7 @@
     <Content Include="Views\Members\Team\Direct.cshtml" />
     <Content Include="Views\SuperAdmin\AssignPin.cshtml" />
     <Content Include="Views\Members\Wallet\Transfer.cshtml" />
-    <Content Include="Views\Renewal\Contribution.cshtml" />
+    <Content Include="Views\Members\Renewal\Contribution.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -70,6 +70,15 @@ namespace ValleyDreamsIndia.Controllers.Members
                     _valleyDreamsIndiaDBEntities.ContributionDetails.Add(contributionDetails);
                     _valleyDreamsIndiaDBEntities.SaveChanges();
 
+
+                    UsersDetail userDetails = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId
+                                               && x.PinType == "RENEW" && x.IsPinUsed == 0).OrderBy(x => x.PinCreatedOn).FirstOrDefault();
+
+                    userDetails.IsPinUsed = 1;
+                    _valleyDreamsIndiaDBEntities.Entry(userDetails).State = System.Data.Entity.EntityState.Modified;
+                    _valleyDreamsIndiaDBEntities.SaveChanges();
+
+
                     return RedirectToAction("Contribution");
                 }
 

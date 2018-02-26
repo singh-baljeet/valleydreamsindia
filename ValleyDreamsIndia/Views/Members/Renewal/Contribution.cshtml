@@ -12,7 +12,7 @@
 <div class="container">
     <div class="grid-12">
         <div class="widget widget-table">
-        @using (Html.BeginForm("Edit", "Profile", FormMethod.Post))
+        @using (Html.BeginForm("Contribution", "Renewal", FormMethod.Post))
         {
             <div class="widget-header">
                 <span class="icon-list"></span>
@@ -74,8 +74,7 @@
                         <tr>
                             <th>Transaction</th>
                             <th>
-                                @Html.TextBox("transactionPassword");
-                            <input type="password" name="am" id="am" size="20" class="" placeholder="Enter Transaction Pass" />
+                                @Html.TextBox("transactionPassword")
                             </th>
 
                         </tr>
