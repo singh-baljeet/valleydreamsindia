@@ -28,9 +28,11 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.Status = (UserDetailsResults.Deleted ==0) ? "Active": "InActive";
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
             ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn).ToShortDateString();
-            ViewBag.LeftTeam = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PlacementSide == "LEFT").Count();
+            ViewBag.LeftTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PlacementSide == "LEFT").Count();
+
             ViewBag.RightTeam = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PlacementSide == "RIGHT").Count();
-            ViewBag.MyTeam = UserDetailsResults.UsersDetails1.Count();
+            ViewBag.MyTeam = UserDetailsResults.UsersDetails1.Where(x=>x.IsPinUsed== 1).Count();
             ViewBag.NewPins = UserDetailsResults.UsersDetails1.Where(x => x.SponsoredId == CurrentUser.CurrentUserId
                                                 && x.PinType == "NEW" && x.IsPinUsed == 0).Count();
             ViewBag.RenewalPins = UserDetailsResults.UsersDetails1.Where(x => x.SponsoredId == CurrentUser.CurrentUserId
