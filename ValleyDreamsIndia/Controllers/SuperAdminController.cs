@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ValleyDreamsIndia.Common;
 using ValleyDreamsIndia.Models;
 
 namespace ValleyDreamsIndia.Controllers
@@ -22,6 +24,64 @@ namespace ValleyDreamsIndia.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult CreateMember()
+        {
+            ViewBag.Title = "SuperAdmin: Add New Member";
+            UsersPersonalModelView usersPersonalModelView = new UsersPersonalModelView();
+            return View(usersPersonalModelView);
+        }
+
+
+        [HttpPost]
+        public ActionResult CreateMember(UsersPersonalModelView usersPersonalModelView)
+        {
+            ViewBag.Title = "SuperAdmin: Add New Member";
+
+            UsersDetail userDetail = new UsersDetail();
+            userDetail.SponsoredId = CurrentUser.CurrentUserId;
+            userDetail.Password = Guid.NewGuid().ToString().Substring(0, 6);
+            userDetail.Deleted = 0;
+            userDetail.CreatedOn = DateTime.Now;
+
+            _valleyDreamsIndiaDBEntities.Entry(userDetail).State = EntityState.Added;
+            _valleyDreamsIndiaDBEntities.SaveChanges();
+
+
+            usersPersonalModelView.PersonalDetails.UsersDetailsId = userDetail.Id;
+            usersPersonalModelView.PersonalDetails.JoinedOn = DateTime.Now.ToString();
+            usersPersonalModelView.PersonalDetails.CreatedOn = DateTime.Now;
+            usersPersonalModelView.PersonalDetails.SponsoredId = CurrentUser.CurrentUserId;
+            usersPersonalModelView.PersonalDetails.Deleted = 0;
+            _valleyDreamsIndiaDBEntities.PersonalDetails.Add(usersPersonalModelView.PersonalDetails);
+            _valleyDreamsIndiaDBEntities.SaveChanges();
+
+            usersPersonalModelView.BankDetails.UsersDetailsId = userDetail.Id;
+            usersPersonalModelView.BankDetails.CreatedOn = DateTime.Now;
+            usersPersonalModelView.BankDetails.TransactionPassword = Guid.NewGuid().ToString().Substring(0, 6);
+            usersPersonalModelView.BankDetails.Deleted = 0;
+            _valleyDreamsIndiaDBEntities.BankDetails.Add(usersPersonalModelView.BankDetails);
+            _valleyDreamsIndiaDBEntities.SaveChanges();
+
+            ContributionDetail contributionDetails = new ContributionDetail();
+            contributionDetails.ContribNumber = 1;
+            contributionDetails.ContribDate = DateTime.Now;
+            contributionDetails.ContribAmount = 1000;
+            contributionDetails.NextContribNumber = 2;
+            contributionDetails.NextContribDate = new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 20);
+            contributionDetails.RemainingContrib = 15 - 1;
+            contributionDetails.UserDetailsId = userDetail.Id;
+            contributionDetails.SponsoredId = CurrentUser.CurrentUserId;
+            contributionDetails.PayedBy = "ADMIN";
+            contributionDetails.IsCompleted = 0;
+            _valleyDreamsIndiaDBEntities.ContributionDetails.Add(contributionDetails);
+            _valleyDreamsIndiaDBEntities.SaveChanges();
+
+
+            return RedirectToAction("CreateMember");
+        }
+  
 
 
         [HttpGet]

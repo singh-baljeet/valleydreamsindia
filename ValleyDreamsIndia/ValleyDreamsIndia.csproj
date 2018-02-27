@@ -437,6 +437,8 @@
     <Content Include="Views\SuperAdmin\AssignPin.cshtml" />
     <Content Include="Views\Members\Wallet\Transfer.cshtml" />
     <Content Include="Views\Members\Renewal\Contribution.cshtml" />
+    <Content Include="Views\SuperAdmin\CreateMember.cshtml" />
+    <Content Include="Views\Shared\_SuperAdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

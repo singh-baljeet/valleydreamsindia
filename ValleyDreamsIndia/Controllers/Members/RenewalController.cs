@@ -61,7 +61,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     contributionDetails.ContribDate = DateTime.Now;
                     contributionDetails.ContribAmount = 1000;
                     contributionDetails.NextContribNumber = ContributionDetails.NextContribNumber + 1;
-                    contributionDetails.NextContribDate = DateTime.Now.AddMonths(1);
+                    contributionDetails.NextContribDate = new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 20);
                     contributionDetails.RemainingContrib = 15 - ContributionDetails.NextContribNumber;
                     contributionDetails.UserDetailsId = CurrentUser.CurrentUserId;
                     contributionDetails.SponsoredId = bankDetail.UsersDetail.SponsoredId;

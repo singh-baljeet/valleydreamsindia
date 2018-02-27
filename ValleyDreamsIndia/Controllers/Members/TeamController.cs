@@ -71,13 +71,12 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities.BankDetails.Add(usersPersonalModelView.BankDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
-
             ContributionDetail contributionDetails = new ContributionDetail();
             contributionDetails.ContribNumber = 1;
             contributionDetails.ContribDate = DateTime.Now;
             contributionDetails.ContribAmount = 1000;
             contributionDetails.NextContribNumber = 2;
-            contributionDetails.NextContribDate = DateTime.Now.AddMonths(1);
+            contributionDetails.NextContribDate = new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 20); 
             contributionDetails.RemainingContrib = 15 - 1;
             contributionDetails.UserDetailsId = userDetail.Id;
             contributionDetails.SponsoredId = CurrentUser.CurrentUserId;

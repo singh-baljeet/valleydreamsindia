@@ -33,7 +33,15 @@ namespace ValleyDreamsIndia.Controllers
                     string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                     var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     HttpContext.Response.Cookies.Add(authCookie);
-                    return RedirectToAction("Index", "Dashboard");
+                    if(userDetail.SponsoredId == userDetail.Id)
+                    {
+                        return RedirectToAction("CreateMember", "SuperAdmin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    
             }
             else
             {
@@ -50,4 +58,4 @@ namespace ValleyDreamsIndia.Controllers
             return RedirectToAction("Login", "Home");
         }
     }
-}
+}   

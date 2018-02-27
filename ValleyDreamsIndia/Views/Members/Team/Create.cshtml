@@ -87,35 +87,36 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.FirstName, new { placeholder = "Enter First Name" })
+
+                                    @Html.TextBoxFor(m => m.PersonalDetails.FirstName, new { placeholder = "Enter First Name" , required = "required" })
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Last Name</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.LastName, new { placeholder = "Enter Last Name" })
+                                    @Html.TextBoxFor(m => m.PersonalDetails.LastName, new { placeholder = "Enter Last Name", required = "required" })
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Guardians</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.FatherName, new { placeholder = "Enter Father's Name" })
+                                    @Html.TextBoxFor(m => m.PersonalDetails.FatherName, new { placeholder = "Enter Father's Name", required = "required" })
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Contact</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1, new { placeholder = "Enter Valid Mobile No." })
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1, new { placeholder = "Enter Valid Mobile No.", required = "required" })
                                 </th>
                             </tr>
 
                             <tr>
                                 <th style="vertical-align:middle;">Address</th>
                                 <th>
-                                    @Html.TextAreaFor(m => m.PersonalDetails.Address, new { placeholder = "Enter Valid Address" })
+                                    @Html.TextAreaFor(m => m.PersonalDetails.Address, new { placeholder = "Enter Valid Address", required = "required" })
                                 </th>
                             </tr>
 

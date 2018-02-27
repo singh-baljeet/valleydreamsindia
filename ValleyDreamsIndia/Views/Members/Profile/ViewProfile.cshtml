@@ -20,9 +20,21 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th><img src="@Model.PersonalDetails.ProfilePic" 
-                                     alt="@Model.PersonalDetails.ProfilePic"
-                                     style="width:150px;height:150px" /></th>
+                            <th>
+                                @if (Model.PersonalDetails.ProfilePic == null || Model.PersonalDetails.ProfilePic == string.Empty || Model.PersonalDetails.ProfilePic == "")
+                                {
+                                    <img src="~/Content/images/stream/default1_avatar_small.png"
+                                         alt="Profile Pic"
+                                         style="width:150px;height:150px" />
+                                }
+                                else
+                                {
+                                    <img src="@Model.PersonalDetails.ProfilePic"
+                                         alt="Profile Pic"
+                                         style="width:150px;height:150px" />
+                                }
+                            
+                            </th>
                             <th style="vertical-align:top;">
                                 <ul>
                                     <li style="font-size:14px;">
@@ -252,7 +264,7 @@
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value" style="font-size:20px;">@Model.ContributionDetails.ContribDate</span>Date of Current Contribution
+                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.ContribDate).ToShortDateString()</span>Date of Current Contribution
                                             </div> <!-- .pad -->
                                         </div>
 
@@ -317,7 +329,7 @@
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value" style="font-size:20px;">@Model.ContributionDetails.NextContribDate</span>Contribution Till Date
+                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.NextContribDate).ToShortDateString()</span>Contribution Till Date
                                             </div> <!-- .pad -->
                                         </div>
 

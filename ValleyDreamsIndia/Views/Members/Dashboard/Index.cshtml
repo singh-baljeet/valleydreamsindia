@@ -12,19 +12,19 @@
             <div class="widget-content">
 
                 <h2 class="dashboard_title">
-                    Welcome Amit
-                    <span>Login:</span><span>Date : 12/02/2018 | Time : 10:33 PM | Monday</span>
+                    Welcome @ViewBag.FullName
+                    <span>Login:</span><span>Date : @DateTime.Now.ToShortDateString() | Time : @DateTime.Now.ToShortTimeString()</span>
                 </h2>
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">181</span>Current Team
+                        <span class="value">@ViewBag.MyTeam</span>Current Team
                     </div> <!-- .pad -->
                 </div>
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">1</span>Directs
+                        <span class="value">1 D</span>Directs
                     </div> <!-- .pad -->
                 </div>
 
@@ -36,7 +36,7 @@
 
                 <div class="dashboard_report first activeState last">
                     <div class="pad">
-                        <span class="value">Active</span>Status
+                        <span class="value">@ViewBag.Status </span>Status
                     </div> <!-- .pad -->
 
                 </div>
@@ -45,25 +45,25 @@
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">A0066</span>Username
+                        <span class="value">@ViewBag.UserName</span>Username
                     </div> <!-- .pad -->
                 </div>
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">A0065</span>My Sponser
+                        <span class="value">@ViewBag.Sponsor</span>My Sponser
                     </div> <!-- .pad -->
                 </div>
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">0</span>Team in Left
+                        <span class="value">@ViewBag.LeftTeam</span>Team in Left
                     </div> <!-- .pad -->
                 </div>
 
                 <div class="dashboard_report first activeState last">
                     <div class="pad">
-                        <span class="value">181</span>Team in Right
+                        <span class="value">@ViewBag.RightTeam</span>Team in Right
                     </div> <!-- .pad -->
                 </div>
 
@@ -71,19 +71,19 @@
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">20</span>New Pins
+                        <span class="value">@ViewBag.NewPins</span>New Pins
                     </div><!-- .pad -->
                 </div>
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">10</span>Renewal Pins
+                        <span class="value">10 D</span>Renewal Pins
                     </div>
                 </div>
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value"><span style="font-size:18px;">29/12/2017</span></span>Joining Date
+                        <span class="value"><span style="font-size:18px;">@ViewBag.DOJ</span></span>Joining Date
                     </div> <!-- .pad -->
                 </div>
 
