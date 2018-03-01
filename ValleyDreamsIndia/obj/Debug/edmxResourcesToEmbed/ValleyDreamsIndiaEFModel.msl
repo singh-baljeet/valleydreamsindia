@@ -23,6 +23,7 @@
     <EntitySetMapping Name="PersonalDetails">
       <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.PersonalDetail">
         <MappingFragment StoreEntitySet="PersonalDetails">
+          <ScalarProperty Name="LegId" ColumnName="LegId" />
           <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />
@@ -77,6 +78,18 @@
           <ScalarProperty Name="ContribAmount" ColumnName="ContribAmount" />
           <ScalarProperty Name="ContribDate" ColumnName="ContribDate" />
           <ScalarProperty Name="ContribNumber" ColumnName="ContribNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RenewalPinDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.RenewalPinDetail">
+        <MappingFragment StoreEntitySet="RenewalPinDetails">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
+          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
+          <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

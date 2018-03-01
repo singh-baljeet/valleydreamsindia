@@ -51,15 +51,17 @@ namespace ValleyDreamsIndia.Controllers.Members
             userDetail.Password = Guid.NewGuid().ToString().Substring(0, 6);
             userDetail.Deleted = 0;
             userDetail.CreatedOn = DateTime.Now;
-
             _valleyDreamsIndiaDBEntities.Entry(userDetail).State = EntityState.Modified;
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
+
+            int legId = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == usersPersonalModelView.UserDetails.UserName).FirstOrDefault().Id;
 
             usersPersonalModelView.PersonalDetails.UsersDetailsId = userDetail.Id;
             usersPersonalModelView.PersonalDetails.JoinedOn = DateTime.Now.ToString();
             usersPersonalModelView.PersonalDetails.CreatedOn = DateTime.Now;
             usersPersonalModelView.PersonalDetails.SponsoredId = CurrentUser.CurrentUserId;
+            usersPersonalModelView.PersonalDetails.LegId = legId;
             usersPersonalModelView.PersonalDetails.Deleted = 0;
             _valleyDreamsIndiaDBEntities.PersonalDetails.Add(usersPersonalModelView.PersonalDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();

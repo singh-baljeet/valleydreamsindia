@@ -151,7 +151,16 @@
 
     @*<script src="javascripts/all.js"></script>*@
     <script>
-$(function () {
+        $(function () {
+
+            $("#memberid").blur(function () {
+                var memId = $(this).val();
+                /// alert(memId);
+                debugger;
+                $.get("/Renewal/Contribution", { memberid: memId }, function (data) {
+                });
+            });
+
     $("#datepicker").datepicker();
     $("#datepicker1").datepicker();
 	$( "#datepicker_inline" ).datepicker();

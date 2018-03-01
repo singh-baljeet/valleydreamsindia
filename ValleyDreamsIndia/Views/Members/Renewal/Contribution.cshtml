@@ -12,7 +12,7 @@
 <div class="container">
     <div class="grid-12">
         <div class="widget widget-table">
-        @using (Html.BeginForm("Contribution", "Renewal", FormMethod.Post))
+        @using (Html.BeginForm("ContributionPost", "Renewal", FormMethod.Post))
         {
             <div class="widget-header">
                 <span class="icon-list"></span>
@@ -98,7 +98,8 @@
 
     <div class="grid-12">
         <div class="widget widget-table">
-
+@using (Html.BeginForm("OtherContribution", "Renewal", FormMethod.Post))
+{
             <div class="widget-header">
                 <span class="icon-list"></span>
                 <h3 class="icon chart">Other Member's Renewal</h3>
@@ -111,28 +112,24 @@
 
                         <tr>
                             <th>Member Id</th>
-                            <th><input type="text" name="am" id="am" size="20" class="" placeholder="Enter Member's Id" /></th>
-
-
+                            <th>
+                                @Html.TextBox("memberid", null, new { htmlAttributes = new {id = "txtMemberId" } })
+                            </th>
                         </tr>
                         <tr>
                             <th>Contribution No.</th>
-                            <th>4</th>
-
-
+                            <th>@ViewBag.OtherContributionNumber</th>
                         </tr>
                         <tr>
                             <th>Contribution Date</th>
-                            <th><input type="text" name="am" id="am" size="20" class="" placeholder="Enter Contribution Date" /></th>
-
-
+                            <th>
+                                @ViewBag.OtherContributionDate
+                            </th>
                         </tr>
 
                         <tr>
                             <th>Sponser Id</th>
-                            <th>A0067</th>
-
-
+                            <th>@ViewBag.OtherSponsoredId</th>
                         </tr>
                         <tr>
                             <th>Amount</th>
@@ -141,15 +138,16 @@
                         </tr>
                         <tr>
                             <th>Available Renewal Pins</th>
-                            <th>10</th>
-
+                            <th>@ViewBag.RenewalPinAvailable</th>
                         </tr>
 
 
 
                         <tr>
                             <th>Transaction</th>
-                            <th><input type="password" name="am" id="am" size="20" class="" placeholder="Enter Transaction Pass" /></th>
+                            <th>
+                                @Html.TextBox("transactionPassword")
+                            </th>
 
                         </tr>
 
@@ -165,9 +163,9 @@
             </div> <!-- .widget-content -->
 
             <div style="margin-top:20px; margin-bottom:10px;" align="center">
-                <span><button class="btn btn-primary">Pay Contribution</button></span>
+                <span><input type="submit" class="btn btn-primary" value="Pay Contribution"/></span>
             </div>
-
+}
         </div> <!-- .widget-content -->
 
 

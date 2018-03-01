@@ -13,6 +13,9 @@
         <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" />
         <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.ContributionDetail" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_ContributionDetails_UsersDetails" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.RenewalPinDetail" Width="1.5" PointX="3" PointY="16.375" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

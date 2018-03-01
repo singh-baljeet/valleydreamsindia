@@ -94,10 +94,12 @@ namespace ValleyDreamsIndia.Controllers
         public ActionResult AssignPin(string sponsoredId, int totalPin, string pinType)
         {
             var getUser = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == sponsoredId).FirstOrDefault();
+            if (pinType == "NEW")
+            {
+                UsersDetail userDetail = new UsersDetail();
 
-            UsersDetail userDetail = new UsersDetail();
-
-                for (int i = 1; i <= totalPin; i++) {
+                for (int i = 1; i <= totalPin; i++)
+                {
                     //userDetail.Username = "A00" + _valleyDreamsIndiaDBEntities.UsersDetails.OrderByDescending(u => u.Id).FirstOrDefault().Id;
                     userDetail.PinCreatedOn = DateTime.Now;
                     userDetail.Deleted = 0;
@@ -106,34 +108,49 @@ namespace ValleyDreamsIndia.Controllers
                     userDetail.PinType = pinType;
                     _valleyDreamsIndiaDBEntities.UsersDetails.Add(userDetail);
                     _valleyDreamsIndiaDBEntities.SaveChanges();
-            }
-
-            
-            try
-            {
-                // Your code...
-                // Could also be before try if you know the exception occurs in SaveChanges
-
-                
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
                 }
-                throw;
             }
+            if (pinType == "RENEW")
+            {
+                RenewalPinDetail renewalPinDetail = new RenewalPinDetail();
 
+                for (int i = 1; i <= totalPin; i++)
+                {
+                    //userDetail.Username = "A00" + _valleyDreamsIndiaDBEntities.UsersDetails.OrderByDescending(u => u.Id).FirstOrDefault().Id;
+                    renewalPinDetail.PinCreatedOn = DateTime.Now;
+                    renewalPinDetail.Deleted = 0;
+                    renewalPinDetail.SponsoredId = getUser.Id;
+                    renewalPinDetail.IsPinUsed = 0;
+                    _valleyDreamsIndiaDBEntities.RenewalPinDetails.Add(renewalPinDetail);
+                    _valleyDreamsIndiaDBEntities.SaveChanges();
+                }
+            }
             return View();
 
         }
 
     }
 }
+
+//try
+//{
+//    // Your code...
+//    // Could also be before try if you know the exception occurs in SaveChanges
+
+
+//}
+//catch (DbEntityValidationException e)
+//{
+//    foreach (var eve in e.EntityValidationErrors)
+//    {
+//        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+//            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+//        foreach (var ve in eve.ValidationErrors)
+//        {
+//            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+//                ve.PropertyName, ve.ErrorMessage);
+//        }
+//    }
+//    throw;
+//}
+

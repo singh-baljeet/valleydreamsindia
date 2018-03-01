@@ -21,6 +21,15 @@
       <End Role="UsersDetail" EntitySet="UsersDetails" />
       <End Role="ContributionDetail" EntitySet="ContributionDetails" />
     </AssociationSet>
+    <EntitySet Name="RenewalPinDetails" EntityType="ValleyDreamsIndiaDBModel.RenewalPinDetail" />
+    <AssociationSet Name="FK_RenewalPinDetails_RenewalPinDetails" Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetail" EntitySet="RenewalPinDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RenewalPinDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetail" EntitySet="RenewalPinDetails" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="BankDetail">
     <Key>
@@ -68,6 +77,7 @@
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
     <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="PersonalDetail" ToRole="UsersDetail" />
+    <Property Name="LegId" Type="Int32" />
   </EntityType>
   <EntityType Name="UsersDetail">
     <Key>
@@ -88,6 +98,8 @@
     <NavigationProperty Name="UsersDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail" ToRole="UsersDetail1" />
     <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail1" ToRole="UsersDetail" />
     <NavigationProperty Name="ContributionDetails" Relationship="ValleyDreamsIndiaDBModel.FK_ContributionDetails_UsersDetails" FromRole="UsersDetail" ToRole="ContributionDetail" />
+    <NavigationProperty Name="RenewalPinDetails" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails" FromRole="UsersDetail" ToRole="RenewalPinDetail" />
+    <NavigationProperty Name="RenewalPinDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails" FromRole="UsersDetail" ToRole="RenewalPinDetail" />
   </EntityType>
   <Association Name="FK_BankDetails_UsersDetails">
     <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
@@ -151,6 +163,43 @@
       </Principal>
       <Dependent Role="ContributionDetail">
         <PropertyRef Name="UserDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="RenewalPinDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SponsoredId" Type="Int32" />
+    <Property Name="RecipientId" Type="Int32" />
+    <Property Name="IsPinUsed" Type="Int32" />
+    <Property Name="PinCreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Deleted" Type="Int32" />
+    <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails" FromRole="RenewalPinDetail" ToRole="UsersDetail" />
+    <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails" FromRole="RenewalPinDetail" ToRole="UsersDetail" />
+  </EntityType>
+  <Association Name="FK_RenewalPinDetails_RenewalPinDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.RenewalPinDetail" Role="RenewalPinDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetail">
+        <PropertyRef Name="SponsoredId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RenewalPinDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.RenewalPinDetail" Role="RenewalPinDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetail">
+        <PropertyRef Name="RecipientId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

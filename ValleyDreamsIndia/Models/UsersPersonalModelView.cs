@@ -11,5 +11,6 @@ namespace ValleyDreamsIndia.Models
         public PersonalDetail PersonalDetails { get; set; }
         public BankDetail BankDetails { get; set; }
         public ContributionDetail ContributionDetails { get; set; }
+        public RenewalPinDetail RenewalPinDetails { get; set; }
     }
 }

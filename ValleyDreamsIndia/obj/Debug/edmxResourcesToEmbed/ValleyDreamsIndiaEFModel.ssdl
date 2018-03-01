@@ -42,6 +42,7 @@
     <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
     <Property Name="SponsoredId" Type="int" />
     <Property Name="JoinedOn" Type="varchar" MaxLength="50" />
+    <Property Name="LegId" Type="int" />
     <Property Name="PlacementSide" Type="varchar" MaxLength="50" />
     <Property Name="Gender" Type="varchar" MaxLength="10" />
     <Property Name="FirstName" Type="varchar" MaxLength="50" />
@@ -60,6 +61,17 @@
     <Property Name="Deleted" Type="int" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="RenewalPinDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SponsoredId" Type="int" />
+    <Property Name="RecipientId" Type="int" />
+    <Property Name="IsPinUsed" Type="int" />
+    <Property Name="PinCreatedOn" Type="datetime" />
+    <Property Name="Deleted" Type="int" />
   </EntityType>
   <EntityType Name="UsersDetails">
     <Key>
@@ -112,6 +124,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_RenewalPinDetails_RenewalPinDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="RenewalPinDetails" Type="Self.RenewalPinDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetails">
+        <PropertyRef Name="SponsoredId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RenewalPinDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="RenewalPinDetails" Type="Self.RenewalPinDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetails">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UsersDetails_UsersDetails">
     <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
     <End Role="UsersDetails1" Type="Self.UsersDetails" Multiplicity="*" />
@@ -128,6 +164,7 @@
     <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContributionDetails" EntityType="Self.ContributionDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonalDetails" EntityType="Self.PersonalDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RenewalPinDetails" EntityType="Self.RenewalPinDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsersDetails" EntityType="Self.UsersDetails" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_BankDetails_UsersDetails" Association="Self.FK_BankDetails_UsersDetails">
       <End Role="UsersDetails" EntitySet="UsersDetails" />
@@ -140,6 +177,14 @@
     <AssociationSet Name="FK_PersonalDetails_UsersDetails" Association="Self.FK_PersonalDetails_UsersDetails">
       <End Role="UsersDetails" EntitySet="UsersDetails" />
       <End Role="PersonalDetails" EntitySet="PersonalDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RenewalPinDetails_RenewalPinDetails" Association="Self.FK_RenewalPinDetails_RenewalPinDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetails" EntitySet="RenewalPinDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RenewalPinDetails_UsersDetails" Association="Self.FK_RenewalPinDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetails" EntitySet="RenewalPinDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_UsersDetails_UsersDetails" Association="Self.FK_UsersDetails_UsersDetails">
       <End Role="UsersDetails" EntitySet="UsersDetails" />
