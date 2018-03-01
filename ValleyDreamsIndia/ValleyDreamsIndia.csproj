@@ -204,6 +204,7 @@
     <Compile Include="ContributionDetail.cs">
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CheckContributionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Members\RenewalController.cs" />
     <Compile Include="Controllers\Members\WalletController.cs" />
@@ -442,6 +443,7 @@
     <Content Include="Views\Members\Renewal\Contribution.cshtml" />
     <Content Include="Views\SuperAdmin\CreateMember.cshtml" />
     <Content Include="Views\Shared\_SuperAdminLayout.cshtml" />
+    <Content Include="Views\CheckContribution\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

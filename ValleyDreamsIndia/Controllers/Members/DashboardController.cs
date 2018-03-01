@@ -28,15 +28,55 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.Status = (UserDetailsResults.Deleted ==0) ? "Active": "InActive";
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
             ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn).ToShortDateString();
-            ViewBag.LeftTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PlacementSide == "LEFT").Count();
 
-            ViewBag.RightTeam = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.PlacementSide == "RIGHT").Count();
-            ViewBag.MyTeam = UserDetailsResults.UsersDetails1.Where(x=>x.IsPinUsed== 1).Count();
+            ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).Count();
+
+            var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 1);
+
+            int countLeftTeam = 0, countRightTeam = 0;
+
+            var ownobj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
+            foreach (var ob in ownobj)
+            {
+                if (ob.PlacementSide == "LEFT")
+                {
+                    countLeftTeam += 1;
+                }
+                if (ob.PlacementSide == "RIGHT")
+                {
+                    countRightTeam += 1;
+                }
+            }
+
+
+            foreach (var usr in myUserList)
+            {
+                var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == usr.Id && x.LegId == usr.Id);
+                foreach(var ob in obj)
+                {
+                    if(ob.PlacementSide == "LEFT")
+                    {
+                        countLeftTeam += 1;
+                    }
+                    if(ob.PlacementSide == "RIGHT")
+                    {
+                        countRightTeam += 1;
+                    }
+                }
+             }
+
+
+            ViewBag.LeftTeam = countLeftTeam;
+            ViewBag.RightTeam = countRightTeam;
+
+            ViewBag.MyTeam = Convert.ToInt32(ViewBag.DirectTeam) + Convert.ToInt32(ViewBag.LeftTeam) + Convert.ToInt32(ViewBag.RightTeam);
+
             ViewBag.NewPins = UserDetailsResults.UsersDetails1.Where(x => x.SponsoredId == CurrentUser.CurrentUserId
                                                 && x.PinType == "NEW" && x.IsPinUsed == 0).Count();
-            ViewBag.RenewalPins = UserDetailsResults.UsersDetails1.Where(x => x.SponsoredId == CurrentUser.CurrentUserId
-                                                && x.PinType == "RENEW" && x.IsPinUsed == 0).Count();
+
+            ViewBag.RenewalPins = UserDetailsResults.RenewalPinDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId
+                                               && x.IsPinUsed == 0).Count();
             ViewBag.Title = "Admin: Dashboard";
             return View("~/Views/Members/Dashboard/Index.cshtml");
         }
