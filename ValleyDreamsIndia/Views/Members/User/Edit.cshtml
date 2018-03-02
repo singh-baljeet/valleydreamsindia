@@ -25,7 +25,6 @@
                             <th>Current Password</th>
                             <th>
                                 @Html.TextBox("OldPassword")
-                            @*<input type="password" name="ecp" id="ecp" size="20" class="" placeholder="Enter Current Password" />*@
                             </th>
 
                         </tr>
@@ -34,14 +33,12 @@
                             <th>New Password</th>
                             <th>
                                 @Html.TextBox("NewPassword")
-                            @*<input type="password" name="enp" id="enp" size="20" class="" placeholder="Enter New Password" />*@
                             </th>
 
                         </tr>
                         <tr>
                             <th>Confirm Password</th>
                             <th>@Html.TextBox("ConfirmNewPassword")
-                            @*<input type="password" name="cp" id="cp" size="20" class="" placeholder="Confirm New Password" />*@
                             </th>
 
                         </tr>
@@ -58,6 +55,15 @@
                 <span><input type="submit" class="btn btn-primary" value="Submit"/></span>
 
                 <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                <span>
+                    @if (ViewBag.ErrorMessage)
+                    {
+                        <span style="color:red;">@ViewBag.Error</span>
+                    }
+                </span>
             </div>
 
 }
@@ -118,6 +124,15 @@
                 <span><input type="submit" class="btn btn-primary" value="Submit" /></span>
 
                 <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                <span>
+                    @if (ViewBag.TransactionErrorMessage)
+                    {
+                        <span style="color:red;">@ViewBag.TransactionError</span>
+                    }
+                </span>
             </div>
 
 }

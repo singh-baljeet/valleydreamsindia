@@ -27,8 +27,9 @@ namespace ValleyDreamsIndia
     
         public virtual DbSet<BankDetail> BankDetails { get; set; }
         public virtual DbSet<PersonalDetail> PersonalDetails { get; set; }
-        public virtual DbSet<UsersDetail> UsersDetails { get; set; }
         public virtual DbSet<ContributionDetail> ContributionDetails { get; set; }
         public virtual DbSet<RenewalPinDetail> RenewalPinDetails { get; set; }
+        public virtual DbSet<AdminDetail> AdminDetails { get; set; }
+        public virtual DbSet<UsersDetail> UsersDetails { get; set; }
     }
 }

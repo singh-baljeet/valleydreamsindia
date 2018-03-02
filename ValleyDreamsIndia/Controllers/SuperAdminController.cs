@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ValleyDreamsIndia.Common;
 using ValleyDreamsIndia.Models;
 
@@ -19,12 +22,37 @@ namespace ValleyDreamsIndia.Controllers
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
-        // GET: SuperAdmin
-        public ActionResult Index()
+
+        [HttpGet]
+        public ActionResult Login()
         {
+            ViewBag.ErrorMessage = false;
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login(UsersDetail userDetail)
+        {
+            UsersDetail usrDetail = _valleyDreamsIndiaDBEntities.UsersDetails
+                                        .Where(x => x.UserName == userDetail.UserName && x.Password == userDetail.Password && x.Deleted == 0).FirstOrDefault();
+            if (usrDetail != null)
+            {
+                FormsAuthentication.SetAuthCookie(usrDetail.UserName, false);
+                var authTicket = new FormsAuthenticationTicket(1, usrDetail.UserName, DateTime.Now
+                    , DateTime.Now.AddMinutes(20), false, usrDetail.Id.ToString());
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                HttpContext.Response.Cookies.Add(authCookie);
+                    return RedirectToAction("CreateMember", "SuperAdmin");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = true;
+                return View();
+            }
+        }
+
+        [Authorize]
         [HttpGet]
         public ActionResult CreateMember()
         {
@@ -33,12 +61,10 @@ namespace ValleyDreamsIndia.Controllers
             return View(usersPersonalModelView);
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult CreateMember(UsersPersonalModelView usersPersonalModelView)
         {
-            ViewBag.Title = "SuperAdmin: Add New Member";
-
             UsersDetail userDetail = new UsersDetail();
             userDetail.SponsoredId = CurrentUser.CurrentUserId;
             userDetail.Password = Guid.NewGuid().ToString().Substring(0, 6);
@@ -54,6 +80,7 @@ namespace ValleyDreamsIndia.Controllers
             usersPersonalModelView.PersonalDetails.CreatedOn = DateTime.Now;
             usersPersonalModelView.PersonalDetails.SponsoredId = CurrentUser.CurrentUserId;
             usersPersonalModelView.PersonalDetails.Deleted = 0;
+            usersPersonalModelView.PersonalDetails.ProfilePic = "default1_avatar_small.png";
             _valleyDreamsIndiaDBEntities.PersonalDetails.Add(usersPersonalModelView.PersonalDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
@@ -81,15 +108,16 @@ namespace ValleyDreamsIndia.Controllers
 
             return RedirectToAction("CreateMember");
         }
-  
 
 
+        [Authorize]
         [HttpGet]
         public ActionResult AssignPin()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AssignPin(string sponsoredId, int totalPin, string pinType)
         {

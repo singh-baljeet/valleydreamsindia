@@ -23,6 +23,8 @@ namespace ValleyDreamsIndia.Controllers.Members
         public ActionResult EditPassword()
         {
             ViewBag.Title = "Admin: Change Password";
+            ViewBag.ErrorMessage = false;
+            ViewBag.TransactionErrorMessage = false;
             try
             {
                 return View("~/Views/Members/User/Edit.cshtml");
@@ -36,7 +38,7 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpPost]
         public ActionResult EditPassword(string OldPassword, string NewPassword, string ConfirmNewPassword)
         {
-            ViewBag.Title = "Admin: Change Password";
+            ViewBag.TransactionErrorMessage = false;
             try
             {
                 if (NewPassword == ConfirmNewPassword)
@@ -48,16 +50,22 @@ namespace ValleyDreamsIndia.Controllers.Members
                         usersDetail.UpdatedOn = DateTime.Now;
                         _valleyDreamsIndiaDBEntities.Entry(usersDetail).State = EntityState.Modified;
                         _valleyDreamsIndiaDBEntities.SaveChanges();
-                        return RedirectToAction("EditPassword");
+                        ViewBag.ErrorMessage = true;
+                        ViewBag.Error = "Password Updated";
+                        return View("~/Views/Members/User/Edit.cshtml");
                     }
                     else
                     {
-                        return RedirectToAction("EditPassword");
+                        ViewBag.ErrorMessage = true;
+                        ViewBag.Error = "Old Password Mismatched";
+                        return View("~/Views/Members/User/Edit.cshtml"); 
                     }
                 }
                 else
                 {
-                    return RedirectToAction("EditPassword");
+                    ViewBag.ErrorMessage = true;
+                    ViewBag.Error = "New And Confirm New Password Mismatched";
+                    return View("~/Views/Members/User/Edit.cshtml");
                 }
             }
             catch (Exception ex)
@@ -71,6 +79,8 @@ namespace ValleyDreamsIndia.Controllers.Members
         public ActionResult EditTransactionPassword(string OldTransactionPassword, string NewTransactionPassword, string ConfirmTransactionNewPassword)
         {
             ViewBag.Title = "Admin: Change Password";
+            ViewBag.ErrorMessage = false;
+
             try
             {
                 if (NewTransactionPassword == ConfirmTransactionNewPassword)
@@ -82,16 +92,22 @@ namespace ValleyDreamsIndia.Controllers.Members
                         bankDetail.UpdatedOn = DateTime.Now;
                         _valleyDreamsIndiaDBEntities.Entry(bankDetail).State = EntityState.Modified;
                         _valleyDreamsIndiaDBEntities.SaveChanges();
-                        return RedirectToAction("EditPassword");
+                        ViewBag.TransactionErrorMessage = true;
+                        ViewBag.TransactionError = "Transaction Password Updated";
+                        return View("~/Views/Members/User/Edit.cshtml");
                     }
                     else
                     {
-                        return RedirectToAction("EditPassword");
+                        ViewBag.TransactionErrorMessage = true;
+                        ViewBag.TransactionError = "Transaction Old Password Mismatched";
+                        return View("~/Views/Members/User/Edit.cshtml");
                     }
                 }
                 else
                 {
-                    return RedirectToAction("EditPassword");
+                    ViewBag.TransactionErrorMessage = true;
+                    ViewBag.TransactionError = "New And Confirm Transaction New Password Mismatched";
+                    return View("~/Views/Members/User/Edit.cshtml");
                 }
             }
             catch (Exception ex)

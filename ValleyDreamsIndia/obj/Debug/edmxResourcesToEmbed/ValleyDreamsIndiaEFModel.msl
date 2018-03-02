@@ -49,22 +49,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UsersDetails">
-      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.UsersDetail">
-        <MappingFragment StoreEntitySet="UsersDetails">
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
-          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
-          <ScalarProperty Name="PinType" ColumnName="PinType" />
-          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ContributionDetails">
       <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.ContributionDetail">
         <MappingFragment StoreEntitySet="ContributionDetails">
@@ -90,6 +74,34 @@
           <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
           <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
           <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdminDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.AdminDetail">
+        <MappingFragment StoreEntitySet="AdminDetails">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.UsersDetail">
+        <MappingFragment StoreEntitySet="UsersDetails">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
+          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
+          <ScalarProperty Name="PinType" ColumnName="PinType" />
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

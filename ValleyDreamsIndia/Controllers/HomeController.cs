@@ -19,6 +19,7 @@ namespace ValleyDreamsIndia.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.ErrorMessage = false;
             return View();
         }
 
@@ -30,11 +31,6 @@ namespace ValleyDreamsIndia.Controllers
 
         [HttpGet]
         public ActionResult plan()
-        {
-            return View();
-        }
-        [HttpGet]
-        public ActionResult Login()
         {
             return View();
         }
@@ -50,20 +46,13 @@ namespace ValleyDreamsIndia.Controllers
                     string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                     var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     HttpContext.Response.Cookies.Add(authCookie);
-                    if(userDetail.SponsoredId == userDetail.Id)
-                    {
-                        return RedirectToAction("CreateMember", "SuperAdmin");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Dashboard");
-                    }
+                    return RedirectToAction("Index", "Dashboard");
                     
             }
             else
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
-                return RedirectToAction("Login");
+                ViewBag.ErrorMessage = true;
+                return View("Index");
             }
         }
 
@@ -72,7 +61,7 @@ namespace ValleyDreamsIndia.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }   

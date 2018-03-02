@@ -62,8 +62,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                 if (memberImage != null)
                 {
                     string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName;
-                    personalDetails.ProfilePic = "/UploadedImages/"+randomImageName;
-                    memberImage.SaveAs(Server.MapPath("~/UploadedImages/") + randomImageName);
+                    personalDetails.ProfilePic = "/UploadedTeamImages/" + randomImageName;
+                    memberImage.SaveAs(Server.MapPath("~/UploadedTeamImages/") + randomImageName);
                 }
 
                 personalDetails.BirthDate = usersPersonalModelView.PersonalDetails.BirthDate;

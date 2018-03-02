@@ -18,11 +18,11 @@ namespace ValleyDreamsIndia
         public UsersDetail()
         {
             this.BankDetails = new HashSet<BankDetail>();
-            this.PersonalDetails = new HashSet<PersonalDetail>();
-            this.UsersDetails1 = new HashSet<UsersDetail>();
             this.ContributionDetails = new HashSet<ContributionDetail>();
+            this.PersonalDetails = new HashSet<PersonalDetail>();
             this.RenewalPinDetails = new HashSet<RenewalPinDetail>();
             this.RenewalPinDetails1 = new HashSet<RenewalPinDetail>();
+            this.UsersDetails1 = new HashSet<UsersDetail>();
         }
     
         public int Id { get; set; }
@@ -39,15 +39,15 @@ namespace ValleyDreamsIndia
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BankDetail> BankDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonalDetail> PersonalDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsersDetail> UsersDetails1 { get; set; }
-        public virtual UsersDetail UsersDetail1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContributionDetail> ContributionDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonalDetail> PersonalDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RenewalPinDetail> RenewalPinDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RenewalPinDetail> RenewalPinDetails1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsersDetail> UsersDetails1 { get; set; }
+        public virtual UsersDetail UsersDetail1 { get; set; }
     }
 }

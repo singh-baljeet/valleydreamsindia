@@ -22,19 +22,9 @@
                     <thead>
                         <tr>
                             <th>
-                                @if (Model.PersonalDetails.ProfilePic == null || Model.PersonalDetails.ProfilePic == string.Empty || Model.PersonalDetails.ProfilePic == "")
-                                {
-                                    <img src="~/Content/images/stream/default1_avatar_small.png"
-                                         alt="Profile Pic"
-                                         style="width:150px;height:150px" />
-                                }
-                                else
-                                {
                                     <img src="@Model.PersonalDetails.ProfilePic"
                                          alt="Profile Pic"
                                          style="width:150px;height:150px" />
-                                }
-                            
                             </th>
                             <th style="vertical-align:top;">
                                 <ul>
@@ -42,7 +32,7 @@
                                         Id: @Model.UserDetails.UserName
                                     </li>
                                     <li style="font-size:14px;">
-                                        Joined On: @Model.PersonalDetails.JoinedOn
+                                        Joined On: @Convert.ToDateTime(Model.PersonalDetails.JoinedOn).ToShortDateString()
                                     </li>
                                     <li style="font-size:14px;">
                                         Status: @if (Model.UserDetails.Deleted == 0)
