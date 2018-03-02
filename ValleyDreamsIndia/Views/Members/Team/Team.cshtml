@@ -1,5 +1,7 @@
 ﻿@model  ValleyDreamsIndia.Models.UserPersonalListModelView
-    
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}    
  <div id = "contentHeader" >
     <h1>My Team</h1>
 </div> <!-- #contentHeader -->
@@ -94,11 +96,11 @@
 
                         <tr>
                             <th>Sponser Id</th>
-                            <th>@Model.PersonalDetail.UsersDetail.UsersDetail1.Username</th>
+                            <th>@Model.PersonalDetail.UsersDetail.UsersDetail1.UserName</th>
                         </tr>
                         <tr>
                             <th>User Id</th>
-                            <th>@Model.PersonalDetail.UsersDetail.Username</th>
+                            <th>@Model.PersonalDetail.UsersDetail.UserName</th>
 
 
                         </tr>
@@ -185,7 +187,7 @@
                                     0
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.UsersDetail.Username)
+                                    @Html.DisplayFor(modelItem => item.UsersDetail.UserName)
                                 </td>
                                 <td class="center">
                                     @Html.DisplayFor(modelItem => item.JoinedOn)

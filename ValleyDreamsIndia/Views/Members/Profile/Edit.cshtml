@@ -1,5 +1,7 @@
 ﻿@model ValleyDreamsIndia.Models.UsersPersonalModelView
-
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
 @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(m => m.PersonalDetails.Id)

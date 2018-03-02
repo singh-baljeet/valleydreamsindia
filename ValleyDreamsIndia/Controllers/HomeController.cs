@@ -17,6 +17,23 @@ namespace ValleyDreamsIndia.Controllers
         }
 
         [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult achievers()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult plan()
+        {
+            return View();
+        }
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
