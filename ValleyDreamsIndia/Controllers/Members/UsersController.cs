@@ -50,6 +50,21 @@ namespace ValleyDreamsIndia.Controllers.Members
                         usersDetail.UpdatedOn = DateTime.Now;
                         _valleyDreamsIndiaDBEntities.Entry(usersDetail).State = EntityState.Modified;
                         _valleyDreamsIndiaDBEntities.SaveChanges();
+
+                        string phoneNumber = (usersDetail.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault()).PhoneNumber1;
+
+                        string textMessage = String.Format("Your new password is {0}", NewPassword);
+
+                        string smsStatus = SmsProvider.SendSms(phoneNumber, textMessage);
+                        if (smsStatus == "Success")
+                        {
+                            ViewBag.SmsStatus = "New Password Sent To Your Registered Mobile Number Successfully";
+                        }
+                        else
+                        {
+                            ViewBag.SmsStatus = "Sended Sms Failed";
+                        }
+
                         ViewBag.ErrorMessage = true;
                         ViewBag.Error = "Password Updated";
                         return View("~/Views/Members/User/Edit.cshtml");
@@ -93,6 +108,21 @@ namespace ValleyDreamsIndia.Controllers.Members
                         _valleyDreamsIndiaDBEntities.Entry(bankDetail).State = EntityState.Modified;
                         _valleyDreamsIndiaDBEntities.SaveChanges();
                         ViewBag.TransactionErrorMessage = true;
+
+                        string phoneNumber = (_valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault()).PhoneNumber1;
+
+                        string textMessage = String.Format("Your new transaction password is {0}", NewTransactionPassword);
+
+                        string smsStatus = SmsProvider.SendSms(phoneNumber, textMessage);
+                        if (smsStatus == "Success")
+                        {
+                            ViewBag.SmsStatus = "New Transaction Password Sent To Your Registered Mobile Number Successfully";
+                        }
+                        else
+                        {
+                            ViewBag.SmsStatus = "Sended Sms Failed";
+                        }
+
                         ViewBag.TransactionError = "Transaction Password Updated";
                         return View("~/Views/Members/User/Edit.cshtml");
                     }

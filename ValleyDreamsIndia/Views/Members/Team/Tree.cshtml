@@ -67,6 +67,10 @@
                             <th>@ViewBag.Sponsor</th>
                         </tr>
                         <tr>
+                            <th>Sponser Name</th>
+                            <th>@ViewBag.SponsorName</th>
+                        </tr>
+                        <tr>
                             <th>User Id</th>
                             <th>@ViewBag.UserName</th>
 
@@ -143,11 +147,11 @@
                                     <p align="center">
                                         @if (Model.Detail != null)
                                     {
-                                            @Model.Detail.Name <br /> @Model.Detail.UserName <br />@Model.Detail.SponsorName
+                                            @Model.Detail.Name <br /> <span>User ID :</span>@Model.Detail.UserName <br /><span>Sponser ID :</span>@Model.Detail.SponsorName
                                     }
                                     </p>
                                     <p align="center">
-                                        <button class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                                        <button class="btn btn-primary "><span class="icon-loop"></span>Explore</button>
                                     </p>
                                 </th>
                                 <th></th>
@@ -165,11 +169,12 @@
                                         if (Model.LeftChildren != null)
                                         {
                                                 <span align="center">
-                                                    @Model.LeftChildren.Detail.Name <br /> @Model.LeftChildren.Detail.UserName <br />@Model.LeftChildren.Detail.SponsorName <br />
+                                                    @Model.LeftChildren.Detail.Name <br />
+<span>User ID :</span>@Model.LeftChildren.Detail.UserName <br /><span>Sponser ID :</span>@Model.LeftChildren.Detail.SponsorName <br />
                                                 </span>
                                         }
                                     }
-                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Explore</button>
                                     </div>
                                 </th>
                                 <th></th>
@@ -184,11 +189,15 @@
                                         if (Model.RightChildren != null)
                                         {
                                                 <span style="text-align:center">
-                                                    @Model.RightChildren.Detail.Name <br /> @Model.RightChildren.Detail.UserName <br />@Model.RightChildren.Detail.SponsorName  <br />
+                                                    @Model.RightChildren.Detail.Name <br />
+<span>User ID :</span>
+@Model.RightChildren.Detail.UserName <br />
+<span>Sponser ID :</span>
+@Model.RightChildren.Detail.SponsorName  <br />
                                                 </span>
                                         }
                                     }
-                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Explore</button>
                                     </div>
                                 </th>
                                 <th></th>
@@ -206,13 +215,14 @@
                                             {
                                                     <span align="center">
                                                         @Model.LeftChildren.LeftSubChildren.Name <br />
-                                                        @Model.LeftChildren.LeftSubChildren.UserName <br />
-                                                        @Model.LeftChildren.LeftSubChildren.SponsorName <br />
+<span>User ID :</span>
+@Model.LeftChildren.LeftSubChildren.UserName <br />
+<span>Sponser ID :</span>                                   @Model.LeftChildren.LeftSubChildren.SponsorName <br />
                                                     </span>
                                             }
                                         }
                                     }
-                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Explore</button>
                                     </div>
 
                                 </th>
@@ -229,13 +239,13 @@
                                             {
                                                     <span style="text-align:center">
                                                         @Model.LeftChildren.RightSubChildren.Name <br />
-                                                        @Model.LeftChildren.RightSubChildren.UserName <br />
-                                                        @Model.LeftChildren.RightSubChildren.SponsorName  <br />
+<span>User ID :</span>                                                       @Model.LeftChildren.RightSubChildren.UserName <br />
+<span>Sponser ID :</span>                                    @Model.LeftChildren.RightSubChildren.SponsorName  <br />
                                                     </span>
                                             }
                                         }
                                     }
-                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Explore</button>
                                     </div>
                                 </th>
                                 <th></th>
@@ -251,13 +261,13 @@
                                             {
                                                     <span align="center">
                                                         @Model.RightChildren.LeftSubChildren.Name <br />
-                                                        @Model.RightChildren.LeftSubChildren.UserName <br />
-                                                        @Model.RightChildren.LeftSubChildren.SponsorName <br />
+<span>User ID :</span>                                                        @Model.RightChildren.LeftSubChildren.UserName <br />
+<span>Sponser ID :</span>                                                        @Model.RightChildren.LeftSubChildren.SponsorName <br />
                                                     </span>
                                             }
                                         }
                                     }
-                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Explore</button>
                                     </div>
 
                                 </th>
@@ -274,13 +284,13 @@
                                             {
                                                     <span align="center">
                                                         @Model.RightChildren.RightSubChildren.Name <br />
-                                                        @Model.RightChildren.RightSubChildren.UserName <br />
-                                                        @Model.RightChildren.RightSubChildren.SponsorName <br />
+<span>User ID :</span>                                                        @Model.RightChildren.RightSubChildren.UserName <br />
+<span>Sponser ID :</span>                                                        @Model.RightChildren.RightSubChildren.SponsorName <br />
                                                     </span>
                                             }
                                         }
                                     }
-                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Button</button>
+                                        <button style="margin-left:5px;" class="btn btn-primary "><span class="icon-loop"></span>Explore</button>
                                     </div>
 
                                 </th>

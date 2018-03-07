@@ -58,6 +58,7 @@
           <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
           <Property Name="SponsoredId" Type="int" />
           <Property Name="JoinedOn" Type="varchar" MaxLength="50" />
+          <Property Name="UsersDetailsId" Type="int" />
           <Property Name="LegId" Type="int" />
           <Property Name="PlacementSide" Type="varchar" MaxLength="50" />
           <Property Name="Gender" Type="varchar" MaxLength="10" />
@@ -73,7 +74,6 @@
           <Property Name="District" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="PinCode" Type="varchar" MaxLength="10" />
-          <Property Name="UsersDetailsId" Type="int" />
           <Property Name="Deleted" Type="int" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
@@ -176,6 +176,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CountPlacementSide" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ValleyDreamsIndiaDBModelStoreContainer">
           <EntitySet Name="AdminDetails" EntityType="Self.AdminDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
@@ -243,6 +246,9 @@
             <End Role="UsersDetail" EntitySet="UsersDetails" />
             <End Role="UsersDetail1" EntitySet="UsersDetails" />
           </AssociationSet>
+          <FunctionImport Name="CountPlacementSideFunc" ReturnType="Collection(ValleyDreamsIndiaDBModel.CountPlacementSideFunc_Result)">
+            <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="BankDetail">
           <Key>
@@ -427,6 +433,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="CountPlacementSide_Result">
+          <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+          <Property Type="Int32" Name="RightNodes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CountPlacementSide_Result1">
+          <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+          <Property Type="Int32" Name="RightNodes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CountPlacementSideSP_Result">
+          <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+          <Property Type="Int32" Name="RightNodes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CountPlacementSideFunc_Result">
+          <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+          <Property Type="Int32" Name="RightNodes" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -538,7 +560,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="CountPlacementSideFunc" FunctionName="ValleyDreamsIndiaDBModel.Store.CountPlacementSide">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ValleyDreamsIndiaDBModel.CountPlacementSideFunc_Result">
+                <ScalarProperty Name="LeftNodes" ColumnName="LeftNodes" />
+                <ScalarProperty Name="RightNodes" ColumnName="RightNodes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

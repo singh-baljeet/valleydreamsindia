@@ -12,5 +12,6 @@ namespace ValleyDreamsIndia.Models
         public BankDetail BankDetails { get; set; }
         public ContributionDetail ContributionDetails { get; set; }
         public RenewalPinDetail RenewalPinDetails { get; set; }
+        public string JavascriptToRun { get; set; }
     }
 }

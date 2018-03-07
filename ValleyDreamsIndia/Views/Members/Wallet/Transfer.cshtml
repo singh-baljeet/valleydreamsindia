@@ -101,6 +101,13 @@
                             <th>Sponser Id</th>
                             <th>@Model.Item1.UsersDetail1.UserName</th>
                         </tr>
+                         <tr>
+                            <th>Sponser Name</th>
+                            <th>
+                                <span>@Model.Item1.UsersDetail1.PersonalDetails.FirstOrDefault().FirstName</span>
+                                <span>@Model.Item1.UsersDetail1.PersonalDetails.FirstOrDefault().LastName </span>
+                            </th>
+                        </tr>
                         <tr>
                             <th>User Id</th>
                             <th>@Model.Item1.UserName</th>

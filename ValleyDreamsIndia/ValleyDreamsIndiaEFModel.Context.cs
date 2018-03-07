@@ -12,6 +12,8 @@ namespace ValleyDreamsIndia
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ValleyDreamsIndiaDBEntities : DbContext
     {
@@ -31,5 +33,14 @@ namespace ValleyDreamsIndia
         public virtual DbSet<RenewalPinDetail> RenewalPinDetails { get; set; }
         public virtual DbSet<AdminDetail> AdminDetails { get; set; }
         public virtual DbSet<UsersDetail> UsersDetails { get; set; }
+    
+        public virtual ObjectResult<CountPlacementSideFunc_Result> CountPlacementSideFunc(Nullable<int> uSERSDETAILSID)
+        {
+            var uSERSDETAILSIDParameter = uSERSDETAILSID.HasValue ?
+                new ObjectParameter("USERSDETAILSID", uSERSDETAILSID) :
+                new ObjectParameter("USERSDETAILSID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CountPlacementSideFunc_Result>("CountPlacementSideFunc", uSERSDETAILSIDParameter);
+        }
     }
 }

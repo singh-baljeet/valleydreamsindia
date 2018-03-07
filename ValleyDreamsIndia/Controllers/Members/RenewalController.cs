@@ -11,8 +11,6 @@ namespace ValleyDreamsIndia.Controllers.Members
     public class RenewalController : Controller
     {
         ValleyDreamsIndiaDBEntities _valleyDreamsIndiaDBEntities = null;
-        static string ownRenewalMessage = "";
-
         public RenewalController()
         {
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
@@ -23,24 +21,20 @@ namespace ValleyDreamsIndia.Controllers.Members
             return View();
         }
 
-
-        [HttpGet]
-        public ActionResult Contribution(string memberid)
+        private UsersPersonalModelView GetContributionData(string memberid = "")
         {
-
-            ViewBag.OwnRenewalMessage = ownRenewalMessage;
-
+            UsersPersonalModelView usersPersonalModelView = null;
             var IsRenewPinAvailable = _valleyDreamsIndiaDBEntities.RenewalPinDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 0).Count();
             if (IsRenewPinAvailable != 0)
             {
                 ViewBag.Title = "Admin: Renewal";
-                UsersPersonalModelView usersPersonalModelView = new UsersPersonalModelView();
+                usersPersonalModelView = new UsersPersonalModelView();
                 usersPersonalModelView.RenewalPinDetails = _valleyDreamsIndiaDBEntities.RenewalPinDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).FirstOrDefault();
                 usersPersonalModelView.UserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == CurrentUser.CurrentUserId).FirstOrDefault();
                 usersPersonalModelView.ContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails.Where(x => x.UserDetailsId == CurrentUser.CurrentUserId).OrderByDescending(x => x.NextContribNumber).FirstOrDefault();
                 ViewBag.RenewalPinAvailable = IsRenewPinAvailable;
 
-                if(memberid != null && memberid != "" && memberid != string.Empty)
+                if (memberid != null && memberid != "" && memberid != string.Empty)
                 {
                     var otherMemberUserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == memberid).FirstOrDefault();
                     var otherMemberContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails.Where(x => x.UserDetailsId == otherMemberUserDetails.Id).OrderByDescending(x => x.NextContribNumber).FirstOrDefault();
@@ -48,12 +42,21 @@ namespace ValleyDreamsIndia.Controllers.Members
                     ViewBag.OtherContributionDate = otherMemberContributionDetails.NextContribDate;
                     ViewBag.OtherSponsoredId = otherMemberUserDetails.UsersDetail1.UserName;
                 }
+            }
+            return usersPersonalModelView;
+        }
 
+        [HttpGet]
+        public ActionResult Contribution(string memberid)
+        {
+            UsersPersonalModelView usersPersonalModelView = GetContributionData(memberid);
+            if(usersPersonalModelView != null)
+            {
                 return View("~/Views/Members/Renewal/Contribution.cshtml", usersPersonalModelView);
             }
             else
             {
-                return RedirectToAction("Index", "Dashboard");
+                return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
             }
         }
 
@@ -92,11 +95,17 @@ namespace ValleyDreamsIndia.Controllers.Members
                     _valleyDreamsIndiaDBEntities.Entry(renewalPinDetail).State = System.Data.Entity.EntityState.Modified;
                     _valleyDreamsIndiaDBEntities.SaveChanges();
 
-                    ownRenewalMessage = "Renewal Transfer Successfully ";
-                    return RedirectToAction("Contribution");
+
+                    ViewBag.OwnRenewalMessage = "Renewal Transfer Successfully ";
+                    UsersPersonalModelView usersPersonalModelView = GetContributionData();
+                    return View("~/Views/Members/Renewal/Contribution.cshtml", usersPersonalModelView);
+
                 }
 
-                return RedirectToAction("Contribution");
+                ViewBag.OwnRenewalMessage = "Mismatched Transaction Password";
+                UsersPersonalModelView usersPersonalModelView1 = GetContributionData();
+                return View("~/Views/Members/Renewal/Contribution.cshtml", usersPersonalModelView1);
+
             }
             catch (Exception ex)
             {
@@ -150,5 +159,22 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+
+        [HttpGet]
+        public JsonResult RenewalCheckPins()
+        {
+            UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == CurrentUser.CurrentUserId && x.Deleted == 0).FirstOrDefault();
+
+            int renewPins = userDetail.RenewalPinDetails.Where(x => x.IsPinUsed == 0).Count();
+
+            if (renewPins > 0)
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("False", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

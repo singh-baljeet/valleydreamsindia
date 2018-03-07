@@ -203,6 +203,7 @@
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Common\CurrentUser.cs" />
+    <Compile Include="Common\SmsProvider.cs" />
     <Compile Include="Common\TreeStructure.cs" />
     <Compile Include="ContributionDetail.cs">
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
@@ -218,6 +219,18 @@
     <Compile Include="Controllers\Members\TeamController.cs" />
     <Compile Include="Controllers\Members\UsersController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
+    <Compile Include="CountPlacementSideFunc_Result.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CountPlacementSideSP_Result.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CountPlacementSide_Result.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CountPlacementSide_Result1.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -446,6 +459,8 @@
     <Content Include="Content\images\stream\list_16x14.png" />
     <Content Include="Content\images\stream\quote.png" />
     <Content Include="Content\images\uniform\sprite.png" />
+    <Content Include="Content\javascripts\jquery.growl.js" />
+    <Content Include="Content\stylesheets\jquery.growl.css" />
     <Content Include="Scripts\javascripts\all.js" />
     <Content Include="Content\stylesheets\all.css" />
     <Content Include="Content\stylesheets\buttons.css" />
@@ -494,6 +509,8 @@
     <Content Include="Content\EndUser\asset\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\EndUser\asset\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\EndUser\asset\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Properties\PublishProfiles\project4-3-2018.pubxml" />
+    <None Include="Properties\PublishProfiles\project832018.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -525,7 +542,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
@@ -561,11 +580,12 @@
     <Content Include="Views\Home\plan.cshtml" />
     <Content Include="Views\Reward\Index.cshtml" />
     <Content Include="Views\SuperAdmin\Login.cshtml" />
+    <Content Include="Views\SuperAdmin\GetAllUsers.cshtml" />
+    <Content Include="Views\SuperAdmin\Tree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\EndUser\images\items\" />
-    <Folder Include="Content\javascripts\" />
     <Folder Include="UploadedTeamImages\" />
   </ItemGroup>
   <ItemGroup>

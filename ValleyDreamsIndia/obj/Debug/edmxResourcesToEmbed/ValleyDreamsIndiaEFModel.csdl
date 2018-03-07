@@ -31,6 +31,9 @@
       <End Role="UsersDetail" EntitySet="UsersDetails" />
       <End Role="UsersDetail1" EntitySet="UsersDetails" />
     </AssociationSet>
+    <FunctionImport Name="CountPlacementSideFunc" ReturnType="Collection(ValleyDreamsIndiaDBModel.CountPlacementSideFunc_Result)">
+      <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="BankDetail">
     <Key>
@@ -215,4 +218,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="CountPlacementSide_Result">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="CountPlacementSide_Result1">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="CountPlacementSideSP_Result">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="CountPlacementSideFunc_Result">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
 </Schema>

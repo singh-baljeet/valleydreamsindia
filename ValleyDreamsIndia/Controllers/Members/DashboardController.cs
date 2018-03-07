@@ -21,6 +21,8 @@ namespace ValleyDreamsIndia.Controllers.Members
 
         public ActionResult Index()
         {
+
+           
             var UserDetailsResults = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == CurrentUser.CurrentUserId);
             ViewBag.UserName = UserDetailsResults.UserName;
             var PersonalDetails = UserDetailsResults.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
@@ -36,36 +38,12 @@ namespace ValleyDreamsIndia.Controllers.Members
 
             int countLeftTeam = 0, countRightTeam = 0;
 
-            var ownobj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
-            foreach (var ob in ownobj)
+            var response = _valleyDreamsIndiaDBEntities.CountPlacementSideFunc(CurrentUser.CurrentUserId);
+            foreach (var res in response)
             {
-                if (ob.PlacementSide == "LEFT")
-                {
-                    countLeftTeam += 1;
-                }
-                if (ob.PlacementSide == "RIGHT")
-                {
-                    countRightTeam += 1;
-                }
+                countLeftTeam = Convert.ToInt32(res.LeftNodes);
+                countRightTeam = Convert.ToInt32(res.RightNodes);
             }
-
-
-            foreach (var usr in myUserList)
-            {
-                var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == usr.Id && x.LegId == usr.Id);
-                foreach(var ob in obj)
-                {
-                    if(ob.PlacementSide == "LEFT")
-                    {
-                        countLeftTeam += 1;
-                    }
-                    if(ob.PlacementSide == "RIGHT")
-                    {
-                        countRightTeam += 1;
-                    }
-                }
-             }
-
 
             ViewBag.LeftTeam = countLeftTeam;
             ViewBag.RightTeam = countRightTeam;
