@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using ValleyDreamsIndia.Common;
+using ValleyDreamsIndia.Controllers.Members;
 
 namespace ValleyDreamsIndia
 {
@@ -20,6 +21,7 @@ namespace ValleyDreamsIndia
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
+            
             var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
             if (authCookie != null)
             {

@@ -12,7 +12,7 @@ using ValleyDreamsIndia.Models;
 namespace ValleyDreamsIndia.Controllers.Members
 {
             
-    
+    [Authorize]
     public class ProfileController : Controller
     {
         ValleyDreamsIndiaDBEntities _valleyDreamsIndiaDBEntities = null;
@@ -22,12 +22,22 @@ namespace ValleyDreamsIndia.Controllers.Members
         }
 
         [HttpGet]
-        public ActionResult ViewProfile()
+        public ActionResult ViewProfile(int currentId = 0)
         {
             ViewBag.Title = "Admin: Profile";
             try
             {
-                return View("~/Views/Members/Profile/ViewProfile.cshtml" , GetPersonalAndUserDetails(CurrentUser.CurrentUserId));
+                if(currentId == 0)
+                {
+                    return View("~/Views/Members/Profile/ViewProfile.cshtml",
+                    GetPersonalAndUserDetails(CurrentUser.CurrentUserId));
+                }
+                else
+                {
+                    return View("~/Views/Members/Profile/ViewProfile.cshtml",
+                    GetPersonalAndUserDetails(currentId));
+                }
+                
             }
             catch(Exception ex)
             {
@@ -36,12 +46,20 @@ namespace ValleyDreamsIndia.Controllers.Members
         }
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int currentId = 0)
         {
             ViewBag.Title = "Admin: Profile Settings";
             try
             {
-                return View("~/Views/Members/Profile/Edit.cshtml", GetPersonalAndUserDetails(CurrentUser.CurrentUserId));
+                if(currentId == 0)
+                {
+                    return View("~/Views/Members/Profile/Edit.cshtml", GetPersonalAndUserDetails(CurrentUser.CurrentUserId));
+                }
+                else
+                {
+                    return View("~/Views/Members/Profile/Edit.cshtml", GetPersonalAndUserDetails(currentId));
+                }
+                
             }
             catch (Exception ex)
             {
@@ -55,9 +73,11 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.Title = "Admin: Profile Settings";
             try
             {
-                PersonalDetail personalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+                PersonalDetail personalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .Where(x => x.UsersDetailsId == usersPersonalModelView.UserDetails.Id).FirstOrDefault();
 
-                BankDetail bankDetails = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+                BankDetail bankDetails = _valleyDreamsIndiaDBEntities.BankDetails
+                    .Where(x => x.UsersDetailsId == usersPersonalModelView.UserDetails.Id).FirstOrDefault();
 
                 if (memberImage != null)
                 {
@@ -90,7 +110,7 @@ namespace ValleyDreamsIndia.Controllers.Members
 
                 _valleyDreamsIndiaDBEntities.SaveChanges();
 
-                return RedirectToAction("ViewProfile");
+                return RedirectToAction("ViewProfile", new { currentId= usersPersonalModelView.UserDetails.Id });
             }
             catch (Exception ex)
             {
@@ -101,10 +121,14 @@ namespace ValleyDreamsIndia.Controllers.Members
         private UsersPersonalModelView GetPersonalAndUserDetails(int userDetailsId)
         {
             UsersPersonalModelView usersPersonalModelView = new UsersPersonalModelView();
-            usersPersonalModelView.UserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == userDetailsId && x.Deleted == 0);
-            usersPersonalModelView.PersonalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
-            usersPersonalModelView.BankDetails = _valleyDreamsIndiaDBEntities.BankDetails.First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
-            usersPersonalModelView.ContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails.Where(x => x.UserDetailsId == userDetailsId).OrderByDescending(x=>x.Id).FirstOrDefault();
+            usersPersonalModelView.UserDetails = _valleyDreamsIndiaDBEntities.UsersDetails
+                .First(x => x.Id == userDetailsId && x.Deleted == 0);
+            usersPersonalModelView.PersonalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
+            usersPersonalModelView.BankDetails = _valleyDreamsIndiaDBEntities.BankDetails
+                .First(x => x.UsersDetailsId == userDetailsId && x.Deleted == 0);
+            usersPersonalModelView.ContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails
+                .Where(x => x.UserDetailsId == userDetailsId).OrderByDescending(x=>x.Id).FirstOrDefault();
             return usersPersonalModelView;
         }
 

@@ -37,7 +37,7 @@
     <div id="wrapper">
 
         <div id="header">
-            <h1><a href="dashboard.html">Administrator</a></h1>
+            <h1><a href="">Administrator</a></h1>
 
             <a href="javascript:;" id="reveal-nav">
                 <span class="reveal-bar"></span>
@@ -91,7 +91,12 @@
 
 
                     </li>
-                    <li><a href="#" style="font-size:16px;">Logout</a></li>
+                    <li>
+                        @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm1" }))
+                        {
+                            <a href="javascript:document.getElementById('logoutForm1').submit()" style="font-size:16px;">Logout</a>
+                        }
+                    </li>
                 </ul>
             </div>
 

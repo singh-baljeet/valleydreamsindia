@@ -80,7 +80,7 @@ namespace ValleyDreamsIndia.Controllers
             usersPersonalModelView.PersonalDetails.CreatedOn = DateTime.Now;
             usersPersonalModelView.PersonalDetails.SponsoredId = CurrentUser.CurrentUserId;
             usersPersonalModelView.PersonalDetails.Deleted = 0;
-            usersPersonalModelView.PersonalDetails.ProfilePic = "default1_avatar_small.png";
+            usersPersonalModelView.PersonalDetails.ProfilePic = "/UploadedTeamImages/default1_avatar_small.png";
             _valleyDreamsIndiaDBEntities.PersonalDetails.Add(usersPersonalModelView.PersonalDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
@@ -128,7 +128,6 @@ namespace ValleyDreamsIndia.Controllers
 
                 for (int i = 1; i <= totalPin; i++)
                 {
-                    //userDetail.Username = "A00" + _valleyDreamsIndiaDBEntities.UsersDetails.OrderByDescending(u => u.Id).FirstOrDefault().Id;
                     userDetail.PinCreatedOn = DateTime.Now;
                     userDetail.Deleted = 0;
                     userDetail.SponsoredId = getUser.Id;

@@ -11,6 +11,7 @@ namespace ValleyDreamsIndia.Controllers.Members
     public class RenewalController : Controller
     {
         ValleyDreamsIndiaDBEntities _valleyDreamsIndiaDBEntities = null;
+        static string ownRenewalMessage = "";
 
         public RenewalController()
         {
@@ -26,6 +27,9 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpGet]
         public ActionResult Contribution(string memberid)
         {
+
+            ViewBag.OwnRenewalMessage = ownRenewalMessage;
+
             var IsRenewPinAvailable = _valleyDreamsIndiaDBEntities.RenewalPinDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 0).Count();
             if (IsRenewPinAvailable != 0)
             {
@@ -88,7 +92,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     _valleyDreamsIndiaDBEntities.Entry(renewalPinDetail).State = System.Data.Entity.EntityState.Modified;
                     _valleyDreamsIndiaDBEntities.SaveChanges();
 
-
+                    ownRenewalMessage = "Renewal Transfer Successfully ";
                     return RedirectToAction("Contribution");
                 }
 

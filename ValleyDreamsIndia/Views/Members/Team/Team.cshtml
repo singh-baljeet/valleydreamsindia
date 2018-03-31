@@ -1,4 +1,4 @@
-﻿@model  ValleyDreamsIndia.Models.UserPersonalListModelView
+﻿@model  IEnumerable<IQueryable<PersonalDetail>>
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }    
@@ -9,79 +9,73 @@
 <div class="container">
 
     <div class="grid-12">
-@using (Html.BeginForm("SearchByPlacementSide", "Team"))
-{
+
         <div class="widget widget-table">
-            <div class="widget-header">
-                <span class="icon-list"></span>
-                <h3 class="icon chart">Select Member Placement</h3>
-            </div>
-            <div class="widget-content">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Placement</th>
-                            <th>
-                                @Html.DropDownList("placementSide", new SelectList(
-                                            new List<Object>{
-                                                       new { value = "" , text = "-- Select Side --" },
-                                                       new { value = "LEFT" , text = "LEFT" },
-                                                       new { value = "RIGHT", text = "RIGHT"}
-                                                  },
-                                                "value",
-                                                "text",
-                                                 2))
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-            </div> <!-- .widget-content -->
-            <p align="center" style="margin-top:20px;">
+            @using (Html.BeginForm("SearchByPlacementSide", "Team"))
+            {
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Select Member Placement</h3>
+                </div>
+                <div class="widget-content">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Placement</th>
+                                <th>
+                                    @Html.DropDownList("placementSide", new SelectList(
+                                                new List<Object>{
+                                                           new { value = "" , text = "-- Select Side --" },
+                                                           new { value = "LEFT" , text = "LEFT" },
+                                                           new { value = "RIGHT", text = "RIGHT"}
+                                                      },
+                                                    "value",
+                                                    "text",
+                                                     2))
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+                <p align="center" style="margin-top:20px;">
                 <span><input type="submit" class="btn btn-large btn-blue" value="View" /></span>
             </p>
+            }
         </div>
-}
 
+        <div class="widget widget-table">
+            @using (Html.BeginForm("SearchByMemberId", "Team"))
+            {
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Search Member By Id</h3>
+                </div>
+                <div class="widget-content">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Member Id</th>
+                                <th>
+                                    @Html.TextBox("memberId")
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+                <p align="center" style="margin-top:20px;">
+                    <span><input type="submit" class="btn btn-large btn-blue" value="View" /></span>
+
+
+
+                </p>
+
+            }
+        </div>
 
 
     </div>
 
     <div class="grid-12">
-        <div class="widget widget-table">
-@using (Html.BeginForm("SearchByMemberId", "Team"))
-{
-            <div class="widget-header">
-                <span class="icon-list"></span>
-                <h3 class="icon chart">Search Member By Id</h3>
-            </div>
-            <div class="widget-content">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Member Id</th>
-                            <th>
-                                @Html.TextBox("memberId")
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-            </div> <!-- .widget-content -->
-            <p align="center" style="margin-top:20px;">
-                <span><input type="submit" class="btn btn-large btn-blue" value="View" /></span>
-
-
-
-            </p>
-
-}    </div>
-
-
-
-
-
-    </div>
-
-    <div class="grid-24">
         <div class="widget widget-table">
 
             <div class="widget-header">
@@ -96,36 +90,36 @@
 
                         <tr>
                             <th>Sponser Id</th>
-                            <th>@Model.PersonalDetail.UsersDetail.UsersDetail1.UserName</th>
+                            <th>@ViewBag.Sponsor</th>
                         </tr>
                         <tr>
                             <th>User Id</th>
-                            <th>@Model.PersonalDetail.UsersDetail.UserName</th>
+                            <th>@ViewBag.UserName</th>
 
 
                         </tr>
                         <tr>
                             <th>Member Name</th>
-                            <th>@Model.PersonalDetail.FirstName @Model.PersonalDetail.LastName</th>
+                            <th>@ViewBag.FullName</th>
 
 
                         </tr>
 
                         <tr>
                             <th>Left</th>
-                            <th>@Model.Left</th>
+                            <th>@ViewBag.LeftTeam</th>
 
 
                         </tr>
                         <tr>
                             <th>Right</th>
-                            <th>@Model.Right</th>
+                            <th>@ViewBag.RightTeam</th>
 
 
                         </tr>
                         <tr>
                             <th>Directs</th>
-                            <th>@Model.Direct</th>
+                            <th>@ViewBag.DirectTeam</th>
 
 
                         </tr>
@@ -167,34 +161,52 @@
                     <thead>
                         <tr>
                             <th>Sr.</th>
-                            <th>Member</th>
-                            <th>Level</th>
+                            <th>Member Name</th>
+                            <th>Placement</th>
                             <th>User Id</th>
                             <th>DOJ</th>
+                            <th>Contact</th>
                             <th>Sponser Id</th>
+                            <th>Last Contri.</th>
+                            <th>Paid On</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.PersonalDetails)
+
+                        @if (Model != null)
                         {
-                            var i = 1;
-                            <tr class="gradeA">
-                                <td>@i</td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UsersDetail.UserName)
-                                </td>
-                                <td class="center">
-                                    @Html.DisplayFor(modelItem => item.JoinedOn)
-                                </td>
-                                <td>NA</td>
-                            </tr>
-                            i = i + 1;
+                            foreach (var item in Model)
+                            {
+                                foreach (var itm in item)
+                                {
+                                    var i = 1;
+                                    <tr class="gradeA">
+                                        <td>@i</td>
+                                        <td>@itm.FirstName @itm.LastName</td>
+                                        <td>@itm.PlacementSide</td>
+                                        <td>@itm.UsersDetail.UserName</td>
+                                        <td class="center">@Convert.ToDateTime(itm.JoinedOn).ToShortDateString()</td>
+                                        <td>@itm.PhoneNumber1</td>
+                                        <td>@itm.UsersDetail.UsersDetail1.UserName</td>
+                                        <td>
+                                            @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                        </td>
+                                        <td >
+                                            @Convert.ToDateTime(itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToShortDateString()
+                                        </td>
+                                        <td class="center">
+                                            <span>
+                                                @Html.ActionLink("Edit", "Edit", "Profile", new { currentId = itm.UsersDetailsId }, null)
+                                            </span>
+                                            <span style="margin-left:10px;">
+                                                <a href="#">Cancel</a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    i = i + 1;
+                                }
+                            }
                         }
                     </tbody>
                 </table>

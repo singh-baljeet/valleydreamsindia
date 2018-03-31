@@ -36,16 +36,16 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>Contribution Date</th>
+                            <th>Earlier Contributioned Date</th>
                             <th>
-                                @DateTime.Now
+                                @Convert.ToDateTime(Model.ContributionDetails.ContribDate).ToShortDateString()
                             </th>
                         </tr>
 
                         <tr>
                             <th>Last Contribution Date</th>
                             <th>
-                                @Model.ContributionDetails.NextContribDate
+                                @Convert.ToDateTime(Model.ContributionDetails.NextContribDate).ToShortDateString()
                             </th>
                         </tr>
 
@@ -72,7 +72,20 @@
                         <tr>
                             <th>Transaction</th>
                             <th>
-                                @Html.TextBox("transactionPassword")
+                                @{
+                                    DateTime dt = DateTime.Now;
+                                    DateTime lastdt = Convert.ToDateTime(Model.ContributionDetails.ContribDate);
+                                    var todaydate = new DateTime(lastdt.AddMonths(1).Year, lastdt.AddMonths(1).Month, 1);
+                                    if (dt >= todaydate)
+                                    {
+                                        @Html.TextBox("transactionPassword")
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBox("transactionPassword", null, new { disabled = "disabled" })
+                                    }
+                                }
+                                
                             </th>
 
                         </tr>
@@ -83,14 +96,30 @@
             </div> <!-- .widget-content -->
 
             <div style="margin-top:20px; margin-bottom:20px;" align="center">
-                <span>
-                    <input type="submit" class="btn btn-primary" value="Pay Contribution" /> 
-                </span>
+                @{
+                    if (dt >= todaydate)
+                    {
+                        <span>
+                            <input type="submit" class="btn btn-primary" value="Pay Contribution" />
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            <input type="submit" class="btn btn-primary" value="Pay Contribution" disabled />
+                        </span>
+                    }
+                }
+
+                
             </div>
 
-         }
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                @ViewBag.OwnRenewalMessage
+            </div>
+                }
 
-        </div>
+            </div>
 
     </div>
 

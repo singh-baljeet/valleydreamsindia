@@ -22,6 +22,7 @@ namespace ValleyDreamsIndia.Controllers.Members
         public ActionResult Edit()
         {
             ViewBag.Title = "Admin: Bank Info";
+            ViewBag.Message = "";
             try
             {
                 BankDetail bankDetail = _valleyDreamsIndiaDBEntities.BankDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
@@ -36,7 +37,6 @@ namespace ValleyDreamsIndia.Controllers.Members
         [HttpPost]
         public ActionResult Edit(BankDetail bankDetail)
         {
-            ViewBag.Title = "Admin: Bank Info";
             try
             {
                 BankDetail bankDetails = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
@@ -49,7 +49,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                 _valleyDreamsIndiaDBEntities.Entry(bankDetails).State = EntityState.Modified;
                 _valleyDreamsIndiaDBEntities.SaveChanges();
                 _valleyDreamsIndiaDBEntities.Dispose();
-                return RedirectToAction("ViewProfile","Profile");
+                ViewBag.Message = "Bank Details Updated";
+                return View("~/Views/Members/Bank/Edit.cshtml", bankDetails);
             }
             catch (Exception ex)
             {

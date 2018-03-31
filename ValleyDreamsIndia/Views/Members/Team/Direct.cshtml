@@ -36,7 +36,7 @@
             </p>
         </div>
 }
-@using (Html.BeginForm("DirectByMemberId", "Team"))
+@using (Html.BeginForm("Direct", "Team", FormMethod.Get))
 {
         <p align="center" style="margin-top:20px;">
             <span>  <input type="submit" class="btn btn-large btn-blue" value="View All Direct Members" /></span>
@@ -76,15 +76,15 @@
 
                         <tr>
                             <th>Left</th>
-                            <th>@Model.Left</th>
+                            <th>@ViewBag.LeftTeam</th>
                         </tr>
                         <tr>
                             <th>Right</th>
-                            <th>@Model.Right</th>
+                            <th>@ViewBag.RightTeam</th>
                         </tr>
                         <tr>
                             <th>Directs</th>
-                            <th>@Model.Direct</th>
+                            <th>@ViewBag.DirectTeam</th>
                         </tr>
                     </thead>
                 </table>
@@ -109,35 +109,58 @@
                     <thead>
                         <tr>
                             <th>Sr.</th>
-                            <th>Member</th>
-                            <th>Level</th>
+                            <th>Member Name</th>
+                            <th>Placement</th>
                             <th>User Id</th>
                             <th>DOJ</th>
+                            <th>Contact</th>
                             <th>Sponser Id</th>
+                            <th>Last Contri.</th>
+                            <th>Paid On</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.PersonalDetails)
-                        {
-                            var i = 1;
-                            <tr class="gradeA">
-                                <td>@i</td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UsersDetail.UserName)
-                                </td>
-                                <td class="center">
-                                    @Html.DisplayFor(modelItem => item.JoinedOn)
-                                </td>
-                                <td>NA</td>
-                            </tr>
-                            i = i + 1;
+                        @if(Model.PersonalDetails != null)
+                        { 
+                            foreach (var item in Model.PersonalDetails)
+                            {
+                                var i = 1;
+                                <tr class="gradeA">
+                                    <td>@i</td>
+                                    <td>
+                                        @item.FirstName  @item.LastName
+                                    </td>
+                                    <td>
+                                        @item.PlacementSide
+                                    </td>
+                                    <td>
+                                        @item.UsersDetail.UserName
+                                    </td>
+                                    <td class="center">
+                                        @Convert.ToDateTime(item.JoinedOn).ToShortDateString()
+                                    </td>
+                                    <td>@item.PhoneNumber1</td>
+                                    <td>@item.UsersDetail.UsersDetail1.UserName</td>
+                                    <td>
+                                        @item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                    </td>
+                                    <td>
+                                        @Convert.ToDateTime(item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToShortDateString()
+                                    </td>
+                                    <td class="center">
+                                    <span>
+                                        @Html.ActionLink("Edit","Edit","Profile", new { currentId=item.UsersDetailsId },null)
+                                        </span>
+                                    <span style="margin-left:10px;">
+                                        <a href="#">Cancel</a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                i = i + 1;
+                            }
                         }
+
                     </tbody>
                 </table>
             </div> <!-- .widget-content -->
